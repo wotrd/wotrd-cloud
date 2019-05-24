@@ -21,6 +21,7 @@ public class ProviderServiceApplication {
     @RequestMapping(value = "/echo/{string}", method = RequestMethod.GET)
     public String echo(@PathVariable String string) {
         return "Hello Nacos Discovery " + string;
+
     }
 
 }
