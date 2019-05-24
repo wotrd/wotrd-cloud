@@ -6,7 +6,8 @@
 ``2注册中心``  
 ``3服务提供者``  
 ``4服务消费者``  
-``5网关``
+``5网关``  
+
 #quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  
 2. cd nacos-test  
