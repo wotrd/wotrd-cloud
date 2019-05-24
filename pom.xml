@@ -22,6 +22,7 @@
         <module>nacos-config</module>
         <module>provider-service</module>
         <module>consumer-service</module>
+        <module>feign-service</module>
     </modules>
 
     <dependencies>

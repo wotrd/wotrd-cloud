@@ -4,3 +4,7 @@ consumer-service/.mvn/
 nacos-config/.mvn/
 nacos-test.iml
 provider-service/.mvn/
+feign-service/HELP.md
+feign-service/.mvn
+
+
