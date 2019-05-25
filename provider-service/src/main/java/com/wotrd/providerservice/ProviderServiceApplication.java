@@ -25,4 +25,10 @@ public class ProviderServiceApplication {
 
     }
 
+    @RequestMapping(value = "/helloNacos", method = RequestMethod.GET)
+    public String echo() {
+        return "Hello Nacos Discovery ";
+
+    }
+
 }
