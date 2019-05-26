@@ -1,28 +1,32 @@
 package com.wotrd.feignservice.controller;
 
-import com.wotrd.feignservice.service.IHelloNacos;
+import com.wotrd.feignservice.domain.Order;
+import com.wotrd.feignservice.service.IProviderService;
+import com.wotrd.nacos.common.conf.GlobalRequestBody;
+import com.wotrd.nacos.common.conf.GlobalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
+@RequestMapping("feign")
 @RestController
 public class FeignController {
 
 
     @Autowired
-    private IHelloNacos helloNacos;
+    private IProviderService providerService;
 
-    @RequestMapping("sayNacos")
-    public String sayHello(){
-        String result = helloNacos.helloNacos();
-        return "Return : " + result;
+    @RequestMapping("add")
+    public GlobalResponse add(@RequestBody @Valid GlobalRequestBody<Order> body){
+        return providerService.addOrer(body);
     }
 
-    @RequestMapping("echo/{word}")
-    public String echo(@PathVariable("word") String word){
-        String result = helloNacos.echo(word);
-        return "Return : " + result;
+    @RequestMapping("getOrders")
+    public GlobalResponse getOrders(){
+        return providerService.getOrders();
     }
 
 }

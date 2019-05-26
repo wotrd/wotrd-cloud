@@ -15,10 +15,12 @@
 3. mvn clean package  
 
 #注意事项  
-1版本问题，版本不对可能出现问题  
-```需要设置依赖管理dependencyManagement便于版本升级和降级```  
+1版本问题：   
+```版本不对可能出现问题,需要设置依赖管理dependencyManagement便于版本升级和降级```  
 ```请参照 https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/版本说明```  
-2注册中心和配置中心加密  
+2注册中心  
+3配置中心：  
+```在代码中使用配置中心需要加@RefreshScop注解刷新，数据库配置不需要，bootstrap文件为加载外不配置，优先级高，并且不被覆盖```  
 3用户账户修改    
 4服务降级和断路  
 5服务监控  

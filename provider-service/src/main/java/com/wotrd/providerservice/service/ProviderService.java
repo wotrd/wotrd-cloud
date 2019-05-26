@@ -1,13 +1,12 @@
 package com.wotrd.providerservice.service;
 
+import com.wotrd.nacos.common.conf.GlobalResponse;
 import com.wotrd.providerservice.domain.Order;
 import com.wotrd.providerservice.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProviderService {
@@ -16,19 +15,14 @@ public class ProviderService {
     private OrderMapper orderMapper;
 
 
-    public Map<String, Object> getOrders() {
-        Map<String,Object> returnMap = new HashMap<>();
-
+    public GlobalResponse getOrders() {
         List<Order> orders = orderMapper.queryAll();
-        returnMap.put("data", orders);
-        return returnMap;
+        return GlobalResponse.builder().msg("success").code("200").data(orders).build();
     }
 
-    public Map<String, Object> add(Order order) {
-        Map<String,Object> returnMap = new HashMap<>();
+    public GlobalResponse add(Order order) {
 
-        int insert = orderMapper.insert(order);
-        returnMap.put("result", "success");
-        return returnMap;
+        orderMapper.insert(order);
+        return GlobalResponse.builder().msg("success").code("200").build();
     }
 }
