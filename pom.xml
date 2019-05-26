@@ -23,6 +23,8 @@
         <module>provider-service</module>
         <module>consumer-service</module>
         <module>feign-service</module>
+        <module>sentinel-service</module>
+        <module>zuul-service</module>
     </modules>
     <dependencyManagement>
         <dependencies>

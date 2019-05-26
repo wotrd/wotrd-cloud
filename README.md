@@ -7,7 +7,7 @@
 ``3服务提供者 nacos``  
 ``4服务消费者 feign``   
 ``5断路器 sential``  
-``6网关 zuul``  
+``6网关 gateway``  
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  
@@ -23,8 +23,12 @@
 3配置中心：  
 ```在代码中使用配置中心需要加@RefreshScop注解刷新，数据库配置不需要，bootstrap文件为加载外不配置，优先级高，并且不被覆盖```  
 4服务降级和断路：  
-   
-3用户账户修改    
+```使用sentinel设置限流和降级处理，需要单独部署sentinel-dashboard面板监控。```  
+```使用feign和sentinel需要在配置文件中开启 feign.sentinel.enabled=true 不然fallback断路不生效```   
+5网关：  
+ 
+6用户账户修改： 
+```参考 https://nacos.io/en-us/docs/console-guide.html 用户登录管理```    
 5服务监控  
 6用户登录基于oauth2
 

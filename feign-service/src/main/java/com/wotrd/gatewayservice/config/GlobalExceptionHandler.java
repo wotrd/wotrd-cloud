@@ -1,4 +1,4 @@
-package com.wotrd.feignservice.config;
+package com.wotrd.gatewayservice.config;
 
 import com.wotrd.nacos.common.conf.GlobalResponse;
 import lombok.extern.slf4j.Slf4j;

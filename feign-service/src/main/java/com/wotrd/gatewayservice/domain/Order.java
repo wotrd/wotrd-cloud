@@ -1,4 +1,4 @@
-package com.wotrd.feignservice.domain;
+package com.wotrd.gatewayservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
-package com.wotrd.feignservice.controller;
+package com.wotrd.gatewayservice.controller;
 
-import com.wotrd.feignservice.domain.Order;
-import com.wotrd.feignservice.service.IProviderService;
+import com.wotrd.gatewayservice.domain.Order;
+import com.wotrd.gatewayservice.service.IProviderService;
 import com.wotrd.nacos.common.conf.GlobalRequestBody;
 import com.wotrd.nacos.common.conf.GlobalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
