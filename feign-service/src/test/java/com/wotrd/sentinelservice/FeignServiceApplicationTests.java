@@ -1,4 +1,4 @@
-package com.wotrd.feignservice;
+package com.wotrd.sentinelservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
-package com.wotrd.feignservice.controller;
+package com.wotrd.sentinelservice.controller;
 
-import com.wotrd.feignservice.domain.Order;
-import com.wotrd.feignservice.service.IProviderService;
+import com.wotrd.sentinelservice.domain.Order;
+import com.wotrd.sentinelservice.service.IProviderService;
 import com.wotrd.nacos.common.conf.GlobalRequestBody;
 import com.wotrd.nacos.common.conf.GlobalResponse;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.wotrd.feignservice;
+package com.wotrd.sentinelservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication
-public class FeignServiceApplication {
+public class SentinelServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FeignServiceApplication.class, args);
+        SpringApplication.run(SentinelServiceApplication.class, args);
     }
 
 }

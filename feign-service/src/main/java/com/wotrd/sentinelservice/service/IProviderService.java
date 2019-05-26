@@ -1,6 +1,6 @@
-package com.wotrd.feignservice.service;
+package com.wotrd.sentinelservice.service;
 
-import com.wotrd.feignservice.domain.Order;
+import com.wotrd.sentinelservice.domain.Order;
 import com.wotrd.nacos.common.conf.GlobalRequestBody;
 import com.wotrd.nacos.common.conf.GlobalResponse;
 import org.springframework.cloud.openfeign.FeignClient;
