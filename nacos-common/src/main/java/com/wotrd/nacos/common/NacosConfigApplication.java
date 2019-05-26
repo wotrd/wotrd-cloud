@@ -1,4 +1,4 @@
-package com.wotrd.nacosconfig;
+package com.wotrd.nacos.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

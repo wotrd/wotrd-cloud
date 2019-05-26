@@ -18,17 +18,4 @@ public class ProviderServiceApplication {
         SpringApplication.run(ProviderServiceApplication.class, args);
     }
 
-
-    @RequestMapping(value = "/echo/{word}", method = RequestMethod.GET)
-    public String echo(@PathVariable String word) {
-        return "Hello Nacos Discovery " + word;
-
-    }
-
-    @RequestMapping(value = "/helloNacos", method = RequestMethod.GET)
-    public String echo() {
-        return "Hello Nacos Discovery ";
-
-    }
-
 }

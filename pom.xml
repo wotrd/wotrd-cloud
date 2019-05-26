@@ -19,7 +19,7 @@
     </properties>
 
     <modules>
-        <module>nacos-config</module>
+        <module>nacos-common</module>
         <module>provider-service</module>
         <module>consumer-service</module>
         <module>feign-service</module>

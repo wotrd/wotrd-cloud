@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.wotrd</groupId>
-    <artifactId>nacos-config</artifactId>
+    <artifactId>nacos-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nacos-config</name>
+    <name>nacos-common</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -18,11 +18,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>0.9.0.RELEASE</version>
-        </dependency>
+
 
     </dependencies>
 

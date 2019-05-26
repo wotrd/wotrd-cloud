@@ -1,4 +1,4 @@
-package com.wotrd.nacosconfig;
+package com.wotrd.nacos.common;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
