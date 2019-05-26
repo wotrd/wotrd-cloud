@@ -18,11 +18,13 @@
 1版本问题：   
 ```版本不对可能出现问题,需要设置依赖管理dependencyManagement便于版本升级和降级```  
 ```请参照 https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/版本说明```  
-2注册中心  
+2注册中心：  
+``建议配置mysql数据库，不然服务重启后，配置信息都会消失``    
 3配置中心：  
 ```在代码中使用配置中心需要加@RefreshScop注解刷新，数据库配置不需要，bootstrap文件为加载外不配置，优先级高，并且不被覆盖```  
+4服务降级和断路：  
+   
 3用户账户修改    
-4服务降级和断路  
 5服务监控  
 6用户登录基于oauth2
 
