@@ -1,9 +1,9 @@
-package com.wotrd.sentinelservice.service.fallback;
+package com.wotrd.gatewayservice.service.fallback;
 
 import com.wotrd.nacos.common.conf.GlobalRequestBody;
 import com.wotrd.nacos.common.conf.GlobalResponse;
-import com.wotrd.sentinelservice.domain.Order;
-import com.wotrd.sentinelservice.service.IProviderService;
+import com.wotrd.gatewayservice.domain.Order;
+import com.wotrd.gatewayservice.service.IProviderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

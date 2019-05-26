@@ -7,7 +7,7 @@
 ``3服务提供者 nacos``  
 ``4服务消费者 feign``   
 ``5断路器 sential``  
-``6网关 zuul``  
+``6网关 gateway``  
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  
@@ -27,7 +27,8 @@
 ```使用feign和sentinel需要在配置文件中开启 feign.sentinel.enabled=true 不然fallback断路不生效```   
 5网关：  
  
-3用户账户修改    
+6用户账户修改： 
+```参考 https://nacos.io/en-us/docs/console-guide.html 用户登录管理```    
 5服务监控  
 6用户登录基于oauth2
 
