@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: service-feign
+          uri: http://localhost:8852
+          predicates:
+            - Path=/feign/**
+          filters:
+            - StripPrefix=1
+        - id: service-sentinel
+          uri: lb://sentinel-service
+          predicates:
+            - Path=/sentinel/**
+          filters:
+            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+# uri以lb://开头（lb代表从注册中心获取服务），后面接的就是你需要转发到的服务名称
