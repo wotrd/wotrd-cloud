@@ -6,7 +6,7 @@
 ``2配置中心 nacos``  
 ``3服务提供者 nacos``  
 ``4服务消费者 feign``   
-``5断路器 sential``  
+``5断路器 sentinel``  
 ``6网关 gateway``  
 
 # quick start  
@@ -26,11 +26,12 @@
 ```使用sentinel设置限流和降级处理，需要单独部署sentinel-dashboard面板监控。```  
 ```使用feign和sentinel需要在配置文件中开启 feign.sentinel.enabled=true 不然fallback断路不生效```   
 5网关：  
-```gateway是基于webflux实现的，不能加载mvc依赖。``` 
-6用户账户修改： 
+```gateway是基于webflux实现的，不能加载mvc依赖。```   
+6用户账户修改：  
 ```参考 https://nacos.io/en-us/docs/console-guide.html 用户登录管理```    
-5服务监控  
-6用户登录基于oauth2
+7服务监控  
+```参考 https://nacos.io/zh-cn/docs/monitor-guide.html```  
+8单点登录基于oauth2
 
 
 # git分支  
