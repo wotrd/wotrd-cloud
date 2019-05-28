@@ -29,7 +29,8 @@
 ```gateway是基于webflux实现的，不能加载mvc依赖。``` 
 6用户账户修改： 
 ```参考 https://nacos.io/en-us/docs/console-guide.html 用户登录管理```    
-5服务监控  
+5服务监控
+```参考 https://nacos.io/zh-cn/docs/monitor-guide.html```  
 6用户登录基于oauth2
 
 
