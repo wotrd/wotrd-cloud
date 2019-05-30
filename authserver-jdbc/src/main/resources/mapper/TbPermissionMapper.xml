@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.authserverjdbc.mapper.TbPermissionMapper">
+
+    <resultMap type="com.wotrd.authserverjdbc.domain.TbPermission" id="TbPermissionMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="ename" column="ename" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbPermissionMap">
+        select
+          id, parent_id, name, ename, url, description, create_time, update_time
+        from oauth2.tb_permission
+        where id = #{id}
+    </select>
+
+    <select id="queryByUserid" resultMap="TbPermissionMap">
+        select
+        p.id, p.parent_id, p.name, p.ename, p.url, p.description, p.create_time, p.update_time
+        FROM
+        tb_user AS u
+        LEFT JOIN tb_user_role AS ur ON u.id = ur.user_id
+        LEFT JOIN tb_role AS r ON r.id = ur.role_id
+        LEFT JOIN tb_role_permission AS rp ON rp.role_id = r.id
+        LEFT JOIN tb_permission AS p ON p.id = rp.permission_id
+        WHERE
+        u.id = #{ userId }
+    </select>
+
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TbPermissionMap">
+        select
+          id, parent_id, name, ename, url, description, create_time, update_time
+        from oauth2.tb_permission
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="ename != null and ename != ''">
+                and ename = #{ename}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into oauth2.tb_permission(parent_id, name, ename, url, description, create_time, update_time)
+        values (#{parentId}, #{name}, #{ename}, #{url}, #{description}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update oauth2.tb_permission
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="ename != null and ename != ''">
+                ename = #{ename},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from oauth2.tb_permission where id = #{id}
+    </delete>
+
+</mapper>

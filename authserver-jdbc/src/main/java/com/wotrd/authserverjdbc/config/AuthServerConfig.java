@@ -3,8 +3,6 @@ package com.wotrd.authserverjdbc.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -22,9 +20,6 @@ import javax.sql.DataSource;
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter { //进行认证配置
 
     @Autowired
-    BCryptPasswordEncoder passwordEncoder;
-
-    @Autowired
     public DataSource dataSource;
 
     @Bean
@@ -33,7 +28,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter { //�
     }
 
     @Bean
-    public ClientDetailsService jdbcClientDetailsService() throws Exception {
+    public ClientDetailsService jdbcClientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
 
