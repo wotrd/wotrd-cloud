@@ -24,6 +24,7 @@
         <module>consumer-service</module>
         <module>feign-service</module>
         <module>sentinel-service</module>
+        <module>authserver-memory</module>
     </modules>
     <dependencyManagement>
         <dependencies>
