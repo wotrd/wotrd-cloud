@@ -7,7 +7,8 @@
 ``3服务提供者 nacos``  
 ``4服务消费者 feign``   
 ``5断路器 sentinel``  
-``6网关 gateway``  
+``6网关     gateway``   
+``7认证授权  oauth2`` 
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  
@@ -31,8 +32,10 @@
 ```参考 https://nacos.io/en-us/docs/console-guide.html 用户登录管理```    
 7服务监控  
 ```参考 https://nacos.io/zh-cn/docs/monitor-guide.html```  
-8单点登录基于oauth2
-
+8单点登录基于oauth2  
+```memeory是基于内存实现```  
+```jdbc是基于数据库实现```  
+9使用module项目时,主pom文件或者其它被依赖module不能打包，不然其他module找不到依赖
 
 # git分支  
 1master分支，主干分支  
