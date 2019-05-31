@@ -20,7 +20,6 @@
 
     <modules>
         <module>nacos-common</module>
-        <module>provider-service</module>
         <module>consumer-service</module>
         <module>feign-service</module>
         <module>sentinel-service</module>
