@@ -47,6 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         permissions.forEach(permission -> {
             authorities.add(new SimpleGrantedAuthority(permission.getEname()));
         });
+
         //返回认证用户
         return new User(tbUser.getUsername(), tbUser.getPassword(), authorities);
     }

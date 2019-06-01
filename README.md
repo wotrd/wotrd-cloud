@@ -33,8 +33,10 @@
 7服务监控  
 ```参考 https://nacos.io/zh-cn/docs/monitor-guide.html```  
 8单点登录基于oauth2  
-```memeory是基于内存实现```  
-```jdbc是基于数据库实现```  
+```oauth2是一种认证授权协议，分为授权服务器，资源服务器，用户，客户端。资源服务和授权服务器可以放在一起。```  
+```资源服务器需要配置授权服务器的授权鉴权信息，用户通过客户端请求授权后，获取授权码，通过授权码请求token```    
+```携带token请求资源接口，这个可以通过网关鉴权转发。```
+```单点登录client需要配置 server.servlet.session.cookie.name=OAUTH2SESSION，不然会失败```
 9使用module项目时,主pom文件或者其它被依赖module不能打包，不然其他module找不到依赖
 
 # git分支  

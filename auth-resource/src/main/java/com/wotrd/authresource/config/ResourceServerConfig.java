@@ -11,6 +11,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+    /**
+     * 配置资源服务器
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -18,8 +24,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/").hasAuthority("SystemContent")
                 .antMatchers("/view/**").hasAuthority("SystemContentView")
                 .antMatchers("/insert/**").hasAuthority("SystemContentInsert");
-
+        // 验证所有请求
+//                .authorizeRequests()
+//                .anyRequest()
+//                .authenticated()
 
     }
+
 
 }
