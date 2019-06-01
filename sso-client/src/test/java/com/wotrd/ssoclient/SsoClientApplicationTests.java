@@ -1,4 +1,4 @@
-package com.wotrd.providerservice;
+package com.wotrd.ssoclient;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProviderServiceApplicationTests {
+public class SsoClientApplicationTests {
 
     @Test
     public void contextLoads() {

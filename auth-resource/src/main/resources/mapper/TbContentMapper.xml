@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.authresource.mapper.TbContentMapper">
+
+    <resultMap type="com.wotrd.authresource.domain.TbContent" id="TbContentMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
+        <result property="titleDesc" column="title_desc" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="pic" column="pic" jdbcType="VARCHAR"/>
+        <result property="pic2" column="pic2" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbContentMap">
+        select
+          id, category_id, title, sub_title, title_desc, url, pic, pic2, content, create_time, update_time
+        from oauth2_resource.tb_content
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryByCategoryid" resultMap="TbContentMap">
+        select
+        c.id, c.category_id, c.title, c.sub_title, c.title_desc, c.url, c.pic, c.pic2, c.content
+        FROM tb_content as c
+        LEFT JOIN tb_content_category as cc
+        ON c.category_id = cc.id
+        WHERE cc.id = #{ categoryId }
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TbContentMap">
+        select
+          id, category_id, title, sub_title, title_desc, url, pic, pic2, content, create_time, update_time
+        from oauth2_resource.tb_content
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="subTitle != null and subTitle != ''">
+                and sub_title = #{subTitle}
+            </if>
+            <if test="titleDesc != null and titleDesc != ''">
+                and title_desc = #{titleDesc}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="pic != null and pic != ''">
+                and pic = #{pic}
+            </if>
+            <if test="pic2 != null and pic2 != ''">
+                and pic2 = #{pic2}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into oauth2_resource.tb_content(category_id, title, sub_title, title_desc, url, pic, pic2, content, create_time, update_time)
+        values (#{categoryId}, #{title}, #{subTitle}, #{titleDesc}, #{url}, #{pic}, #{pic2}, #{content}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update oauth2_resource.tb_content
+        <set>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="subTitle != null and subTitle != ''">
+                sub_title = #{subTitle},
+            </if>
+            <if test="titleDesc != null and titleDesc != ''">
+                title_desc = #{titleDesc},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="pic != null and pic != ''">
+                pic = #{pic},
+            </if>
+            <if test="pic2 != null and pic2 != ''">
+                pic2 = #{pic2},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from oauth2_resource.tb_content where id = #{id}
+    </delete>
+
+</mapper>

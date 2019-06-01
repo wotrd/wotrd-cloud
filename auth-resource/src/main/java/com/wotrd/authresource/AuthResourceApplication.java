@@ -1,13 +1,13 @@
-package com.wotrd.providerservice;
+package com.wotrd.authresource;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProviderServiceApplication {
+public class AuthResourceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProviderServiceApplication.class, args);
+        SpringApplication.run(AuthResourceApplication.class, args);
     }
 
 }
