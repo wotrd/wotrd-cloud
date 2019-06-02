@@ -20,7 +20,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
      * @return
      */
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -31,7 +31,13 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
                 .secret(passwordEncoder().encode("secret")) //客户端 secret
                 .authorizedGrantTypes("authorization_code")  //授权类型，授权码
                 .scopes("app")   //范围
-                .redirectUris("http://localhost:9005/login"); //重定向地址
+                .redirectUris("http://localhost:9005/login") //重定向地址
+                .and()
+                .withClient("client1")   //客户端 client_id
+                .secret(passwordEncoder().encode("secret")) //客户端 secret
+                .authorizedGrantTypes("authorization_code")  //授权类型，授权码
+                .scopes("app")   //范围
+                .redirectUris("http://localhost:9006/login"); //重定向地址
 
     }
 
