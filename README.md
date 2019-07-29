@@ -8,7 +8,8 @@
 ``4服务消费者 feign``   
 ``5断路器 sentinel``  
 ``6网关     gateway``   
-``7认证授权  oauth2`` 
+``7认证授权  oauth2``   
+``7分库分表中间件  sharding-jdbc`` 
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  

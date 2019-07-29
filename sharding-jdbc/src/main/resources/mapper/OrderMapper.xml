@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.shardingjdbc.mapper.OrderMapper">
+
+    <resultMap type="com.wotrd.shardingjdbc.domain.Order" id="OrderMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="orderId" column="order_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderMap">
+        select
+          id, user_id, order_id
+        from order
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryByUserId" resultMap="OrderMap">
+        select
+          id, user_id, order_id
+        from order
+        where user_id= #{userId}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderMap">
+        select
+          id, user_id, order_id
+        from order
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into order(user_id, order_id)
+        values (#{userId}, #{orderId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update order
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from order where id = #{id}
+    </delete>
+
+</mapper>
