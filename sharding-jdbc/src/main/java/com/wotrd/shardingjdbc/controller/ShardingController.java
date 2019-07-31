@@ -1,25 +1,22 @@
 package com.wotrd.shardingjdbc.controller;
 
 import com.wotrd.shardingjdbc.domain.Order;
-import com.wotrd.shardingjdbc.mapper.OrderMapper;
-import lombok.extern.slf4j.Slf4j;
+import com.wotrd.shardingjdbc.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
-@Slf4j
 @RequestMapping("sharding")
 @RestController
 public class ShardingController {
 
     @Autowired
-    private OrderMapper orderMapper;
+    private OrderService orderService;
 
     @RequestMapping
-    public String helloShardin(){
+    public String helloShardin() {
         return "hello Sharding-jdbc";
     }
 
@@ -29,35 +26,27 @@ public class ShardingController {
         Order order = Order.builder()
                 .orderId(orderId).userId(userId).build();
 
-        orderMapper.insert(order);
-
-        Long id = order.getId();
-        log.info("Generated Key--id:" + id);
+        orderService.insert(order);
     }
 
     @RequestMapping("queryAll")
     public void findAll() {
-        List<Order> orders = orderMapper.queryAll();
-        log.info("user:{}", orders);
-        log.info("user:{}",orders.size());
+        orderService.findAll();
     }
 
     @RequestMapping("getById")
     public void getById(@RequestParam Long id) {
-        Order order = orderMapper.queryById(id);
-        log.info("user:{}", order);
+        orderService.getById(id);
     }
 
     @RequestMapping("getByUserId")
     public void getByUserId(@RequestParam Long userId) {
-        List<Order> orders = orderMapper.queryByUserId(userId);
-        log.info("user:{}", orders);
+        orderService.getByUserId(userId);
     }
 
     @RequestMapping("deleteById")
     public void deleteById(@RequestParam Long id) {
-            orderMapper.deleteById(id);
-        log.info("user:{}", id);
+        orderService.deleteById(id);
     }
 
 }
