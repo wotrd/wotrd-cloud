@@ -10,6 +10,8 @@
 ``6网关     gateway``   
 ``7认证授权  oauth2``   
 ``7分库分表中间件  sharding-jdbc`` 
+``8redis缓存  StringRedisTemplate`` 
+``9kafak消息中间件  KafkaTemplate`` 
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  
