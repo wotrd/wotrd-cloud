@@ -2,6 +2,7 @@ package com.wotrd.redis.redistemplate.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.core.types.RedisClientInfo;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RequestMapping("redis")
@@ -22,27 +24,30 @@ public class RedisController {
 
 
     @PostMapping("/valueOperations")
-    public String valueOperations(){
+    public String valueOperations() {
 
         ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
-        valueOperations.set("strRedis","StringRedisTemplate");
+        valueOperations.set("strRedis", "StringRedisTemplate");
+        valueOperations.set("count", "1");
+        valueOperations.set("count1", "1");
         return valueOperations.get("strRedis");
     }
 
 
     @PostMapping("/addCount")
-    public String addCount(){
+    public String addCount() {
 
-        Long count = stringRedisTemplate.boundValueOps("count").increment(2);//val +1
+//        Long count = stringRedisTemplate.boundValueOps("count").increment(1);//val +1
+        Long count = stringRedisTemplate.opsForValue().increment("count", 1);//val +1
 
         Long time = stringRedisTemplate.getExpire("count");//根据key获取过期时间
 
-        return "count="+count+ "time="+time;
+        return "count=" + count + "time=" + time;
 
     }
 
     @PostMapping("/listOperations")
-    public String listRestTemplate(){
+    public String listRestTemplate() {
 
         //将数据添加到key对应的现有数据的左边
         Long redisList = stringRedisTemplate.opsForList().leftPush("redisList", "3");
@@ -60,18 +65,18 @@ public class RedisController {
         //从左往右删除list中元素A  (1:从左往右 -1:从右往左 0:删除全部)
         Long remove = stringRedisTemplate.opsForList().remove("key", 1, "A");
 
-        log.info("redisList----"+redisList);
-        log.info("size----"+size);
-        log.info("leftPop----"+leftPop);
-        log.info("rightPop----"+rightPop);
-        log.info("range----"+range);
-        log.info("range1----"+range1);
-        log.info("remove----"+remove);
+        log.info("redisList----" + redisList);
+        log.info("size----" + size);
+        log.info("leftPop----" + leftPop);
+        log.info("rightPop----" + rightPop);
+        log.info("range----" + range);
+        log.info("range1----" + range1);
+        log.info("remove----" + remove);
         return "";
     }
 
     @PostMapping("/hashOperations")
-    public void hashOperations(){
+    public void hashOperations() {
 
         //判断key对应的map中是否存在hash
         Boolean aBoolean = stringRedisTemplate.opsForHash().hasKey("hash", "hash1");
@@ -91,52 +96,111 @@ public class RedisController {
     }
 
     @PostMapping("/deleteOperations")
-    public String valueDelResitTest(){
+    public String valueDelResitTest() {
         stringRedisTemplate.delete("key");
         return "";
     }
 
 
     @PostMapping("/setOperations")
-    public void setOperations(){
+    public void setOperations() {
 
         SetOperations<String, String> set = stringRedisTemplate.opsForSet();
-        set.add("set1","22");
-        set.add("set1","33");
-        set.add("set1","44");
-        Set<String> resultSet =stringRedisTemplate.opsForSet().members("set1");
+        set.add("set1", "22");
+        set.add("set1", "33");
+        set.add("set1", "44");
+        Set<String> resultSet = stringRedisTemplate.opsForSet().members("set1");
 
-        stringRedisTemplate.opsForSet().add("set2", "1","2","3");//向指定key中存放set集合
+        stringRedisTemplate.opsForSet().add("set2", "1", "2", "3");//向指定key中存放set集合
 
-        Set<String> resultSet1 =stringRedisTemplate.opsForSet().members("set2");
+        Set<String> resultSet1 = stringRedisTemplate.opsForSet().members("set2");
 
-        log.info("resultSet:"+resultSet);
-        log.info("resultSet1:"+resultSet1);
+        log.info("resultSet:" + resultSet);
+        log.info("resultSet1:" + resultSet1);
 
     }
 
 
-    @PostMapping("/transaction")
-    public String transaction(){
+    @RequestMapping("/redisLock")
+    public String redisLock() {
 
-        //redisTemplate.afterPropertiesSet();在配置文件设置完成之后使用
-        //开启 事务
-        stringRedisTemplate.multi();
-        stringRedisTemplate.discard();
+        String lockKey = "key";
+        String lockValue = lockKey + System.currentTimeMillis();
+        // value需要记住用于解锁
+        while (true) {
 
+            Boolean ifPresent = stringRedisTemplate.opsForValue().
+                    setIfAbsent("redis-lock:" + lockKey, lockValue, 3, TimeUnit.SECONDS);
+
+            if (ifPresent) {
+                log.info("get redis-lock success");
+                break;
+            }
+        }
+
+        return "";
+    }
+
+    @RequestMapping("/releaseLock")
+    public boolean releaseLock() {
+
+        String lockKey = "key";
+        String lockValue = lockKey + System.currentTimeMillis();
+        boolean result = false;
+        // value需要记住用于解锁
+        stringRedisTemplate.watch("redis-lock:" + lockKey);
+        String value = stringRedisTemplate.opsForValue().get("redis-lock:" + lockKey);
+        if (null == value){
+            result = true;
+        }else if (value.equals(lockValue)) {
+            stringRedisTemplate.delete("redis-lock:" + lockKey);
+            result = true;
+        }
+        stringRedisTemplate.unwatch();
+
+        return result;
+    }
+
+    @RequestMapping("/transaction")
+    public String transaction() {
+
+//        SessionCallback sessionCallback = new SessionCallback() {
+//            @Override
+//            public Object execute(RedisOperations redisOperations) throws DataAccessException {
+//                redisOperations.multi();
+//                redisOperations.opsForValue().increment("count",1);
+//                redisOperations.opsForValue().increment("count1",1);
+//                return redisOperations.exec();
+//            }
+//        };
+//
+//        stringRedisTemplate.execute(sessionCallback);
+
+        stringRedisTemplate.setEnableTransactionSupport(true);
+        try {
+            stringRedisTemplate.multi();//开启事务
+            stringRedisTemplate.opsForValue().increment("count", 1);
+            stringRedisTemplate.opsForValue().increment("count1", 2);
+            //提交
+            stringRedisTemplate.exec();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            //开启回滚
+            stringRedisTemplate.discard();
+        }
 
         return "";
     }
 
     @PostMapping("/getClientInfo")
-    public String getClientInfo(){
+    public String getClientInfo() {
 
         //获取连接redis数据库信息
-        List <RedisClientInfo> clientList = stringRedisTemplate.getClientList();
-        for (RedisClientInfo clientInfo:clientList ){
-            System.out.printf("--"+clientInfo.toString()+"events="+clientInfo.getEvents()+"\n"
-                    +"port="+clientInfo.getAddressPort()+"name="+clientInfo.getName()+clientInfo.getFileDescriptor()+
-                    clientInfo.getFlags()+clientInfo.getLastCommand()+clientInfo.getAge()+clientInfo.getBufferLength()+
+        List<RedisClientInfo> clientList = stringRedisTemplate.getClientList();
+        for (RedisClientInfo clientInfo : clientList) {
+            System.out.printf("--" + clientInfo.toString() + "events=" + clientInfo.getEvents() + "\n"
+                    + "port=" + clientInfo.getAddressPort() + "name=" + clientInfo.getName() + clientInfo.getFileDescriptor() +
+                    clientInfo.getFlags() + clientInfo.getLastCommand() + clientInfo.getAge() + clientInfo.getBufferLength() +
                     clientInfo.getDatabaseId());
         }
         return "test";
