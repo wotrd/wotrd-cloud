@@ -28,6 +28,7 @@
         <module>authserver-jdbc</module>
         <module>sharding-jdbc</module>
         <module>redistemplate</module>
+        <module>kafkatemplate</module>
     </modules>
     <dependencyManagement>
         <dependencies>
