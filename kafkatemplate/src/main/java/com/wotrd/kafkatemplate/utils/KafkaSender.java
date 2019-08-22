@@ -1,7 +1,6 @@
 package com.wotrd.kafkatemplate.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wotrd.kafkatemplate.domain.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
