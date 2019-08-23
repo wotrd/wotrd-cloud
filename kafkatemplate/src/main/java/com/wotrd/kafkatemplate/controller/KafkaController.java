@@ -2,13 +2,10 @@ package com.wotrd.kafkatemplate.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.PartitionInfo;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.util.concurrent.FailureCallback;
 import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +28,7 @@ public class KafkaController {
 
     @Resource
     private KafkaTemplate<String, String> kafkaTemplate;
+
 
     /**
      * 异步发送消息
