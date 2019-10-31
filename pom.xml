@@ -29,6 +29,7 @@
         <module>sharding-jdbc</module>
         <module>redistemplate</module>
         <module>kafkatemplate</module>
+        <module>dynamic-datasource</module>
     </modules>
     <dependencyManagement>
         <dependencies>

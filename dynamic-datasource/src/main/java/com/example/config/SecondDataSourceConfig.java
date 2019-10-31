@@ -1,6 +1,7 @@
 package com.example.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.xa.DruidXADataSource;
+import com.mysql.cj.jdbc.MysqlXADataSource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,14 +10,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 /**
  * @author wangkaijin
@@ -40,13 +41,16 @@ public class SecondDataSourceConfig {
      * prefix值必须是application.properteis中对应属性的前缀
      */
     @Bean(name = "secondDataSource")
-    public DataSource secondDataSource() {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(jdbcUrl);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        return dataSource;
+    public DataSource secondDataSource() throws SQLException {
+        DruidXADataSource druidXADataSource = new DruidXADataSource();
+        druidXADataSource.setUrl(jdbcUrl);
+        druidXADataSource.setUsername(username);
+        druidXADataSource.setPassword(password);
+
+        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+        xaDataSource.setXaDataSource(druidXADataSource);
+        xaDataSource.setUniqueResourceName("secondDataSource");
+        return xaDataSource;
     }
 
     @Bean

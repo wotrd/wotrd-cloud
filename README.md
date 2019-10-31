@@ -12,6 +12,7 @@
 ``7分库分表中间件  sharding-jdbc`` 
 ``8redis缓存  StringRedisTemplate`` 
 ``9kafak消息中间件  KafkaTemplate`` 
+``10 基于xa使用atomikos实现分布式事物`` 
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  

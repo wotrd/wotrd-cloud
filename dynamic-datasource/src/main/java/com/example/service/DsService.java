@@ -29,9 +29,12 @@ public class DsService {
     public void update(Long count, Long id){
 
         firstMapper.update(13L, 4L);
-        firstMapper.update(16L, 2L);
+        firstMapper.update(15L, 2L);
 
-        secondMapper.update(14L, 4L);
+        secondMapper.update(18L, 4L);
+        if (count>10){
+            throw new RuntimeException();
+        }
 
 
     }

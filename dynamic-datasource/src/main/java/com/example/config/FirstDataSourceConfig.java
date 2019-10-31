@@ -1,6 +1,9 @@
 package com.example.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.xa.DruidXADataSource;
+import com.atomikos.icatch.jta.UserTransactionImp;
+import com.atomikos.icatch.jta.UserTransactionManager;
+import com.mysql.cj.jdbc.MysqlXADataSource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,14 +12,20 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
+import javax.transaction.TransactionManager;
+import javax.transaction.UserTransaction;
+import java.sql.SQLException;
 
 /**
  * @author wangkaijin
@@ -42,13 +51,16 @@ public class FirstDataSourceConfig {
      */
     @Bean(name = "firstDataSource")
     @Primary
-    public DataSource firstDataSource() {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(jdbcUrl);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        return dataSource;
+    public AtomikosDataSourceBean firstDataSource() throws SQLException {
+        DruidXADataSource druidXADataSource = new DruidXADataSource();
+        druidXADataSource.setUrl(jdbcUrl);
+        druidXADataSource.setUsername(username);
+        druidXADataSource.setPassword(password);
+
+        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+        xaDataSource.setXaDataSource(druidXADataSource);
+        xaDataSource.setUniqueResourceName("firstDataSource");
+        return xaDataSource;
     }
 
     @Bean
@@ -72,6 +84,31 @@ public class FirstDataSourceConfig {
         SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactory);
         return template;
     }
+
+    //分布式事务配置，配置JTA事务
+
+    @Bean(name = "userTransaction")
+    public UserTransaction userTransaction() throws Throwable {
+        UserTransactionImp userTransactionImp = new UserTransactionImp();
+        userTransactionImp.setTransactionTimeout(10000);
+        return userTransactionImp;
+    }
+
+    @Bean(name = "atomikosTransactionManager")
+    public TransactionManager atomikosTransactionManager() {
+        UserTransactionManager userTransactionManager = new UserTransactionManager();
+        userTransactionManager.setForceShutdown(false);
+        return userTransactionManager;
+    }
+    @Bean(name = "transactionManager")
+    @DependsOn({ "userTransaction", "atomikosTransactionManager" })
+    public PlatformTransactionManager transactionManager() throws Throwable {
+        UserTransaction userTransaction = userTransaction();
+        JtaTransactionManager manager = new JtaTransactionManager(userTransaction,atomikosTransactionManager());
+        return manager;
+    }
+
+
 }
 
 
