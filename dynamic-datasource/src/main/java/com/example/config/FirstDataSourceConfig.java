@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -21,9 +22,19 @@ import javax.sql.DataSource;
  * @author wangkaijin
  */
 @Slf4j
+@Data
 @Configuration
+@ConfigurationProperties(prefix = "first.datasource")
 @MapperScan(basePackages = {"com.example.first"}, sqlSessionTemplateRef = "firstSqlSessionTemplate")
 public class FirstDataSourceConfig {
+
+    private String driverClassName;
+
+    private String username;
+
+    private String password;
+
+    private String jdbcUrl;
 
     /**
      * prefix值必须是application.properteis中对应属性的前缀
@@ -32,12 +43,11 @@ public class FirstDataSourceConfig {
     @Bean(name = "firstDataSource")
     @Primary
     public DataSource firstDataSource() {
-
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://101.132.163.122:3306/ds_master_0");
-        dataSource.setUsername("root");
-        dataSource.setPassword("WangKaijin2019@");
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         return dataSource;
     }
 

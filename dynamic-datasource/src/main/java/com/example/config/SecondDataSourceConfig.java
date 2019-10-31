@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,21 +22,30 @@ import javax.sql.DataSource;
  * @author wangkaijin
  */
 @Slf4j
+@Data
 @Configuration
+@ConfigurationProperties(prefix = "second.datasource")
 @MapperScan(basePackages = {"com.example.second.mapper"}, sqlSessionTemplateRef = "secondSqlSessionTemplate")
 public class SecondDataSourceConfig {
+
+    private String driverClassName;
+
+    private String username;
+
+    private String password;
+
+    private String jdbcUrl;
 
     /**
      * prefix值必须是application.properteis中对应属性的前缀
      */
     @Bean(name = "secondDataSource")
-    @ConfigurationProperties(prefix = "second.datasource")
     public DataSource secondDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("");
-        dataSource.setUsername("admin");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         return dataSource;
     }
 
