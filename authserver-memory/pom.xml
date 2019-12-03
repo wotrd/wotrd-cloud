@@ -26,6 +26,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
+            <version>2.1.4.RELEASE</version>
         </dependency>
     </dependencies>
 

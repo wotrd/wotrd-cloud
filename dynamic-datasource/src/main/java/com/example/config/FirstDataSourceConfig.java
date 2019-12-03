@@ -51,14 +51,14 @@ public class FirstDataSourceConfig {
      */
     @Bean(name = "firstDataSource")
     @Primary
-    public AtomikosDataSourceBean firstDataSource() throws SQLException {
-        DruidXADataSource druidXADataSource = new DruidXADataSource();
-        druidXADataSource.setUrl(jdbcUrl);
-        druidXADataSource.setUsername(username);
-        druidXADataSource.setPassword(password);
+    public AtomikosDataSourceBean firstDataSource() {
+        MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
+        mysqlXADataSource.setUrl(jdbcUrl);
+        mysqlXADataSource.setServerName(username);
+        mysqlXADataSource.setPassword(password);
 
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(druidXADataSource);
+        xaDataSource.setXaDataSource(mysqlXADataSource);
         xaDataSource.setUniqueResourceName("firstDataSource");
         return xaDataSource;
     }

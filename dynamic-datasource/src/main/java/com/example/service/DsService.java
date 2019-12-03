@@ -1,43 +1,14 @@
 package com.example.service;
 
-import com.example.first.domain.Order;
-import com.example.first.mapper.FirstMapper;
-import com.example.second.mapper.SecondMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author wotrd
  */
-@Service
-public class DsService {
+public interface DsService {
 
-    @Autowired
-    private FirstMapper firstMapper;
-
-    @Autowired
-    private SecondMapper secondMapper;
+    void get(Long id);
 
 
-    public void get(Long id) {
-        Order order = firstMapper.getOrder(id);
-        com.example.second.domain.Order order1 = secondMapper.getOrder(id);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public void update(Long count, Long id){
-
-        firstMapper.update(13L, 4L);
-        firstMapper.update(15L, 2L);
-
-        secondMapper.update(18L, 4L);
-        if (count>10){
-            throw new RuntimeException();
-        }
-
-
-    }
-
+    void update(Long count, Long id);
 
 }
