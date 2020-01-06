@@ -1,6 +1,5 @@
 package com.example.config;
 
-import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
 import com.mysql.cj.jdbc.MysqlXADataSource;
@@ -25,7 +24,6 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 import javax.sql.DataSource;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
-import java.sql.SQLException;
 
 /**
  * @author wangkaijin

@@ -43,6 +43,9 @@
 ```单点登录client需要配置 server.servlet.session.cookie.name=OAUTH2SESSION，不然会失败```
 9使用module项目时,主pom文件或者其它被依赖module不能打包，不然其他module找不到依赖
 
+10elasticsearch2.8.1版本
+
+
 # git分支  
 1master分支，主干分支  
 2release分支，发布分支  
