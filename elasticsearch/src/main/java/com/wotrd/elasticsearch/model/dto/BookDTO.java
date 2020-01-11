@@ -1,13 +1,10 @@
-package com.wotrd.elasticsearch.pojo.entity;
+package com.wotrd.elasticsearch.model.dto;
 
 import lombok.Data;
-import org.springframework.data.elasticsearch.annotations.Document;
-
 import java.math.BigDecimal;
 
 @Data
-@Document(indexName = "book")
-public class BookDO {
+public class BookDTO {
 
     private Long id;
 

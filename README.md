@@ -13,6 +13,7 @@
 ``8redis缓存  StringRedisTemplate`` 
 ``9kafak消息中间件  KafkaTemplate`` 
 ``10 基于xa使用atomikos实现分布式事物`` 
+``11spring data elasticsearch``
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  
@@ -43,8 +44,7 @@
 ```单点登录client需要配置 server.servlet.session.cookie.name=OAUTH2SESSION，不然会失败```
 9使用module项目时,主pom文件或者其它被依赖module不能打包，不然其他module找不到依赖
 
-10elasticsearch2.8.1版本
-
+11 elasticsearch6.8.4和springboot2.2.1版本，版本不一致会出现问题
 
 # git分支  
 1master分支，主干分支  

@@ -1,12 +1,11 @@
 package com.wotrd.elasticsearch.controller;
 
-import com.wotrd.elasticsearch.dao.BookRepository;
-import com.wotrd.elasticsearch.pojo.entity.BookDO;
+import com.wotrd.elasticsearch.model.entity.BookDO;
+import com.wotrd.elasticsearch.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -16,28 +15,58 @@ import java.util.Optional;
 public class ElasticSearchController {
 
     @Autowired
-    private BookRepository bookRepository;
+    private BookService bookService;
 
-    @RequestMapping("add")
-    public BookDO get(@RequestBody BookDO bookDO){
-        return bookRepository.save(bookDO);
+    @RequestMapping("createIndex")
+    public String createIndex(String indexName){
+        bookService.createIndex(indexName);
+        return "create success";
     }
 
     @RequestMapping("delete")
+    public String delete(String indexName){
+        bookService.delete(indexName);
+        return "delete success";
+    }
+
+    @RequestMapping("add")
+    public BookDO get(@RequestBody BookDO bookDO){
+        return bookService.save(bookDO);
+    }
+
+    @RequestMapping("deleteData")
     public String delete(Long id){
-        bookRepository.deleteById(id);
+        bookService.deleteById(id);
         return "success";
     }
 
     @RequestMapping("get")
     public BookDO get(Long id){
-        Optional<BookDO> byId = bookRepository.findById(id);
+        Optional<BookDO> byId = bookService.findById(id);
         return byId.get();
     }
 
     @RequestMapping("getAll")
-    public Iterable<BookDO> getALL(List<Long> ids){
-        Iterable<BookDO> bookDOS = bookRepository.findAllById(ids);
+    public Iterable<BookDO> getALL(@RequestBody List<Long> ids){
+        Iterable<BookDO> bookDOS = bookService.findAllById(ids);
         return bookDOS;
     }
+
+    @RequestMapping("findAll")
+    public String findAll(){
+        bookService.findAll();
+        return "find all success";
+    }
+
+    @RequestMapping("queryBuilderSearch")
+    public String queryBuilderSearch(String name){
+        bookService.queryBuilderSearch(name);
+        return "find all success";
+    }
+
+
+
+
+
+
 }
