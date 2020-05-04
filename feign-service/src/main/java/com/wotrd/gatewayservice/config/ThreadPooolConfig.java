@@ -1,4 +1,4 @@
-package com.wotrd.nacos.common.conf;
+package com.wotrd.gatewayservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

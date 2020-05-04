@@ -1,4 +1,4 @@
-package com.wotrd.nacos.common.conf;
+package com.wotrd.gatewayservice.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import org.springframework.boot.context.properties.ConfigurationProperties;

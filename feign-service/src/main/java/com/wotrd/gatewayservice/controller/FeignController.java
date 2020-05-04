@@ -2,8 +2,8 @@ package com.wotrd.gatewayservice.controller;
 
 import com.wotrd.gatewayservice.domain.Order;
 import com.wotrd.gatewayservice.service.IProviderService;
-import com.wotrd.nacos.common.conf.GlobalRequestBody;
-import com.wotrd.nacos.common.conf.GlobalResponse;
+import com.wotrd.gatewayservice.config.GlobalRequestBody;
+import com.wotrd.gatewayservice.config.GlobalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

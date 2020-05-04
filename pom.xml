@@ -19,7 +19,6 @@
     </properties>
 
     <modules>
-        <module>nacos-common</module>
         <module>feign-service</module>
         <module>auth-resource</module>
         <module>authserver-jdbc</module>
