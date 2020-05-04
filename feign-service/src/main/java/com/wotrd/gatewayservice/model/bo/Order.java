@@ -1,4 +1,4 @@
-package com.wotrd.gatewayservice.domain;
+package com.wotrd.gatewayservice.model.bo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.wotrd.gatewayservice.domain;
+package com.wotrd.gatewayservice.model.bo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bar {
+public class Fool {
 
-    private String bar;
+    private String fool;
 
 }

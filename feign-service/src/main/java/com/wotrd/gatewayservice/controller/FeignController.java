@@ -1,6 +1,6 @@
 package com.wotrd.gatewayservice.controller;
 
-import com.wotrd.gatewayservice.domain.Order;
+import com.wotrd.gatewayservice.model.bo.Order;
 import com.wotrd.gatewayservice.service.IProviderService;
 import com.wotrd.gatewayservice.config.GlobalRequestBody;
 import com.wotrd.gatewayservice.config.GlobalResponse;

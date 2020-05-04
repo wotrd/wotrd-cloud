@@ -1,6 +1,6 @@
 package com.wotrd.gatewayservice.service;
 
-import com.wotrd.gatewayservice.domain.Order;
+import com.wotrd.gatewayservice.model.bo.Order;
 import com.wotrd.gatewayservice.config.GlobalRequestBody;
 import com.wotrd.gatewayservice.config.GlobalResponse;
 import org.springframework.cloud.openfeign.FeignClient;

@@ -1,7 +1,7 @@
 package com.wotrd.gatewayservice.receiver;
 
-import com.wotrd.gatewayservice.domain.Bar;
-import com.wotrd.gatewayservice.domain.Fool;
+import com.wotrd.gatewayservice.model.bo.Bar;
+import com.wotrd.gatewayservice.model.bo.Fool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
