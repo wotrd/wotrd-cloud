@@ -20,19 +20,14 @@
 
     <modules>
         <module>nacos-common</module>
-        <module>provider-service</module>
-        <module>consumer-service</module>
         <module>feign-service</module>
-        <module>elasticsearch</module>
         <module>auth-resource</module>
-        <module>authserver-memory</module>
         <module>authserver-jdbc</module>
         <module>sharding-jdbc</module>
-        <module>redistemplate</module>
-        <module>kafkatemplate</module>
         <module>dynamic-datasource</module>
         <module>sso-client</module>
         <module>gateway-service</module>
+        <module>spring-security</module>
     </modules>
     <dependencyManagement>
         <dependencies>
