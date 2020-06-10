@@ -1,3 +1,4 @@
+/*
 package com.wotrd.gateway.controller;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +17,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+*/
 /**
  * 使用KafkaTemplate操作kafka
  * send需要加topic参数，sendDefault使用默认topic需要在应用配置文件中配置
  * topic在发送时会自动进行创建
- */
+ *//*
+
 @Slf4j
 @RequestMapping("kafka")
 @RestController
@@ -30,7 +33,8 @@ public class KafkaController {
     private KafkaTemplate<String, String> kafkaTemplate;
 
 
-    /**
+    */
+/**
      * 异步发送消息
      *
      * @param topic
@@ -38,7 +42,8 @@ public class KafkaController {
      * @param key
      * @param value
      * @return
-     */
+     *//*
+
     @RequestMapping("asyncSendMsgWithTopic")
     public String asyncSendMsgWithTopic(@RequestParam String topic, @RequestParam int partition, @RequestParam String key,
                                         @RequestParam String value) {
@@ -54,7 +59,8 @@ public class KafkaController {
         return result[0];
     }
 
-    /**
+    */
+/**
      * 同步发送消息,最大等待时间10秒钟
      *
      * @param topic
@@ -62,7 +68,8 @@ public class KafkaController {
      * @param key
      * @param value
      * @return
-     */
+     *//*
+
     @RequestMapping("syncSendMsgWithTopic")
     public String syncSendMsgWithTopic(@RequestParam String topic, @RequestParam int partition, @RequestParam String key,
                                        @RequestParam String value) {
@@ -79,14 +86,16 @@ public class KafkaController {
         return "failed";
     }
 
-    /**
+    */
+/**
      * 实现事务
      * 1Spring可以使用@Transactional实现
      * 2KafkaTemplate实现
      *
      * @param topic
      * @return
-     */
+     *//*
+
     @RequestMapping("executeTransaction")
     public boolean executeTransaction(@RequestParam String topic) {
         boolean result = kafkaTemplate.executeInTransaction((KafkaOperations<String, String> operations) -> {
@@ -99,12 +108,14 @@ public class KafkaController {
 
     }
 
-    /**
+    */
+/**
      * 获取partitioninfo
      *
      * @param topic
      * @return
-     */
+     *//*
+
     @RequestMapping("getPartitionInfos")
     public String getPartitionInfos(@RequestParam String topic) {
 
@@ -116,3 +127,4 @@ public class KafkaController {
 
 
 }
+*/

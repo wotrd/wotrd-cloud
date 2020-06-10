@@ -4,7 +4,6 @@ package com.wotrd.gateway.factory;
 import com.wotrd.gateway.config.GlobalResponse;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.openfeign.FeignClient;
 
 /**
  * @ClassName: FeignServiceFactory
@@ -13,7 +12,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @Date: 2020/6/10 14:47
  */
 @Slf4j
-@FeignClient
 public class FeignServiceFactory implements FallbackFactory<GlobalResponse> {
 
     @Override

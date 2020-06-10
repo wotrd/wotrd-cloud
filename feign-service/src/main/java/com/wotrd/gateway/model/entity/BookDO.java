@@ -3,15 +3,12 @@ package com.wotrd.gateway.model.entity;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.math.BigDecimal;
 
 @Data
 @ToString
-@Document(indexName = "book_index", shards = 1, replicas = 0)
+//@Document(indexName = "book_index", shards = 1, replicas = 0)
 public class BookDO {
 
     @Id
@@ -25,7 +22,7 @@ public class BookDO {
 //    @Field(type = FieldType.Text, analyzer = "ik_max_word",store = true)
     private String name;
 
-    @Field(index = false, type = FieldType.Text)
+//    @Field(index = false, type = FieldType.Text)
     private String description;
 
     private BigDecimal price;

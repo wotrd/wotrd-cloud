@@ -1,3 +1,4 @@
+/*
 package com.wotrd.gateway.receiver;
 
 import com.wotrd.gateway.model.bo.Bar;
@@ -28,4 +29,4 @@ public class MultiMethods {
         log.info("Received unknown: " + object);
     }
 
-}
+}*/
