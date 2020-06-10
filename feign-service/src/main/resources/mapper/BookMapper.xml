@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.gateway.mapper.BookMapper">
+    <resultMap id="BaseResultMap" type="com.wotrd.gateway.model.entity.Books">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="seller_id" jdbcType="INTEGER" property="sellerId"/>
+        <result column="seller_name" jdbcType="VARCHAR" property="sellerName"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, `name`, `type`, price, avatar, seller_id, seller_name, remark, create_time
+  </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from books
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from books
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.entity.Books" useGeneratedKeys="true">
+    insert into books (`name`, `type`, price, 
+      avatar, seller_id, seller_name, 
+      remark)
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{avatar,jdbcType=VARCHAR}, #{sellerId,jdbcType=INTEGER}, #{sellerName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.entity.Books" useGeneratedKeys="true">
+        insert into books
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="sellerId != null">
+                seller_id,
+            </if>
+            <if test="sellerName != null">
+                seller_name,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="avatar != null">
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerId != null">
+                #{sellerId,jdbcType=INTEGER},
+            </if>
+            <if test="sellerName != null">
+                #{sellerName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.model.entity.Books">
+        update books
+        <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                `type` = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerId != null">
+                seller_id = #{sellerId,jdbcType=INTEGER},
+            </if>
+            <if test="sellerName != null">
+                seller_name = #{sellerName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.model.entity.Books">
+    update books
+    set `name` = #{name,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      seller_id = #{sellerId,jdbcType=INTEGER},
+      seller_name = #{sellerName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
