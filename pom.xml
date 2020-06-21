@@ -27,6 +27,7 @@
         <module>sso-client</module>
         <module>gateway-service</module>
         <module>spring-security</module>
+        <module>dubbo-service</module>
     </modules>
     <dependencyManagement>
         <dependencies>
