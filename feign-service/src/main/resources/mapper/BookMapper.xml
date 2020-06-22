@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wotrd.gateway.mapper.BookMapper">
-    <resultMap id="BaseResultMap" type="com.wotrd.gateway.model.entity.Books">
+<mapper namespace="com.wotrd.feign.mapper.BookMapper">
+    <resultMap id="BaseResultMap" type="com.wotrd.feign.model.entity.Books">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="type" jdbcType="VARCHAR" property="type"/>
@@ -24,7 +24,7 @@
     delete from books
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.entity.Books" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.feign.model.entity.Books" useGeneratedKeys="true">
     insert into books (`name`, `type`, price, 
       avatar, seller_id, seller_name, 
       remark)
@@ -32,7 +32,7 @@
       #{avatar,jdbcType=VARCHAR}, #{sellerId,jdbcType=INTEGER}, #{sellerName,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.entity.Books" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.feign.model.entity.Books" useGeneratedKeys="true">
         insert into books
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">
@@ -81,7 +81,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.model.entity.Books">
+    <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.feign.model.entity.Books">
         update books
         <set>
             <if test="name != null">
@@ -108,7 +108,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.model.entity.Books">
+    <update id="updateByPrimaryKey" parameterType="com.wotrd.feign.model.entity.Books">
     update books
     set `name` = #{name,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=VARCHAR},

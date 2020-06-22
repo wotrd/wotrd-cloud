@@ -29,11 +29,6 @@
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>2.7.7</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dubbo-registry-nacos</artifactId>
-            <version>0.0.2</version>
-        </dependency>
         <!-- Dubbo Registry Nacos -->
         <dependency>
             <groupId>com.alibaba.nacos</groupId>

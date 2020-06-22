@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DubboController {
 
-
-    @DubboReference(version = "1.0.0", url = "dubbo://127.0.0.1:12345")
+    @DubboReference(version = "1.0.1", group = "user_group", timeout = 10000, retries = 3)
     private UserInfoService userInfoService;
 
     @GetMapping("userInfo")
-    public User userInfo(){
+    public User userInfo() {
         return userInfoService.getUserInfo();
     }
 
