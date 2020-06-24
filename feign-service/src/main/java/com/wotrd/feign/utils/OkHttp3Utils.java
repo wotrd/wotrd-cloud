@@ -10,8 +10,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+
 /**
- * Okhttp3网络连接工具类
+ * @ClassName: OkHttp3Utils
+ * @Description: Okhttp3网络连接工具类
+ * @author: wotrd
+ * @date: 2019年5月17日上午10:47:14
  */
 @Slf4j
 public class OkHttp3Utils {
@@ -22,7 +26,6 @@ public class OkHttp3Utils {
             .withWaitStrategy(WaitStrategies.exponentialWait(200, 1000, TimeUnit.MILLISECONDS))
             .withStopStrategy(StopStrategies.stopAfterAttempt(3))
             .withRetryListener(new DoRetryListener())
-            .withAttemptTimeLimiter(AttemptTimeLimiters.fixedTimeLimit(60, TimeUnit.SECONDS))
             .build();
 
     //不允许创建对象
@@ -41,8 +44,11 @@ public class OkHttp3Utils {
 
     /**
      * 使用get方式请求
+     *
+     * @param url
+     * @return
      */
-    public static String getWithOkHttp3(String url) {
+    public static String get(String url) {
         //调用ok的get请求
         Request request = new Request.Builder()
                 .get()
@@ -54,15 +60,16 @@ public class OkHttp3Utils {
     /**
      * 使用post方式请求
      *
-     * @param params 请求参数
+     * @param url   请求地址
+     * @param param 请求参数
      */
-    public static String postWithOkHttp3(String url, Map<String, String> params) {
+    public static String post(String url, Map<String, String> param) {
         //调用ok的post请求
         FormBody.Builder formbody = new FormBody.Builder();
-        if (params != null && !params.isEmpty()) {
+        if (param != null && !param.isEmpty()) {
             //上传参数
-            for (String key : params.keySet()) {
-                formbody.add(key, params.get(key));
+            for (String key : param.keySet()) {
+                formbody.add(key, param.get(key));
             }
         }
         //创建请求体
@@ -76,11 +83,36 @@ public class OkHttp3Utils {
 
     /**
      * 使用json格式请求http
+     *
+     * @param url    请求地址
+     * @param param  json请求参数
+     * @param cookie cookie信息
+     * @return
      */
-    public static String postWithJsonParamasByOkHttp3(String url, String jsonParam) {
+    public static String postWithJsonParam(String url, String param, String cookie) {
         //创建请求体
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8")
-                , jsonParam);
+                , param);
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Cookie", cookie)
+                .post(requestBody)//请求体
+                .build();
+        return dealResponse(request);
+    }
+
+
+    /**
+     * 使用json格式请求http
+     *
+     * @param url
+     * @param param
+     * @return
+     */
+    public static String postWithJsonParam(String url, String param) {
+        //创建请求体
+        RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8")
+                , param);
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)//请求体
@@ -88,8 +120,12 @@ public class OkHttp3Utils {
         return dealResponse(request);
     }
 
+
     /**
      * 处理请求返回值
+     *
+     * @param request
+     * @return
      */
     private static String dealResponse(Request request) {
         return doHttpExecute(request);
