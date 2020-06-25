@@ -28,7 +28,6 @@ public class SwaggerController {
 
     @GetMapping
     @ApiOperation(value = "查询图书信息", response = Book.class, notes = "主键ID不能为空")
-    @ApiImplicitParam(name = "主键ID", value = "主键ID")
     public Book book(@RequestParam Long id) {
         return null;
     }
@@ -47,8 +46,7 @@ public class SwaggerController {
 
     @ApiOperation(value = "删除图书信息")
     @DeleteMapping("delete")
-    public void delete(@ApiParam(value = "主键ID", required = true) Long id,
-                       @ApiParam(value = "用户ID") String userId) {
+    public void delete(@RequestParam Long id, @RequestParam(defaultValue = "hello", required = false) String userId) {
         log.info("删除图书信息");
     }
 
