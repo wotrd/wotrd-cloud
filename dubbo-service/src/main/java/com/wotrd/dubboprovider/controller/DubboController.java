@@ -20,13 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DubboController {
 
-    @DubboReference(version = "1.0.1", group = "user_group", timeout = 10000, retries = 3)
+    @DubboReference(version = "1.0.1", group = "user_group", timeout = 10000)
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "查询用户信息")
     @GetMapping("userInfo")
     public User userInfo(Long id) {
-        return userInfoService.getUserInfo();
+        User userInfo = userInfoService.getUserInfo();
+        log.info("rpc返回{}", userInfo);
+        return userInfo;
     }
 
 
