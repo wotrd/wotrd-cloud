@@ -9,4 +9,14 @@ spring:
         - id: before_route
           uri: https://www.ailijie.top
           predicates:
-            - After=2020-06-30T06:06:06+08:00[Asia/Shanghai]
+            - After=2020-06-20T06:06:06+08:00[Asia/Shanghai]
+        - id: myRoute
+          uri: lb://feign-service
+          predicates:
+            - Path=/feign-service/**
+            ## 熔断
+          - name: Hystrix
+            args:
+              name: fallbackcmd
+              ### fallback 时调用的方法 http://localhost:8000/fallback
+              fallbackUri: forward:/fallback
