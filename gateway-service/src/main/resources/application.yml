@@ -1,21 +1,12 @@
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: service-feign
-#          uri: http://localhost:8852
+spring:
+  cloud:
+    gateway:
+      routes:
+#        - id: after_route
+#          uri: https://www.baidu.com/
 #          predicates:
-#            - Path=/feign/**
-#          filters:
-#            - StripPrefix=1
-#        - id: service-sentinel
-#          uri: lb://sentinel-service
-#          predicates:
-#            - Path=/sentinel/**
-#          filters:
-#            - StripPrefix=1
-#      discovery:
-#        locator:
-#          enabled: false
-#          lowerCaseServiceId: true
-# uri以lb://开头（lb代表从注册中心获取服务），后面接的就是你需要转发到的服务名称
+#            - After=2020-06-29T06:06:06+08:00[Asia/Shanghai]
+        - id: before_route
+          uri: https://www.ailijie.top
+          predicates:
+            - After=2020-06-30T06:06:06+08:00[Asia/Shanghai]
