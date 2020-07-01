@@ -18,7 +18,7 @@ import java.util.List;
  * @Author: wotrd
  * @Date: 2020/7/1 12:59
  */
-@Repository
+//@Repository
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
     private static final String GATEWAY_ROUTES = "GATEWAY_ROUTES";
