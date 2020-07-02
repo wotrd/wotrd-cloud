@@ -3,9 +3,7 @@ package com.wotrd.gateway.controller;
 import com.wotrd.gateway.domain.Route;
 import com.wotrd.gateway.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,9 +29,19 @@ public class RefreshController {
         return routeService.routeList();
     }
 
+    @GetMapping("route/delete/{id}")
+    public void deleteRoute(@PathVariable String id) {
+        routeService.deleteRoute(id);
+    }
+
     @GetMapping("route/delete")
-    public void deleteRoute() {
+    public void delete() {
         routeService.deleteRoute();
+    }
+
+    @PostMapping("route/add")
+    public void add(@RequestBody Route route) {
+        routeService.addRoute(route);
     }
 
 }

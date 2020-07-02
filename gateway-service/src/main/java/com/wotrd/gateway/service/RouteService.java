@@ -10,6 +10,7 @@ import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -17,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName: RefreshRouteService
- * @Description: TODO
+ * @ClassName: RouteService
+ * @Description: 路由服务
  * @Author: wotrd
  * @Date: 2020/7/1 15:44
  */
@@ -61,10 +62,65 @@ public class RouteService {
     }
 
     /**
+     * 添加路由
+     *
+     * @param route
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void addRoute(Route route) {
+        //插入路由
+        routeMapper.insert(route);
+        //插入过滤器
+        List<RouteFilter> filters = route.getFilters();
+        if (!CollectionUtils.isEmpty(filters)) {
+            filters.forEach(routeFilter -> {
+                routeFilterMapper.insert(routeFilter);
+                List<RouteFilterArgs> filterArgs = routeFilter.getFilterArgs();
+                filterArgs.forEach(routeFilterArgs -> {
+                    routeFilterArgsMapper.insert(routeFilterArgs);
+                });
+            });
+        }
+        //插入元数据
+        List<RouteMetadata> metadatas = route.getMetadatas();
+        if (!CollectionUtils.isEmpty(metadatas)) {
+            metadatas.forEach(routeMetadata -> {
+                routeMetadataMapper.insert(routeMetadata);
+            });
+        }
+        //插入断言
+        List<RoutePredicate> predicates = route.getPredicates();
+        if (!CollectionUtils.isEmpty(predicates)) {
+            predicates.forEach(routePredicate -> {
+                predicateMapper.insert(routePredicate);
+                List<RoutePredicateArgs> predicateArgs = routePredicate.getPredicateArgs();
+                predicateArgs.forEach(routePredicateArgs -> {
+                    routePredicateArgsMapper.insert(routePredicateArgs);
+                });
+            });
+        }
+        template.opsForValue().set(GATEWAY_ROUTES, JSONObject.toJSONString(routeList()));
+        refresh();
+    }
+
+    /**
+     * 根据ID删除
+     *
+     * @param id
+     */
+    public void deleteRoute(String id) {
+        routeMapper.deleteById(id);
+        template.opsForValue().set(GATEWAY_ROUTES, JSONObject.toJSONString(routeList()));
+        refresh();
+    }
+
+    /**
      * 删除路由
      */
     public void deleteRoute() {
-         template.delete(GATEWAY_ROUTES);
+        routeMapper.delete();
+        template.delete(GATEWAY_ROUTES);
+        refresh();
     }
 
     /**
@@ -75,10 +131,10 @@ public class RouteService {
     public List<Route> routeList() {
         try {
             String routeStr = template.opsForValue().get(GATEWAY_ROUTES);
-            if (!StringUtils.isEmpty(routeStr)){
+            if (!StringUtils.isEmpty(routeStr)) {
                 return JSONObject.parseArray(routeStr, Route.class);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("[gateway] get route from redis error:", e);
         }
         List<Route> routes = routeMapper.selectAll();
@@ -91,7 +147,7 @@ public class RouteService {
         }
         try {
             template.opsForValue().set(GATEWAY_ROUTES, JSONObject.toJSONString(routes));
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("[gateway] set route to redis error:", e);
         }
         return routes;
@@ -130,7 +186,7 @@ public class RouteService {
      */
     private List<RouteFilter> getRouteFilters(String routeId) {
         List<RouteFilter> fileters = routeFilterMapper.selectByRouteId(routeId);
-        if (!CollectionUtils.isEmpty(fileters)){
+        if (!CollectionUtils.isEmpty(fileters)) {
             fileters.stream().forEach(routeFilter -> {
                 routeFilter.setFilterArgs(getRouteFilterArgs(routeFilter.getId()));
             });

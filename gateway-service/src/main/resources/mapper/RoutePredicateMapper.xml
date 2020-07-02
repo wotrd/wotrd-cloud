@@ -36,9 +36,7 @@
     insert into route_predicate (route_id, predicate_name, update_time, 
       create_user, update_user, create_time, 
       deleted)
-    values (#{routeId,jdbcType=VARCHAR}, #{predicateName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{deleted,jdbcType=INTEGER})
+    values (#{routeId}, #{predicateName}, #{updateTime}, #{createUser}, #{updateUser}, #{createTime}, 0)
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RoutePredicate" useGeneratedKeys="true">
     insert into route_predicate

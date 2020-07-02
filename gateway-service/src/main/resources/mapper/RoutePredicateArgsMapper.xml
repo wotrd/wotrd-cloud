@@ -37,9 +37,7 @@
     insert into route_predicate_args (predicate_id, `key`, `value`, 
       update_user, create_user, update_time, 
       create_time, deleted)
-    values (#{predicateId,jdbcType=BIGINT}, #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{updateUser,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
+    values (#{predicateId}, #{key}, #{value}, #{updateUser}, #{createUser}, #{updateTime}, #{createTime}, 0)
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.domain.RoutePredicateArgs">
     update route_predicate_args

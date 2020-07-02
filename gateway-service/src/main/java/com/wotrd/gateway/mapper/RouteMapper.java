@@ -2,6 +2,7 @@ package com.wotrd.gateway.mapper;
 
 import com.wotrd.gateway.domain.Route;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,11 +10,15 @@ import java.util.List;
 @Mapper
 @Repository
 public interface RouteMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(Route record);
+    /**
+     * 根据主键删除
+     * @param id
+     * @return
+     */
+    int deleteById(@Param("id") String id);
 
-    int insertSelective(Route record);
+    int insert(Route route);
 
     Route selectByPrimaryKey(String id);
 
@@ -24,7 +29,11 @@ public interface RouteMapper {
      */
     List<Route> selectAll();
 
-    int updateByPrimaryKey(Route record);
-
+    /**
+     * 删除全部路由
+     *
+     * @return
+     */
+    int delete();
 
 }
