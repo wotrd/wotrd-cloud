@@ -1,4 +1,4 @@
-package com.wotrd.monitorservice;
+package com.wotrd.gateway.mapper;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
