@@ -4,7 +4,7 @@
 ```
 1、feign-service：nacos服务注册发现、redis、kafka、sentinel、elasticsearch
 2、dubbo-service：dubbo服务注册与发现
-3、gateway-service：网关服务
+3、gateway-service：动态网关服务
 4、sharding-jdbc：分库分表中间件  
 5、dynamic-datasource：动态数据源、基于xa使用atomikos实现分布式事物
 6、security：安全服务、认证、授权
