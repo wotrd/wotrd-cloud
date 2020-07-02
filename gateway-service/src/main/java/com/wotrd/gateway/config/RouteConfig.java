@@ -24,7 +24,7 @@ public class RouteConfig {
                 .route("path_route", predicateSpec ->
                         predicateSpec.path("/feign-service")
                                 .uri("http://www.ailijie.top")
-                                .filter(new GlobalGateFilter())
+//                                .filter(new GlobalGateFilter())
                 )
                 .build();
     }

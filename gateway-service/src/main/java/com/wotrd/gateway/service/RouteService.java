@@ -1,7 +1,6 @@
 package com.wotrd.gateway.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.wotrd.gateway.domain.*;
 import com.wotrd.gateway.mapper.*;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName: RouteService
