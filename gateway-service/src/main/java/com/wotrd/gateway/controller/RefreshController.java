@@ -22,13 +22,13 @@ public class RefreshController {
     private RefreshRouteService refreshRouteService;
 
     @RequestMapping("refresh")
-    public void refresh(){
+    public void refresh() {
         eventService.publish();
     }
 
 
     @RequestMapping("refreshRoute")
-    public void refreshRoute(){
+    public void refreshRoute() {
         refreshRouteService.refreshRoute();
     }
 }

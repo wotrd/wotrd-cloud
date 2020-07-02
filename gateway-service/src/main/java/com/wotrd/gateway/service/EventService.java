@@ -18,7 +18,7 @@ public class EventService {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    public void publish(){
+    public void publish() {
         UserDTO userDTO = UserDTO.builder()
                 .password("123")
                 .userName("234")

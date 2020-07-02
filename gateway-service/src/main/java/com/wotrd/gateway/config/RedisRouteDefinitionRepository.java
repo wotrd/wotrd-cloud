@@ -1,6 +1,8 @@
 package com.wotrd.gateway.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
@@ -18,7 +20,7 @@ import java.util.List;
  * @Author: wotrd
  * @Date: 2020/7/1 12:59
  */
-//@Repository
+@Repository
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
     private static final String GATEWAY_ROUTES = "GATEWAY_ROUTES";
@@ -28,9 +30,13 @@ public class RedisRouteDefinitionRepository implements RouteDefinitionRepository
 
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
-        List<RouteDefinition> routeDefinitions = new ArrayList<>();
-        template.opsForHash().values(GATEWAY_ROUTES).stream()
-                .forEach(routeDefinition -> routeDefinitions.add(JSONObject.parseObject(routeDefinition.toString(), RouteDefinition.class)));
+        String json = "{\"filters\":[{\"args\":{\"_genkey_0\":\"header\",\"_genkey_1\":\"addHeader\"},\"name\":\"AddRequestHeader\"},{\"args\":{\"_genkey_0\":\"param\",\"_genkey_1\":\"addParam\"},\"name\":\"AddRequestParameter\"}],\"id\":\"id\",\"metadata\":{},\"order\":0,\"predicates\":[{\"args\":{\"pattern\":\"/jd\"},\"name\":\"Path\"}],\"uri\":\"http://127.0.0.1:8888/header\"}";
+        RouteDefinition routeDefinition = JSONObject.parseObject(json, RouteDefinition.class);
+        List<RouteDefinition> routeDefinitions = Lists.newArrayList(routeDefinition);
+
+//        template.opsForHash().values(GATEWAY_ROUTES).stream()
+//                .forEach(routeDefinition -> routeDefinitions.add(JSONObject.parseObject(routeDefinition.toString(), RouteDefinition.class)));
+
         return Flux.fromIterable(routeDefinitions);
 
     }

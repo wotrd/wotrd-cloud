@@ -20,8 +20,8 @@
 
     <modules>
         <module>feign-service</module>
-        <module>auth-resource</module>
-        <module>authserver-jdbc</module>
+<!--        <module>auth-resource</module>-->
+<!--        <module>authserver-jdbc</module>-->
         <module>sharding-jdbc</module>
         <module>dynamic-datasource</module>
         <module>monitor-service</module>

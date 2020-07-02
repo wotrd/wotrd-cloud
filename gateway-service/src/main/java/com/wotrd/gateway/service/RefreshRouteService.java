@@ -20,7 +20,7 @@ public class RefreshRouteService {
     /**
      * 刷新路由
      */
-    public void  refreshRoute(){
+    public void refreshRoute() {
         publisher.publishEvent(new RefreshRoutesEvent(this));
 
     }

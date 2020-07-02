@@ -14,7 +14,7 @@ import java.util.Collection;
  * @Author: wotrd
  * @Date: 2020/6/29 23:20
  */
-@Configuration
+//@Configuration
 public class RouteConfig {
 
     @Bean

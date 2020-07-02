@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class UserEventListener {
 
     @EventListener(condition = "#userDTO.userName!=null")
-    public void listener(UserDTO userDTO){
+    public void listener(UserDTO userDTO) {
         log.info("接收到事件{}", userDTO);
     }
 
