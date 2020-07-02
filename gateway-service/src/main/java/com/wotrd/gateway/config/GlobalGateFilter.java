@@ -1,6 +1,7 @@
 package com.wotrd.gateway.config;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -19,8 +20,12 @@ import java.nio.charset.StandardCharsets;
  * @Author: wotrd
  * @Date: 2020/6/29 09:43
  */
+@Slf4j
 @Component
 public class GlobalGateFilter implements GlobalFilter, Ordered {
+
+    private static final String ELAPSED_TIME_BEGIN = "elapsedTimeBegin";
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpResponse response = exchange.getResponse();
@@ -45,7 +50,15 @@ public class GlobalGateFilter implements GlobalFilter, Ordered {
             return response.writeWith(Mono.just(buffer));
         }
 
-        return chain.filter(exchange);
+        exchange.getAttributes().put(ELAPSED_TIME_BEGIN, System.currentTimeMillis());
+        return chain.filter(exchange).then(
+                Mono.fromRunnable(() -> {
+                    Long startTime = exchange.getAttribute(ELAPSED_TIME_BEGIN);
+                    if (startTime != null) {
+                        log.info(exchange.getRequest().getURI().getRawPath() + ": " + (System.currentTimeMillis() - startTime) + "ms");
+                    }
+                })
+        );
     }
 
     @Override
