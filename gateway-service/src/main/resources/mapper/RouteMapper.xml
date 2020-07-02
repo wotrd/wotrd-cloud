@@ -23,6 +23,14 @@
     from route
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from route
+    where deleted=0 order by create_time desc
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from route
     where id = #{id,jdbcType=VARCHAR}
@@ -98,39 +106,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.domain.Route">
-    update route
-    <set>
-      <if test="appId != null">
-        app_id = #{appId,jdbcType=INTEGER},
-      </if>
-      <if test="appName != null">
-        app_name = #{appName,jdbcType=VARCHAR},
-      </if>
-      <if test="targetUrl != null">
-        target_url = #{targetUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="order != null">
-        `order` = #{order,jdbcType=INTEGER},
-      </if>
-      <if test="createUser != null">
-        create_user = #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateUser != null">
-        update_user = #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.domain.Route">
     update route
     set app_id = #{appId,jdbcType=INTEGER},

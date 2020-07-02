@@ -2,6 +2,8 @@ package com.wotrd.gateway.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -10,6 +12,9 @@ import lombok.Data;
  */
 @Data
 public class Route implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 主键
      */
@@ -51,5 +56,18 @@ public class Route implements Serializable {
      */
     private Integer deleted;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 元数据列表
+     */
+    List<RouteMetadata> metadatas;
+
+    /**
+     * 过滤器列表
+     */
+    List<RouteFilter> filters;
+
+    /**
+     * 断言列表
+     */
+    List<RoutePredicate> predicates;
 }

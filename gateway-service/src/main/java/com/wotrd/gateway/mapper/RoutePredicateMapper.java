@@ -1,8 +1,13 @@
 package com.wotrd.gateway.mapper;
 
 import com.wotrd.gateway.domain.RoutePredicate;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Mapper
 @Repository
 public interface RoutePredicateMapper {
     int deleteByPrimaryKey(Long id);
@@ -13,7 +18,14 @@ public interface RoutePredicateMapper {
 
     RoutePredicate selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(RoutePredicate record);
+    /**
+     * 根据路由ID查询
+     *
+     * @param routeId
+     * @return
+     */
+    List<RoutePredicate> selectByRouteId(@Param("routeId") String routeId);
 
     int updateByPrimaryKey(RoutePredicate record);
+
 }

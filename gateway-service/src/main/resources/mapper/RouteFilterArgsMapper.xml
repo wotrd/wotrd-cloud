@@ -17,6 +17,13 @@
     from route_filter_args
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByFilterId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from route_filter_args
+    where deleted=0 and filter_id = #{filterId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from route_filter_args
     where id = #{id,jdbcType=BIGINT}
@@ -58,24 +65,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.domain.RouteFilterArgs">
-    update route_filter_args
-    <set>
-      <if test="filterId != null">
-        filter_id = #{filterId,jdbcType=BIGINT},
-      </if>
-      <if test="key != null">
-        `key` = #{key,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null">
-        `value` = #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.domain.RouteFilterArgs">
     update route_filter_args
     set filter_id = #{filterId,jdbcType=BIGINT},

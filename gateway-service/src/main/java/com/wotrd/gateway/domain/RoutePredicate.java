@@ -2,6 +2,8 @@ package com.wotrd.gateway.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -10,6 +12,9 @@ import lombok.Data;
  */
 @Data
 public class RoutePredicate implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private String routeId;
@@ -29,5 +34,9 @@ public class RoutePredicate implements Serializable {
 
     private Integer deleted;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 断言参数列表
+     */
+    private List<RoutePredicateArgs> predicateArgs;
+
 }

@@ -1,10 +1,13 @@
 package com.wotrd.gateway.controller;
 
-import com.wotrd.gateway.service.EventService;
-import com.wotrd.gateway.service.RefreshRouteService;
+import com.wotrd.gateway.domain.Route;
+import com.wotrd.gateway.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @ClassName: RefreshController
@@ -16,19 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class RefreshController {
 
     @Autowired
-    private EventService eventService;
-
-    @Autowired
-    private RefreshRouteService refreshRouteService;
+    private RouteService routeService;
 
     @RequestMapping("refresh")
-    public void refresh() {
-        eventService.publish();
-    }
-
-
-    @RequestMapping("refreshRoute")
     public void refreshRoute() {
-        refreshRouteService.refreshRoute();
+        routeService.refresh();
     }
+
+    @GetMapping("route/list")
+    public List<Route> routeList() {
+        return routeService.routeList();
+    }
+
+    @GetMapping("route/delete")
+    public void deleteRoute() {
+        routeService.deleteRoute();
+    }
+
 }

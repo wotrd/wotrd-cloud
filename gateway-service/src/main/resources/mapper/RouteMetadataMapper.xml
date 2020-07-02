@@ -22,6 +22,13 @@
     from route_metadata
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByRouteId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from route_metadata
+    where deleted=0 and route_id = #{routeId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from route_metadata
     where id = #{id,jdbcType=BIGINT}
@@ -89,36 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.domain.RouteMetadata">
-    update route_metadata
-    <set>
-      <if test="routeId != null">
-        route_id = #{routeId,jdbcType=VARCHAR},
-      </if>
-      <if test="key != null">
-        `key` = #{key,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null">
-        `value` = #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        create_user = #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateUser != null">
-        update_user = #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.domain.RouteMetadata">
     update route_metadata
     set route_id = #{routeId,jdbcType=VARCHAR},

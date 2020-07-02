@@ -22,6 +22,13 @@
     from route_predicate_args
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByPredicateId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from route_predicate_args
+    where deleted = 0 and predicate_id = #{predicateId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from route_predicate_args
     where id = #{id,jdbcType=BIGINT}
@@ -33,61 +40,6 @@
     values (#{predicateId,jdbcType=BIGINT}, #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
       #{updateUser,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RoutePredicateArgs" useGeneratedKeys="true">
-    insert into route_predicate_args
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="predicateId != null">
-        predicate_id,
-      </if>
-      <if test="key != null">
-        `key`,
-      </if>
-      <if test="value != null">
-        `value`,
-      </if>
-      <if test="updateUser != null">
-        update_user,
-      </if>
-      <if test="createUser != null">
-        create_user,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="deleted != null">
-        deleted,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="predicateId != null">
-        #{predicateId,jdbcType=BIGINT},
-      </if>
-      <if test="key != null">
-        #{key,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null">
-        #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deleted != null">
-        #{deleted,jdbcType=INTEGER},
-      </if>
-    </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.domain.RoutePredicateArgs">
     update route_predicate_args

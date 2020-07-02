@@ -1,8 +1,13 @@
 package com.wotrd.gateway.mapper;
 
 import com.wotrd.gateway.domain.RouteMetadata;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Mapper
 @Repository
 public interface RouteMetadataMapper {
     int deleteByPrimaryKey(Long id);
@@ -13,7 +18,14 @@ public interface RouteMetadataMapper {
 
     RouteMetadata selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(RouteMetadata record);
+    /**
+     * 根据路由ID查询元数据列表
+     *
+     * @param routeId
+     * @return
+     */
+    List<RouteMetadata> selectByRouteId(@Param("routeId") String routeId);
 
     int updateByPrimaryKey(RouteMetadata record);
+
 }

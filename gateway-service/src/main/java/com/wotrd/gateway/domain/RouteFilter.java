@@ -1,6 +1,8 @@
 package com.wotrd.gateway.domain;
 
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -9,6 +11,8 @@ import lombok.Data;
  */
 @Data
 public class RouteFilter implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * 主键ID
      */
@@ -26,5 +30,9 @@ public class RouteFilter implements Serializable {
      */
     private Integer deleted;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 过滤器参数集合
+     */
+    private List<RouteFilterArgs> filterArgs;
+
 }

@@ -25,6 +25,7 @@ public class DefinitionDemo {
         RouteDefinition definition = new RouteDefinition();
         definition.setId("id");
         URI uri = UriComponentsBuilder.fromHttpUrl("http://127.0.0.1:8888/header").build().toUri();
+//        URI uri = UriComponentsBuilder.fromPath()
         definition.setUri(uri);
         //定义第一个断言
         PredicateDefinition predicate = new PredicateDefinition();
