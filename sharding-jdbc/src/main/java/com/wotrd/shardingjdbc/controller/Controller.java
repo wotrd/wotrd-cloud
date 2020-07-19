@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("sharding")
 @RestController
-public class ShardingController {
+public class Controller {
 
     @Autowired
     private OrderService orderService;
