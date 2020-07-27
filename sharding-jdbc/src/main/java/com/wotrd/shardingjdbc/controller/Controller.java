@@ -1,19 +1,28 @@
 package com.wotrd.shardingjdbc.controller;
 
+import com.wotrd.shardingjdbc.domain.Config;
 import com.wotrd.shardingjdbc.domain.Order;
+import com.wotrd.shardingjdbc.mapper.ConfigMapper;
 import com.wotrd.shardingjdbc.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
+
+@Slf4j
 @RequestMapping("sharding")
 @RestController
 public class Controller {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ConfigMapper configMapper;
 
     @RequestMapping
     public String helloShardin() {
@@ -25,13 +34,15 @@ public class Controller {
     public void insert(@RequestParam Integer orderId, @RequestParam Integer userId) {
         Order order = Order.builder()
                 .orderId(orderId).userId(userId).build();
-
         orderService.insert(order);
     }
+
 
     @RequestMapping("queryAll")
     public void findAll() {
         orderService.findAll();
+        List<Config> configs = configMapper.selectAll();
+        log.info("configs{}", configs);
     }
 
     @RequestMapping("getById")

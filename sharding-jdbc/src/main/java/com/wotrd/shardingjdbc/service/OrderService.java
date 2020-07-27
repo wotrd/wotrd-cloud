@@ -20,9 +20,7 @@ public class OrderService {
 
     @Transactional
     public void insert(Order order) {
-
         orderMapper.insert(order);
-
         Long id = order.getId();
         log.info("Generated Key--id:" + id);
     }
@@ -31,7 +29,7 @@ public class OrderService {
     public void findAll() {
         List<Order> orders = orderMapper.queryAll();
         log.info("user:{}", orders);
-        log.info("user:{}",orders.size());
+        log.info("user:{}", orders.size());
     }
 
 
@@ -46,7 +44,7 @@ public class OrderService {
         log.info("user:{}", orders);
     }
 
-    public void deleteById( Long id) {
+    public void deleteById(Long id) {
         orderMapper.deleteById(id);
         log.info("user:{}", id);
     }

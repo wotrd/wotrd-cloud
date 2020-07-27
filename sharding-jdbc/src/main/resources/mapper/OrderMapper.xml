@@ -32,8 +32,8 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into order(user_id, order_id)
+    <insert id="insert">
+        insert into order (user_id, order_id)
         values (#{userId}, #{orderId})
     </insert>
 
