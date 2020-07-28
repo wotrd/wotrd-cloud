@@ -1,5 +1,5 @@
 # nacos-test
-基于nacos的微服务框架  
+基于nacos的微服务框架、集成认证授权、动态网关、分库分表、dubbo开箱即用。
 
 ```
 1、feign-service：nacos服务注册发现、redis、kafka、sentinel、elasticsearch
@@ -7,20 +7,21 @@
 3、gateway-service：动态网关服务
 4、sharding-jdbc：分库分表中间件  
 5、dynamic-datasource：动态数据源、基于xa使用atomikos实现分布式事物
-6、security：安全服务、认证、授权
+6、auth-server：认证授权服务
+7、resource-server：资源服务
 ```
 
 # quick start  
 1. git clone https://github.com/wotrd/nacos-test.git  
 2. cd nacos-test  
-3. mvn clean package  
+3. mvn clean package 
 
 # 注意事项  
 1、版本问题：   
 ```版本不对可能出现问题,需要设置依赖管理dependencyManagement便于版本升级和降级```  
 ```请参照 https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/版本说明```   
 2、配置中心：  
-```在代码中使用配置中心需要加@RefreshScop注解刷新，数据库配置不需要，bootstrap文件为加载外不配置，优先级高，并且不被覆盖```  
+```在代码中使用配置中心需要加@RefreshScop注解刷新，数据库配置不需要，bootstrap文件为加载外部配置，优先级高，并且不被覆盖```  
 3、服务降级和断路：  
 ```使用sentinel设置限流和降级处理，需要单独部署sentinel-dashboard面板监控。```  
 ```使用feign和sentinel需要在配置文件中开启 feign.sentinel.enabled=true 不然fallback断路不生效```   
