@@ -2,6 +2,7 @@ package com.wotrd.springsecurity.service.impl;
 
 import com.wotrd.springsecurity.mapper.UserMapper;
 import com.wotrd.springsecurity.model.UserDO;
+import com.wotrd.springsecurity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +20,7 @@ import java.util.Collection;
  * @Date: 2020/5/3 13:20
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserMapper userMapper;

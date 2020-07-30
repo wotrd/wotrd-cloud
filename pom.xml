@@ -25,6 +25,7 @@
         <module>monitor-service</module>
         <module>gateway-service</module>
         <module>dubbo-service</module>
+        <module>spring-security</module>
         <module>auth-server</module>
         <module>resource-server</module>
     </modules>
