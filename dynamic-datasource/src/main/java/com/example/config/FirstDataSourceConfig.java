@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
 import com.mysql.cj.jdbc.MysqlXADataSource;
@@ -49,16 +50,21 @@ public class FirstDataSourceConfig {
      */
     @Bean(name = "firstDataSource")
     @Primary
-    public AtomikosDataSourceBean firstDataSource() {
-        MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
-        mysqlXADataSource.setUrl(jdbcUrl);
-        mysqlXADataSource.setServerName(username);
-        mysqlXADataSource.setPassword(password);
-
-        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(mysqlXADataSource);
-        xaDataSource.setUniqueResourceName("firstDataSource");
-        return xaDataSource;
+    public DataSource firstDataSource() {
+//        MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
+//        mysqlXADataSource.setUrl(jdbcUrl);
+//        mysqlXADataSource.setServerName(username);
+//        mysqlXADataSource.setPassword(password);
+//
+//        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+//        xaDataSource.setXaDataSource(mysqlXADataSource);
+//        xaDataSource.setUniqueResourceName("firstDataSource");
+//        return xaDataSource;
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        return dataSource;
     }
 
     @Bean
@@ -68,7 +74,7 @@ public class FirstDataSourceConfig {
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath*:mapper/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath*:mapper/first/*.xml"));
             return bean.getObject();
         } catch (Exception e) {
             log.error(e.getMessage(), e);

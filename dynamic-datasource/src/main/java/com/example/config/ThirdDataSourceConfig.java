@@ -2,7 +2,6 @@ package com.example.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.xa.DruidXADataSource;
-import com.mysql.cj.jdbc.MysqlXADataSource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -26,9 +25,9 @@ import java.sql.SQLException;
 @Slf4j
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "second.datasource")
-@MapperScan(basePackages = {"com.example.second.mapper"}, sqlSessionTemplateRef = "secondSqlSessionTemplate")
-public class SecondDataSourceConfig {
+@ConfigurationProperties(prefix = "third.datasource")
+@MapperScan(basePackages = {"com.example.third.mapper"}, sqlSessionTemplateRef = "thirdSqlSessionTemplate")
+public class ThirdDataSourceConfig {
 
     private String driverClassName;
 
@@ -41,8 +40,8 @@ public class SecondDataSourceConfig {
     /**
      * prefix值必须是application.properteis中对应属性的前缀
      */
-    @Bean(name = "secondDataSource")
-    public DataSource secondDataSource() throws SQLException {
+    @Bean(name = "thirdDataSource")
+    public DataSource thirdDataSource() throws SQLException {
 //        DruidXADataSource druidXADataSource = new DruidXADataSource();
 //        druidXADataSource.setUrl(jdbcUrl);
 //        druidXADataSource.setUsername(username);
@@ -50,7 +49,8 @@ public class SecondDataSourceConfig {
 //
 //        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
 //        xaDataSource.setXaDataSource(druidXADataSource);
-//        xaDataSource.setUniqueResourceName("secondDataSource");
+//        xaDataSource.setUniqueResourceName("thirdDataSource");
+//        return xaDataSource;
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(jdbcUrl);
         dataSource.setUsername(username);
@@ -59,13 +59,13 @@ public class SecondDataSourceConfig {
     }
 
     @Bean
-    public SqlSessionFactory secondSqlSessionFactory(@Qualifier("secondDataSource") DataSource dataSource) {
+    public SqlSessionFactory thirdSqlSessionFactory(@Qualifier("thirdDataSource") DataSource dataSource) {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath*:mapper/second/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath*:mapper/third/*.xml"));
             return bean.getObject();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -74,7 +74,7 @@ public class SecondDataSourceConfig {
     }
 
     @Bean
-    public SqlSessionTemplate secondSqlSessionTemplate(@Qualifier("secondSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+    public SqlSessionTemplate thirdSqlSessionTemplate(@Qualifier("thirdSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         // 使用上面配置的Factory
         SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactory);
         return template;

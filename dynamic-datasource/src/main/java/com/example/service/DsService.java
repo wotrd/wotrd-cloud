@@ -11,4 +11,6 @@ public interface DsService {
 
     void update(Long count, Long id);
 
+    void transfer();
+
 }

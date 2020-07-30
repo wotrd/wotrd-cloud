@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.service.DsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,13 @@ public class DsController {
 
     @Autowired
     private DsService dsService;
+
+    @GetMapping("transfer")
+    public String transfer(){
+        dsService.transfer();
+        return "success";
+    }
+
 
     @RequestMapping("get")
     public String get(Long id){
