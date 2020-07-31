@@ -13,7 +13,7 @@ public class TbPermissionService {
     @Autowired
     private TbPermissionMapper permissionMapper;
 
-    public List<TbPermission> getByUserid(Long userId){
+    public List<TbPermission> getByUserid(Long userId) {
 
         return permissionMapper.queryByUserid(userId);
 

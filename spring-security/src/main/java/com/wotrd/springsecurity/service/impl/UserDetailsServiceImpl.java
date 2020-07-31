@@ -20,7 +20,7 @@ import java.util.Collection;
  * @Date: 2020/5/3 13:20
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService, UserService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserMapper userMapper;

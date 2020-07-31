@@ -2,14 +2,18 @@ package com.wotrd.springsecurity.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.stream.Collectors;
+
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * tb_user
- * @author 
+ * UserDO
+ *
+ * @author
  */
 @Data
 public class UserDO implements Serializable, UserDetails {
@@ -49,7 +53,7 @@ public class UserDO implements Serializable, UserDetails {
     private Date updateTime;
 
     /**
-     * 是否删除（1删除0未删除）
+     * 是否删除（1删除 0未删除）
      */
     private Integer removed;
 
@@ -57,7 +61,7 @@ public class UserDO implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getAuthorities();
+        return Collections.EMPTY_LIST;
     }
 
     @Override
