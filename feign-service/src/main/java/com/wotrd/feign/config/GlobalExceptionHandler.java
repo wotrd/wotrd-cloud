@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
     /**
      * 全局异常捕捉处理
      * @param e
