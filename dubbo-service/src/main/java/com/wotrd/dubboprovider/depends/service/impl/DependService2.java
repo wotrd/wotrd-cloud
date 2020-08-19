@@ -1,6 +1,6 @@
 package com.wotrd.dubboprovider.depends.service.impl;
 
-import com.example.springbootwebdemo.depends.service.IDependService;
+import com.wotrd.dubboprovider.depends.service.IDependService;
 import org.springframework.stereotype.Service;
 
 @Service("002DependService")

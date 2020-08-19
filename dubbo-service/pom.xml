@@ -57,7 +57,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
         <!--qrcode-->
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -68,7 +67,8 @@
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>2.1</version>
-        </dependency>        <!--qrcode-->
+        </dependency>
+        <!--qrcode-->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
