@@ -2,7 +2,10 @@ package com.example.first.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.example.third.mapper.NoteRecordScopeMapper;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * sh_learn_garden_report_album
@@ -148,6 +151,11 @@ public class ShLearnGardenReportAlbum implements Serializable {
      * 用户openid
      */
     private String xyhOpenId;
+
+    /**
+     * userId
+     */
+    private String userId;
 
     private static final long serialVersionUID = 1L;
 }

@@ -1,9 +1,10 @@
 package com.example.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.first.domain.*;
 import com.example.first.mapper.*;
+import com.example.four.domain.TUser;
+import com.example.four.mapper.TUserMapper;
 import com.example.second.domain.Interaction;
 import com.example.second.mapper.InteractionMapper;
 import com.example.second.mapper.SecondMapper;
@@ -58,20 +59,38 @@ public class DsServiceImpl implements DsService {
     //发布记录可见范围表
     @Autowired
     private NoteRecordScopeMapper recordScopeMapper;
+    @Autowired
+    private TUserMapper userMapper;
 
     private static final String SUBJECT_NO = "287298822151999488";
+
+    /**
+     * 查询用户
+     *
+     * @param orgId
+     * @param userName
+     * @return
+     */
+    private TUser getUser(String orgId, String userName){
+        return userMapper.selectByOrgIdAndUserName(orgId, userName);
+    }
 
     @Override
     public void transfer() {
         log.info("迁移老数据开始");
         //查询班级项目全部记录
         List<ShLearnGardenReportAlbum> list = reportAlbumMapper.selectAll();
+
         //遍历全部列表封装对象
         list.forEach(reportAlbum -> {
-            //
-            reportAlbum.setUserOrgId("330108-S000067");
+            log.info("reportAlbum id :{}", reportAlbum.getPkId());
             if (null != reportAlbum.getUserOrgId()) {
-
+                TUser user = getUser(reportAlbum.getUserOrgId(), reportAlbum.getCreateWxUserName());
+                if (null!= user){
+                    reportAlbum.setUserId(user.getId());
+                }else {
+                    reportAlbum.setUserId(reportAlbum.getCreateWxUserName());
+                }
                 NoteRecord noteRecord = recordMapper.selectById(reportAlbum.getPkId() + "");
                 //笔记记录对象
                 if (null != noteRecord) {
@@ -163,14 +182,14 @@ public class DsServiceImpl implements DsService {
         List<ShLearnGardenReportDept> reportDepts = reportDeptMapper.selectByPkId(reportAlbum.getPkId());
         reportDepts.forEach(reportDept -> {
             NoteRecordScope recordScope = NoteRecordScope.builder()
-                    .createUser(reportAlbum.getCreateWxUserId())
+                    .createUser(reportAlbum.getUserId())
                     .deleted(false)
-                    .deptId(null == reportDept.getDeptId() ? "" : reportDept.getDeptId())
+                    .deptId(reportDept.getDeptId())
                     .deptName(null == reportDept.getDeptName() ? "" : reportDept.getDeptName())
                     .gmtCreate(reportAlbum.getCreateDate())
                     .gmtModify(reportAlbum.getCreateDate())
                     .id(getId())
-                    .modifyUser(reportAlbum.getCreateWxUserId())
+                    .modifyUser(reportAlbum.getUserId())
                     .orgId(null == reportAlbum.getUserOrgId() ? "" : reportAlbum.getUserOrgId())
                     .recordId(reportAlbum.getPkId() + "")
                     .version(1)
@@ -191,13 +210,13 @@ public class DsServiceImpl implements DsService {
         reportPhotos.forEach(reportPhoto -> {
             //插入附件文件
             NoteRecordFile recordFile = NoteRecordFile.builder()
-                    .content("")
-                    .createUser(null == reportAlbum.getCreateUserCard() ? "" : reportAlbum.getCreateUserCard())
+                    .content(reportPhoto.getPhotoUrl())
+                    .createUser(reportAlbum.getUserId())
                     .deleted(false)
                     .gmtCreate(reportAlbum.getCreateDate())
                     .gmtModify(reportAlbum.getCreateDate())
                     .id(getId())
-                    .modifyUser(null == reportAlbum.getCreateUserCard() ? "" : reportAlbum.getCreateUserCard())
+                    .modifyUser(reportAlbum.getUserId())
                     .orgId(null == reportAlbum.getUserOrgId() ? "" : reportAlbum.getUserOrgId())
                     .recordId(reportPhoto.getAlbumPk() + "")
                     .type(1)
@@ -218,13 +237,13 @@ public class DsServiceImpl implements DsService {
         try {
             NoteRecord noteRecord = NoteRecord.builder()
                     .content(reportAlbum.getAlbumDesc())
-                    .createUser(null == reportAlbum.getCreateUserCard() ? "" : reportAlbum.getCreateUserCard())
+                    .createUser(reportAlbum.getUserId())
                     .deleted(false)
-                    .deptId(reportAlbum.getXyhDeptIdArr())
-                    .deptName(null == reportAlbum.getQueryDeptNameArr() ? "" : reportAlbum.getQueryDeptNameArr())
+                    .deptId(reportAlbum.getUserOrgId())
+                    .deptName("")
                     .gmtCreate(reportAlbum.getCreateDate())
                     .gmtModify(reportAlbum.getCreateDate())
-                    .modifyUser(null == reportAlbum.getCreateUserCard() ? "" : reportAlbum.getCreateUserCard())
+                    .modifyUser(reportAlbum.getUserId())
                     .orgId(null == reportAlbum.getUserOrgId() ? "" : reportAlbum.getUserOrgId())
                     .scopeType(0)
                     .userImage(reportAlbum.getCreateHeadImgUrl())
@@ -236,13 +255,13 @@ public class DsServiceImpl implements DsService {
         } catch (Exception e) {
             NoteRecord noteRecord = NoteRecord.builder()
                     .content("")
-                    .createUser(null == reportAlbum.getCreateUserCard() ? "" : reportAlbum.getCreateUserCard())
+                    .createUser(reportAlbum.getUserId())
                     .deleted(false)
                     .deptId(reportAlbum.getXyhDeptIdArr())
                     .deptName(null == reportAlbum.getQueryDeptNameArr() ? "" : reportAlbum.getQueryDeptNameArr())
                     .gmtCreate(reportAlbum.getCreateDate())
                     .gmtModify(reportAlbum.getCreateDate())
-                    .modifyUser(null == reportAlbum.getCreateUserCard() ? "" : reportAlbum.getCreateUserCard())
+                    .modifyUser(reportAlbum.getUserId())
                     .orgId(null == reportAlbum.getUserOrgId() ? "" : reportAlbum.getUserOrgId())
                     .scopeType(0)
                     .userImage(reportAlbum.getCreateHeadImgUrl())

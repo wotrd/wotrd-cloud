@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.four.domain.TUser;
+import com.example.four.mapper.TUserMapper;
 import com.example.service.DsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +17,15 @@ public class DsController {
     @Autowired
     private DsService dsService;
 
+    @Autowired
+    private TUserMapper userMapper;
+
     @GetMapping("transfer")
     public String transfer(){
         dsService.transfer();
+//        TUser tUser = userMapper.selectByOrgIdAndUserName("yxt_05700081", "傅佳翎");
+
+
         return "success";
     }
 

@@ -49,7 +49,7 @@
     select
     <include refid="Base_Column_List" />
     from sh_learn_garden_report_album
-    where status=0
+    where status=0 and user_org_id='330103-S000021' limit 10
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

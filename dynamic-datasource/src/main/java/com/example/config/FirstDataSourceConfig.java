@@ -3,7 +3,6 @@ package com.example.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
-import com.mysql.cj.jdbc.MysqlXADataSource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
