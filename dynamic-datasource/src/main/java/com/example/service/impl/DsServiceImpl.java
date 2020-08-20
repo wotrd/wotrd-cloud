@@ -62,7 +62,7 @@ public class DsServiceImpl implements DsService {
     @Autowired
     private TUserMapper userMapper;
 
-    private static final String SUBJECT_NO = "287298822151999488";
+    private static final String SUBJECT_NO = "240184911976770893";
 
     /**
      * 查询用户
@@ -138,7 +138,7 @@ public class DsServiceImpl implements DsService {
                                 .gmtModify(reportAlbum.getCreateDate())
                                 .interactionNo(SnowFlake.nextSIdStr())
                                 .isDelete(false)
-                                .momentId(reportAccess.getPkId() + "")
+                                .momentId(reportAccess.getAblumPk() + "")
                                 .orgId(null == reportAlbum.getUserOrgId() ? "" : reportAlbum.getUserOrgId())
                                 .read(false)
                                 .type("COLLECT")
@@ -156,7 +156,7 @@ public class DsServiceImpl implements DsService {
                                 .gmtModify(reportAlbum.getCreateDate())
                                 .interactionNo(SnowFlake.nextSIdStr())
                                 .isDelete(false)
-                                .momentId(reportAccess.getPkId() + "")
+                                .momentId(reportAccess.getAblumPk() + "")
                                 .orgId(null == reportAlbum.getUserOrgId() ? "" : reportAlbum.getUserOrgId())
                                 .read(false)
                                 .type("LIKE")
@@ -251,6 +251,7 @@ public class DsServiceImpl implements DsService {
                     .version(1)
                     .id(reportAlbum.getPkId() + "")
                     .build();
+            noteRecord.setType(1);
             recordMapper.insert(noteRecord);
         } catch (Exception e) {
             NoteRecord noteRecord = NoteRecord.builder()
@@ -269,6 +270,7 @@ public class DsServiceImpl implements DsService {
                     .version(1)
                     .id(reportAlbum.getPkId() + "")
                     .build();
+            noteRecord.setType(1);
             recordMapper.insert(noteRecord);
         }
 

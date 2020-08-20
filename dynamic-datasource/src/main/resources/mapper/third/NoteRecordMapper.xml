@@ -16,10 +16,11 @@
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
     <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
     <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
   <sql id="Base_Column_List">
     id, org_id, content, user_name, user_image, dept_id, dept_name, scope_type, deleted, 
-    gmt_create, create_user, gmt_modify, modify_user, version
+    gmt_create, create_user, gmt_modify, modify_user, version, `type`
   </sql>
   <select id="selectById" resultMap="BaseResultMap">
     select 
@@ -40,9 +41,9 @@
   </delete>
   <insert id="insert">
     insert into note_record (id, org_id, content, user_name, user_image, dept_id, dept_name,
-      scope_type, deleted, gmt_create, create_user, gmt_modify, modify_user,  version)
+      scope_type, deleted, gmt_create, create_user, gmt_modify, modify_user,  version, `type`)
     values (#{id}, #{orgId}, #{content}, #{userName}, #{userImage}, #{deptId}, #{deptName},
-      #{scopeType}, #{deleted}, #{gmtCreate}, #{createUser}, #{gmtModify}, #{modifyUser}, #{version})
+      #{scopeType}, #{deleted}, #{gmtCreate}, #{createUser}, #{gmtModify}, #{modifyUser}, #{version}, #{type})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.third.domain.NoteRecord" useGeneratedKeys="true">
     insert into note_record

@@ -86,6 +86,10 @@ public class NoteRecord implements Serializable {
      * 版本号
      */
     private Integer version;
+    /**
+     * 版本号
+     */
+    private Integer type;
 
     private static final long serialVersionUID = 1L;
 }
