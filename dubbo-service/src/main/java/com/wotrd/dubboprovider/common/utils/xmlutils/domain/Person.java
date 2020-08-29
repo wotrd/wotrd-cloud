@@ -1,17 +1,19 @@
-package com.wotrd.dubboprovider.common.xmlutils.domain;
+package com.wotrd.dubboprovider.common.utils.xmlutils.domain;
 
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 
-@Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "persons")
-public class PersonList {
+@XmlRootElement(name = "person")
+@Data
+public class Person {
 
-    private ArrayList<Person> person;
+    private Long id;
 
+    private String name;
+
+    private int age;
 }

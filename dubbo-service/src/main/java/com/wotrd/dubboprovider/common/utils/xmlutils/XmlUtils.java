@@ -1,9 +1,9 @@
-package com.wotrd.dubboprovider.common.xmlutils;
+package com.wotrd.dubboprovider.common.utils.xmlutils;
 
 
 
-import com.wotrd.dubboprovider.common.xmlutils.domain.Person;
-import com.wotrd.dubboprovider.common.xmlutils.domain.PersonList;
+import com.wotrd.dubboprovider.common.utils.xmlutils.domain.Person;
+import com.wotrd.dubboprovider.common.utils.xmlutils.domain.PersonList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;

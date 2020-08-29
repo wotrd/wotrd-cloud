@@ -36,8 +36,8 @@ public class OkHttp3Utils {
 
     static {
         client = new OkHttpClient.Builder()
-                .readTimeout(120L, TimeUnit.SECONDS)
-                .connectTimeout(120L, TimeUnit.SECONDS)
+                .readTimeout(20L, TimeUnit.SECONDS)
+                .connectTimeout(20L, TimeUnit.SECONDS)
                 .build();
     }
 
