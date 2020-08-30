@@ -1,18 +1,18 @@
-# nacos-test
-基于nacos的微服务框架、集成认证授权、动态网关、分库分表、dubbo开箱即用。
+# wotrd-cloud
+基于nacos的spring cloud微服务框架、集成认证授权、动态网关、分库分表、dubbo开箱即用。
 
 ```
 1、feign-service：nacos服务注册发现、redis、kafka、sentinel、elasticsearch
 2、dubbo-service：dubbo服务注册与发现（添加百度富文本ueditor）
 3、gateway-service：动态网关服务
 4、sharding-jdbc：分库分表中间件  
-5、dynamic-datasource：动态数据源、基于xa使用atomikos实现分布式事物
+5、wotrd-dynamic-datasource：动态数据源、基于xa使用atomikos实现分布式事物
 6、auth-server：认证授权服务
 7、resource-server：资源服务
 ```
 
 # quick start  
-1. git clone https://github.com/wotrd/nacos-test.git  
+1. git clone https://github.com/wotrd/wotrd-cloud.git
 2. cd nacos-test  
 3. mvn clean package 
 
