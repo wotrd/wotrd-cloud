@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.dydatasource.first.mapper.ShLearnGardenReportCommentMapper">
+  <resultMap id="BaseResultMap" type="com.wotrd.dydatasource.first.domain.ShLearnGardenReportComment">
+    <id column="pk_id" jdbcType="BIGINT" property="pkId" />
+    <result column="album_pk" jdbcType="BIGINT" property="albumPk" />
+    <result column="wx_corp_id" jdbcType="VARCHAR" property="wxCorpId" />
+    <result column="comment_user_id" jdbcType="VARCHAR" property="commentUserId" />
+    <result column="comment_user_name" jdbcType="VARCHAR" property="commentUserName" />
+    <result column="comment_head_img_url" jdbcType="VARCHAR" property="commentHeadImgUrl" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="comment_date" jdbcType="TIMESTAMP" property="commentDate" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="reply_pk" jdbcType="BIGINT" property="replyPk" />
+    <result column="reply_user_name" jdbcType="VARCHAR" property="replyUserName" />
+    <result column="reply_user_id" jdbcType="VARCHAR" property="replyUserId" />
+    <result column="user_org_id" jdbcType="VARCHAR" property="userOrgId" />
+    <result column="xyh_open_id" jdbcType="VARCHAR" property="xyhOpenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk_id, album_pk, wx_corp_id, comment_user_id, comment_user_name, comment_head_img_url, 
+    comment_content, comment_date, `status`, reply_pk, reply_user_name, reply_user_id, 
+    user_org_id, xyh_open_id
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sh_learn_garden_report_comment
+    where album_pk = #{pkId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sh_learn_garden_report_comment
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="pk_id" keyProperty="pkId" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportComment" useGeneratedKeys="true">
+    insert into sh_learn_garden_report_comment (album_pk, wx_corp_id, comment_user_id, 
+      comment_user_name, comment_head_img_url, comment_content, 
+      comment_date, `status`, reply_pk, 
+      reply_user_name, reply_user_id, user_org_id, 
+      xyh_open_id)
+    values (#{albumPk,jdbcType=BIGINT}, #{wxCorpId,jdbcType=VARCHAR}, #{commentUserId,jdbcType=VARCHAR}, 
+      #{commentUserName,jdbcType=VARCHAR}, #{commentHeadImgUrl,jdbcType=VARCHAR}, #{commentContent,jdbcType=VARCHAR}, 
+      #{commentDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{replyPk,jdbcType=BIGINT}, 
+      #{replyUserName,jdbcType=VARCHAR}, #{replyUserId,jdbcType=VARCHAR}, #{userOrgId,jdbcType=VARCHAR}, 
+      #{xyhOpenId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="pk_id" keyProperty="pkId" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportComment" useGeneratedKeys="true">
+    insert into sh_learn_garden_report_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="albumPk != null">
+        album_pk,
+      </if>
+      <if test="wxCorpId != null">
+        wx_corp_id,
+      </if>
+      <if test="commentUserId != null">
+        comment_user_id,
+      </if>
+      <if test="commentUserName != null">
+        comment_user_name,
+      </if>
+      <if test="commentHeadImgUrl != null">
+        comment_head_img_url,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="commentDate != null">
+        comment_date,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="replyPk != null">
+        reply_pk,
+      </if>
+      <if test="replyUserName != null">
+        reply_user_name,
+      </if>
+      <if test="replyUserId != null">
+        reply_user_id,
+      </if>
+      <if test="userOrgId != null">
+        user_org_id,
+      </if>
+      <if test="xyhOpenId != null">
+        xyh_open_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="albumPk != null">
+        #{albumPk,jdbcType=BIGINT},
+      </if>
+      <if test="wxCorpId != null">
+        #{wxCorpId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserId != null">
+        #{commentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserName != null">
+        #{commentUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentHeadImgUrl != null">
+        #{commentHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null">
+        #{commentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="replyPk != null">
+        #{replyPk,jdbcType=BIGINT},
+      </if>
+      <if test="replyUserName != null">
+        #{replyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserId != null">
+        #{replyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrgId != null">
+        #{userOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="xyhOpenId != null">
+        #{xyhOpenId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportComment">
+    update sh_learn_garden_report_comment
+    <set>
+      <if test="albumPk != null">
+        album_pk = #{albumPk,jdbcType=BIGINT},
+      </if>
+      <if test="wxCorpId != null">
+        wx_corp_id = #{wxCorpId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserId != null">
+        comment_user_id = #{commentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserName != null">
+        comment_user_name = #{commentUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentHeadImgUrl != null">
+        comment_head_img_url = #{commentHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null">
+        comment_date = #{commentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="replyPk != null">
+        reply_pk = #{replyPk,jdbcType=BIGINT},
+      </if>
+      <if test="replyUserName != null">
+        reply_user_name = #{replyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserId != null">
+        reply_user_id = #{replyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrgId != null">
+        user_org_id = #{userOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="xyhOpenId != null">
+        xyh_open_id = #{xyhOpenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportComment">
+    update sh_learn_garden_report_comment
+    set album_pk = #{albumPk,jdbcType=BIGINT},
+      wx_corp_id = #{wxCorpId,jdbcType=VARCHAR},
+      comment_user_id = #{commentUserId,jdbcType=VARCHAR},
+      comment_user_name = #{commentUserName,jdbcType=VARCHAR},
+      comment_head_img_url = #{commentHeadImgUrl,jdbcType=VARCHAR},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_date = #{commentDate,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=VARCHAR},
+      reply_pk = #{replyPk,jdbcType=BIGINT},
+      reply_user_name = #{replyUserName,jdbcType=VARCHAR},
+      reply_user_id = #{replyUserId,jdbcType=VARCHAR},
+      user_org_id = #{userOrgId,jdbcType=VARCHAR},
+      xyh_open_id = #{xyhOpenId,jdbcType=VARCHAR}
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+</mapper>

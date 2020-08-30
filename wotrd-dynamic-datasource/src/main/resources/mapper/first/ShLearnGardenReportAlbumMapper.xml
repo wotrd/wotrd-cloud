@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.dydatasource.first.mapper.ShLearnGardenReportAlbumMapper">
+  <resultMap id="BaseResultMap" type="com.wotrd.dydatasource.first.domain.ShLearnGardenReportAlbum">
+    <id column="pk_id" jdbcType="BIGINT" property="pkId" />
+    <result column="album_type" jdbcType="VARCHAR" property="albumType" />
+    <result column="album_desc" jdbcType="VARCHAR" property="albumDesc" />
+    <result column="wx_corp_id" jdbcType="VARCHAR" property="wxCorpId" />
+    <result column="crop_type" jdbcType="VARCHAR" property="cropType" />
+    <result column="create_wx_user_id" jdbcType="VARCHAR" property="createWxUserId" />
+    <result column="create_wx_user_name" jdbcType="VARCHAR" property="createWxUserName" />
+    <result column="create_head_img_url" jdbcType="VARCHAR" property="createHeadImgUrl" />
+    <result column="child_album_pk_arr" jdbcType="VARCHAR" property="childAlbumPkArr" />
+    <result column="report_pk_arr" jdbcType="VARCHAR" property="reportPkArr" />
+    <result column="query_dept_name_arr" jdbcType="VARCHAR" property="queryDeptNameArr" />
+    <result column="create_user_name_arr" jdbcType="VARCHAR" property="createUserNameArr" />
+    <result column="create_user_card" jdbcType="VARCHAR" property="createUserCard" />
+    <result column="upload_status" jdbcType="VARCHAR" property="uploadStatus" />
+    <result column="report_no" jdbcType="VARCHAR" property="reportNo" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="is_private" jdbcType="VARCHAR" property="isPrivate" />
+    <result column="note_type_code" jdbcType="VARCHAR" property="noteTypeCode" />
+    <result column="note_type_name" jdbcType="VARCHAR" property="noteTypeName" />
+    <result column="praise_num" jdbcType="INTEGER" property="praiseNum" />
+    <result column="praise_info" jdbcType="VARCHAR" property="praiseInfo" />
+    <result column="report_memo" jdbcType="VARCHAR" property="reportMemo" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
+    <result column="coment_info" jdbcType="VARCHAR" property="comentInfo" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="query_dept_id_arr" jdbcType="VARCHAR" property="queryDeptIdArr" />
+    <result column="xyh_dept_id_arr" jdbcType="VARCHAR" property="xyhDeptIdArr" />
+    <result column="user_org_id" jdbcType="VARCHAR" property="userOrgId" />
+    <result column="xyh_open_id" jdbcType="VARCHAR" property="xyhOpenId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk_id, album_type, album_desc, wx_corp_id, crop_type, create_wx_user_id, create_wx_user_name, 
+    create_head_img_url, child_album_pk_arr, report_pk_arr, query_dept_name_arr, create_user_name_arr, 
+    create_user_card, upload_status, report_no, `status`, is_private, note_type_code, 
+    note_type_name, praise_num, praise_info, report_memo, comment_num, coment_info, create_date, 
+    query_dept_id_arr, xyh_dept_id_arr, user_org_id, xyh_open_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sh_learn_garden_report_album
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sh_learn_garden_report_album
+    where status=0 and user_org_id='330103-S000021' order by pk_id desc limit 10
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sh_learn_garden_report_album
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="pk_id" keyProperty="pkId" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportAlbum" useGeneratedKeys="true">
+    insert into sh_learn_garden_report_album (album_type, album_desc, wx_corp_id, 
+      crop_type, create_wx_user_id, create_wx_user_name, 
+      create_head_img_url, child_album_pk_arr, report_pk_arr, 
+      query_dept_name_arr, create_user_name_arr, create_user_card, 
+      upload_status, report_no, `status`, 
+      is_private, note_type_code, note_type_name, 
+      praise_num, praise_info, report_memo, 
+      comment_num, coment_info, create_date, 
+      query_dept_id_arr, xyh_dept_id_arr, user_org_id, 
+      xyh_open_id)
+    values (#{albumType,jdbcType=VARCHAR}, #{albumDesc,jdbcType=VARCHAR}, #{wxCorpId,jdbcType=VARCHAR}, 
+      #{cropType,jdbcType=VARCHAR}, #{createWxUserId,jdbcType=VARCHAR}, #{createWxUserName,jdbcType=VARCHAR}, 
+      #{createHeadImgUrl,jdbcType=VARCHAR}, #{childAlbumPkArr,jdbcType=VARCHAR}, #{reportPkArr,jdbcType=VARCHAR}, 
+      #{queryDeptNameArr,jdbcType=VARCHAR}, #{createUserNameArr,jdbcType=VARCHAR}, #{createUserCard,jdbcType=VARCHAR}, 
+      #{uploadStatus,jdbcType=VARCHAR}, #{reportNo,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{isPrivate,jdbcType=VARCHAR}, #{noteTypeCode,jdbcType=VARCHAR}, #{noteTypeName,jdbcType=VARCHAR}, 
+      #{praiseNum,jdbcType=INTEGER}, #{praiseInfo,jdbcType=VARCHAR}, #{reportMemo,jdbcType=VARCHAR}, 
+      #{commentNum,jdbcType=INTEGER}, #{comentInfo,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{queryDeptIdArr,jdbcType=VARCHAR}, #{xyhDeptIdArr,jdbcType=VARCHAR}, #{userOrgId,jdbcType=VARCHAR}, 
+      #{xyhOpenId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="pk_id" keyProperty="pkId" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportAlbum" useGeneratedKeys="true">
+    insert into sh_learn_garden_report_album
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="albumType != null">
+        album_type,
+      </if>
+      <if test="albumDesc != null">
+        album_desc,
+      </if>
+      <if test="wxCorpId != null">
+        wx_corp_id,
+      </if>
+      <if test="cropType != null">
+        crop_type,
+      </if>
+      <if test="createWxUserId != null">
+        create_wx_user_id,
+      </if>
+      <if test="createWxUserName != null">
+        create_wx_user_name,
+      </if>
+      <if test="createHeadImgUrl != null">
+        create_head_img_url,
+      </if>
+      <if test="childAlbumPkArr != null">
+        child_album_pk_arr,
+      </if>
+      <if test="reportPkArr != null">
+        report_pk_arr,
+      </if>
+      <if test="queryDeptNameArr != null">
+        query_dept_name_arr,
+      </if>
+      <if test="createUserNameArr != null">
+        create_user_name_arr,
+      </if>
+      <if test="createUserCard != null">
+        create_user_card,
+      </if>
+      <if test="uploadStatus != null">
+        upload_status,
+      </if>
+      <if test="reportNo != null">
+        report_no,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isPrivate != null">
+        is_private,
+      </if>
+      <if test="noteTypeCode != null">
+        note_type_code,
+      </if>
+      <if test="noteTypeName != null">
+        note_type_name,
+      </if>
+      <if test="praiseNum != null">
+        praise_num,
+      </if>
+      <if test="praiseInfo != null">
+        praise_info,
+      </if>
+      <if test="reportMemo != null">
+        report_memo,
+      </if>
+      <if test="commentNum != null">
+        comment_num,
+      </if>
+      <if test="comentInfo != null">
+        coment_info,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="queryDeptIdArr != null">
+        query_dept_id_arr,
+      </if>
+      <if test="xyhDeptIdArr != null">
+        xyh_dept_id_arr,
+      </if>
+      <if test="userOrgId != null">
+        user_org_id,
+      </if>
+      <if test="xyhOpenId != null">
+        xyh_open_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="albumType != null">
+        #{albumType,jdbcType=VARCHAR},
+      </if>
+      <if test="albumDesc != null">
+        #{albumDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCorpId != null">
+        #{wxCorpId,jdbcType=VARCHAR},
+      </if>
+      <if test="cropType != null">
+        #{cropType,jdbcType=VARCHAR},
+      </if>
+      <if test="createWxUserId != null">
+        #{createWxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createWxUserName != null">
+        #{createWxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createHeadImgUrl != null">
+        #{createHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="childAlbumPkArr != null">
+        #{childAlbumPkArr,jdbcType=VARCHAR},
+      </if>
+      <if test="reportPkArr != null">
+        #{reportPkArr,jdbcType=VARCHAR},
+      </if>
+      <if test="queryDeptNameArr != null">
+        #{queryDeptNameArr,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserNameArr != null">
+        #{createUserNameArr,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserCard != null">
+        #{createUserCard,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null">
+        #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNo != null">
+        #{reportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isPrivate != null">
+        #{isPrivate,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTypeCode != null">
+        #{noteTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTypeName != null">
+        #{noteTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="praiseNum != null">
+        #{praiseNum,jdbcType=INTEGER},
+      </if>
+      <if test="praiseInfo != null">
+        #{praiseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="reportMemo != null">
+        #{reportMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null">
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="comentInfo != null">
+        #{comentInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="queryDeptIdArr != null">
+        #{queryDeptIdArr,jdbcType=VARCHAR},
+      </if>
+      <if test="xyhDeptIdArr != null">
+        #{xyhDeptIdArr,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrgId != null">
+        #{userOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="xyhOpenId != null">
+        #{xyhOpenId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportAlbum">
+    update sh_learn_garden_report_album
+    <set>
+      <if test="albumType != null">
+        album_type = #{albumType,jdbcType=VARCHAR},
+      </if>
+      <if test="albumDesc != null">
+        album_desc = #{albumDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCorpId != null">
+        wx_corp_id = #{wxCorpId,jdbcType=VARCHAR},
+      </if>
+      <if test="cropType != null">
+        crop_type = #{cropType,jdbcType=VARCHAR},
+      </if>
+      <if test="createWxUserId != null">
+        create_wx_user_id = #{createWxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createWxUserName != null">
+        create_wx_user_name = #{createWxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createHeadImgUrl != null">
+        create_head_img_url = #{createHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="childAlbumPkArr != null">
+        child_album_pk_arr = #{childAlbumPkArr,jdbcType=VARCHAR},
+      </if>
+      <if test="reportPkArr != null">
+        report_pk_arr = #{reportPkArr,jdbcType=VARCHAR},
+      </if>
+      <if test="queryDeptNameArr != null">
+        query_dept_name_arr = #{queryDeptNameArr,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserNameArr != null">
+        create_user_name_arr = #{createUserNameArr,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserCard != null">
+        create_user_card = #{createUserCard,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null">
+        upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNo != null">
+        report_no = #{reportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="isPrivate != null">
+        is_private = #{isPrivate,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTypeCode != null">
+        note_type_code = #{noteTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTypeName != null">
+        note_type_name = #{noteTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="praiseNum != null">
+        praise_num = #{praiseNum,jdbcType=INTEGER},
+      </if>
+      <if test="praiseInfo != null">
+        praise_info = #{praiseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="reportMemo != null">
+        report_memo = #{reportMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null">
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="comentInfo != null">
+        coment_info = #{comentInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="queryDeptIdArr != null">
+        query_dept_id_arr = #{queryDeptIdArr,jdbcType=VARCHAR},
+      </if>
+      <if test="xyhDeptIdArr != null">
+        xyh_dept_id_arr = #{xyhDeptIdArr,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrgId != null">
+        user_org_id = #{userOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="xyhOpenId != null">
+        xyh_open_id = #{xyhOpenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportAlbum">
+    update sh_learn_garden_report_album
+    set album_type = #{albumType,jdbcType=VARCHAR},
+      album_desc = #{albumDesc,jdbcType=VARCHAR},
+      wx_corp_id = #{wxCorpId,jdbcType=VARCHAR},
+      crop_type = #{cropType,jdbcType=VARCHAR},
+      create_wx_user_id = #{createWxUserId,jdbcType=VARCHAR},
+      create_wx_user_name = #{createWxUserName,jdbcType=VARCHAR},
+      create_head_img_url = #{createHeadImgUrl,jdbcType=VARCHAR},
+      child_album_pk_arr = #{childAlbumPkArr,jdbcType=VARCHAR},
+      report_pk_arr = #{reportPkArr,jdbcType=VARCHAR},
+      query_dept_name_arr = #{queryDeptNameArr,jdbcType=VARCHAR},
+      create_user_name_arr = #{createUserNameArr,jdbcType=VARCHAR},
+      create_user_card = #{createUserCard,jdbcType=VARCHAR},
+      upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      report_no = #{reportNo,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      is_private = #{isPrivate,jdbcType=VARCHAR},
+      note_type_code = #{noteTypeCode,jdbcType=VARCHAR},
+      note_type_name = #{noteTypeName,jdbcType=VARCHAR},
+      praise_num = #{praiseNum,jdbcType=INTEGER},
+      praise_info = #{praiseInfo,jdbcType=VARCHAR},
+      report_memo = #{reportMemo,jdbcType=VARCHAR},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      coment_info = #{comentInfo,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      query_dept_id_arr = #{queryDeptIdArr,jdbcType=VARCHAR},
+      xyh_dept_id_arr = #{xyhDeptIdArr,jdbcType=VARCHAR},
+      user_org_id = #{userOrgId,jdbcType=VARCHAR},
+      xyh_open_id = #{xyhOpenId,jdbcType=VARCHAR}
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+</mapper>

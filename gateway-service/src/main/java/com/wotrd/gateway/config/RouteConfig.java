@@ -1,31 +1,41 @@
 package com.wotrd.gateway.config;
 
-import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import com.wotrd.gateway.service.ImageCodeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Collection;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.server.RequestPredicates;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
 
 /**
  * @ClassName: RouteConfig
- * @Description: TODO
+ * @Description: 路由配置
  * @Author: wotrd
- * @Date: 2020/6/29 23:20
+ * @Date: 2020/08/31 23:20
  */
-//@Configuration
+@Configuration
 public class RouteConfig {
 
+    @Autowired
+    private ImageCodeService codeService;
+
+//    @Bean
+//    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+//        Collection<GatewayFilter> fils = null;
+//        return builder.routes()
+//                .route("path_route", predicateSpec ->
+//                        predicateSpec.path("/feign-service")
+//                                .uri("http://www.ailijie.top")
+////                                .filter(new GlobalGateFilter())
+//                ).build();
+//    }
+
     @Bean
-    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
-        Collection<GatewayFilter> fils = null;
-        return builder.routes()
-                .route("path_route", predicateSpec ->
-                        predicateSpec.path("/feign-service")
-                                .uri("http://www.ailijie.top")
-//                                .filter(new GlobalGateFilter())
-                )
-                .build();
+    public RouterFunction routerFunction() {
+        return RouterFunctions.route(RequestPredicates.GET("/code")
+                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), codeService);
+
     }
 }

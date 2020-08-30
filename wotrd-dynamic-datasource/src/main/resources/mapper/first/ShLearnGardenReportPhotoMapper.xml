@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.dydatasource.first.mapper.ShLearnGardenReportPhotoMapper">
+  <resultMap id="BaseResultMap" type="com.wotrd.dydatasource.first.domain.ShLearnGardenReportPhoto">
+    <id column="pk_id" jdbcType="BIGINT" property="pkId" />
+    <result column="album_pk" jdbcType="BIGINT" property="albumPk" />
+    <result column="photo_url" jdbcType="VARCHAR" property="photoUrl" />
+    <result column="photo_rm_id" jdbcType="VARCHAR" property="photoRmId" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="hight" jdbcType="INTEGER" property="hight" />
+    <result column="upload_status" jdbcType="VARCHAR" property="uploadStatus" />
+    <result column="upload_info" jdbcType="VARCHAR" property="uploadInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk_id, album_pk, photo_url, photo_rm_id, width, hight, upload_status, upload_info
+  </sql>
+  <select id="selectByPkId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sh_learn_garden_report_photo
+    where album_pk = #{pkId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sh_learn_garden_report_photo
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="pk_id" keyProperty="pkId" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportPhoto" useGeneratedKeys="true">
+    insert into sh_learn_garden_report_photo (album_pk, photo_url, photo_rm_id, 
+      width, hight, upload_status, 
+      upload_info)
+    values (#{albumPk,jdbcType=BIGINT}, #{photoUrl,jdbcType=VARCHAR}, #{photoRmId,jdbcType=VARCHAR}, 
+      #{width,jdbcType=INTEGER}, #{hight,jdbcType=INTEGER}, #{uploadStatus,jdbcType=VARCHAR}, 
+      #{uploadInfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="pk_id" keyProperty="pkId" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportPhoto" useGeneratedKeys="true">
+    insert into sh_learn_garden_report_photo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="albumPk != null">
+        album_pk,
+      </if>
+      <if test="photoUrl != null">
+        photo_url,
+      </if>
+      <if test="photoRmId != null">
+        photo_rm_id,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="hight != null">
+        hight,
+      </if>
+      <if test="uploadStatus != null">
+        upload_status,
+      </if>
+      <if test="uploadInfo != null">
+        upload_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="albumPk != null">
+        #{albumPk,jdbcType=BIGINT},
+      </if>
+      <if test="photoUrl != null">
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="photoRmId != null">
+        #{photoRmId,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="hight != null">
+        #{hight,jdbcType=INTEGER},
+      </if>
+      <if test="uploadStatus != null">
+        #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadInfo != null">
+        #{uploadInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportPhoto">
+    update sh_learn_garden_report_photo
+    <set>
+      <if test="albumPk != null">
+        album_pk = #{albumPk,jdbcType=BIGINT},
+      </if>
+      <if test="photoUrl != null">
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="photoRmId != null">
+        photo_rm_id = #{photoRmId,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="hight != null">
+        hight = #{hight,jdbcType=INTEGER},
+      </if>
+      <if test="uploadStatus != null">
+        upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadInfo != null">
+        upload_info = #{uploadInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wotrd.dydatasource.first.domain.ShLearnGardenReportPhoto">
+    update sh_learn_garden_report_photo
+    set album_pk = #{albumPk,jdbcType=BIGINT},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      photo_rm_id = #{photoRmId,jdbcType=VARCHAR},
+      width = #{width,jdbcType=INTEGER},
+      hight = #{hight,jdbcType=INTEGER},
+      upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      upload_info = #{uploadInfo,jdbcType=VARCHAR}
+    where pk_id = #{pkId,jdbcType=BIGINT}
+  </update>
+</mapper>

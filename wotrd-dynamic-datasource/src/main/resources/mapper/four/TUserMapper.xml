@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wotrd.dydatasource.four.mapper.TUserMapper">
+    <resultMap id="BaseResultMap" type="com.wotrd.dydatasource.four.domain.TUser">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="org_id" jdbcType="VARCHAR" property="orgId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="pinyin" jdbcType="VARCHAR" property="pinyin"/>
+        <result column="user_tag" jdbcType="VARCHAR" property="userTag"/>
+        <result column="user_sign" jdbcType="VARCHAR" property="userSign"/>
+        <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
+        <result column="old_photo_url" jdbcType="VARCHAR" property="oldPhotoUrl"/>
+        <result column="born_date" jdbcType="VARCHAR" property="bornDate"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="jyb_user_type" jdbcType="VARCHAR" property="jybUserType"/>
+        <result column="is_delete" jdbcType="VARCHAR" property="isDelete"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="modify_user" jdbcType="VARCHAR" property="modifyUser"/>
+        <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify"/>
+        <result column="operation_version" jdbcType="BIGINT" property="operationVersion"/>
+        <result column="student_code" jdbcType="VARCHAR" property="studentCode"/>
+        <result column="user_type" jdbcType="VARCHAR" property="userType"/>
+    </resultMap>
+
+    <select id="selectByOrgIdAndUserName" resultMap="BaseResultMap">
+        select * from t_user
+        where org_id =#{orgId}
+        and user_name = #{userName} and is_delete = '0' limit 1
+  </select>
+
+    <insert id="insert" parameterType="com.wotrd.dydatasource.four.domain.TUser">
+    insert into t_user (id, org_id, user_name, 
+      pinyin, user_tag, user_sign, 
+      photo_url, old_photo_url, born_date, 
+      sex, jyb_user_type, is_delete, 
+      create_user, gmt_create, modify_user, 
+      gmt_modify, operation_version, student_code, 
+      user_type)
+    values (#{id,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{pinyin,jdbcType=VARCHAR}, #{userTag,jdbcType=VARCHAR}, #{userSign,jdbcType=VARCHAR}, 
+      #{photoUrl,jdbcType=VARCHAR}, #{oldPhotoUrl,jdbcType=VARCHAR}, #{bornDate,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{jybUserType,jdbcType=VARCHAR}, #{isDelete,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{modifyUser,jdbcType=VARCHAR}, 
+      #{gmtModify,jdbcType=TIMESTAMP}, #{operationVersion,jdbcType=BIGINT}, #{studentCode,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.wotrd.dydatasource.four.domain.TUser">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="pinyin != null">
+                pinyin,
+            </if>
+            <if test="userTag != null">
+                user_tag,
+            </if>
+            <if test="userSign != null">
+                user_sign,
+            </if>
+            <if test="photoUrl != null">
+                photo_url,
+            </if>
+            <if test="oldPhotoUrl != null">
+                old_photo_url,
+            </if>
+            <if test="bornDate != null">
+                born_date,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="jybUserType != null">
+                jyb_user_type,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="modifyUser != null">
+                modify_user,
+            </if>
+            <if test="gmtModify != null">
+                gmt_modify,
+            </if>
+            <if test="operationVersion != null">
+                operation_version,
+            </if>
+            <if test="studentCode != null">
+                student_code,
+            </if>
+            <if test="userType != null">
+                user_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="pinyin != null">
+                #{pinyin,jdbcType=VARCHAR},
+            </if>
+            <if test="userTag != null">
+                #{userTag,jdbcType=VARCHAR},
+            </if>
+            <if test="userSign != null">
+                #{userSign,jdbcType=VARCHAR},
+            </if>
+            <if test="photoUrl != null">
+                #{photoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="oldPhotoUrl != null">
+                #{oldPhotoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="bornDate != null">
+                #{bornDate,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="jybUserType != null">
+                #{jybUserType,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyUser != null">
+                #{modifyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtModify != null">
+                #{gmtModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operationVersion != null">
+                #{operationVersion,jdbcType=BIGINT},
+            </if>
+            <if test="studentCode != null">
+                #{studentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                #{userType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

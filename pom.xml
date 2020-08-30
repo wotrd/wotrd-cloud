@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.wotrd</groupId>
-    <artifactId>nacos-test</artifactId>
-    <version>0.0.1-RELEASE</version>
-    <name>nacos-test</name>
+    <artifactId>wotrd-cloud</artifactId>
+    <version>1.0.1-RELEASE</version>
+    <name>wotrd-cloud</name>
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
     <properties>
@@ -21,7 +21,7 @@
     <modules>
         <module>feign-service</module>
         <module>sharding-jdbc</module>
-        <module>dynamic-datasource</module>
+        <module>wotrd-dynamic-datasource</module>
         <module>monitor-service</module>
         <module>gateway-service</module>
         <module>dubbo-service</module>
