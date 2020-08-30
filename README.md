@@ -19,6 +19,9 @@
 2. cd wotrd-cloud  
 3. mvn clean package 
 
+个人博客地址：https://ailijie.top
+qq群：  602107221
+
 # 注意事项  
 1、版本问题：   
 ```版本不对可能出现问题,需要设置依赖管理dependencyManagement便于版本升级和降级```  
