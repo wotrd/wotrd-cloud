@@ -1,7 +1,7 @@
 package com.wotrd.gateway.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wotrd.gateway.domain.*;
+import com.wotrd.gateway.model.*;
 import com.wotrd.gateway.mapper.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

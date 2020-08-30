@@ -1,6 +1,6 @@
 package com.wotrd.gateway.mapper;
 
-import com.wotrd.gateway.domain.Route;
+import com.wotrd.gateway.model.Route;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

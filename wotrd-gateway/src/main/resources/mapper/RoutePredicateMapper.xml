@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wotrd.gateway.mapper.RoutePredicateMapper">
-  <resultMap id="BaseResultMap" type="com.wotrd.gateway.domain.RoutePredicate">
+  <resultMap id="BaseResultMap" type="com.wotrd.gateway.model.RoutePredicate">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="route_id" jdbcType="VARCHAR" property="routeId" />
     <result column="predicate_name" jdbcType="VARCHAR" property="predicateName" />
@@ -32,13 +32,13 @@
     delete from route_predicate
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RoutePredicate" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RoutePredicate" useGeneratedKeys="true">
     insert into route_predicate (route_id, predicate_name, update_time, 
       create_user, update_user, create_time, 
       deleted)
     values (#{routeId}, #{predicateName}, #{updateTime}, #{createUser}, #{updateUser}, #{createTime}, 0)
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RoutePredicate" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RoutePredicate" useGeneratedKeys="true">
     insert into route_predicate
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="routeId != null">
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.domain.RoutePredicate">
+  <update id="updateByPrimaryKeySelective" parameterType="com.wotrd.gateway.model.RoutePredicate">
     update route_predicate
     <set>
       <if test="routeId != null">
@@ -114,7 +114,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.domain.RoutePredicate">
+  <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.model.RoutePredicate">
     update route_predicate
     set route_id = #{routeId,jdbcType=VARCHAR},
       predicate_name = #{predicateName,jdbcType=VARCHAR},

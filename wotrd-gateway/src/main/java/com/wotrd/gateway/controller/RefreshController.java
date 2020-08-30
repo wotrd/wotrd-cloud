@@ -1,6 +1,6 @@
 package com.wotrd.gateway.controller;
 
-import com.wotrd.gateway.domain.Route;
+import com.wotrd.gateway.model.Route;
 import com.wotrd.gateway.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

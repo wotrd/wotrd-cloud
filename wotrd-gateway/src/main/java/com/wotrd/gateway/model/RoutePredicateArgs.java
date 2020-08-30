@@ -1,4 +1,4 @@
-package com.wotrd.gateway.domain;
+package com.wotrd.gateway.model;
 
 import java.io.Serializable;
 import java.util.Date;

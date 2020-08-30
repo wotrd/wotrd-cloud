@@ -1,5 +1,6 @@
 package com.wotrd.gateway.service;
 
+import com.wotrd.gateway.constant.GatewayConstant;
 import com.wotrd.gateway.utils.CaptchaUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ImageCodeService implements HandlerFunction<ServerResponse> {
         String randomText = CaptchaUtil.drawRandomText(image);
         // 保存到验证码到 redis 有效期两分钟
         String t = request.queryParam("t").get();
-        redisTemplate.opsForValue().set("wotrd:image:code:key" + t, randomText.toLowerCase(), 60, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(GatewayConstant.WOTRD_IMAGE_CODE_KEY + t, randomText.toLowerCase(), 60, TimeUnit.MINUTES);
         try {
             ImageIO.write(image, "jpeg", os);
         } catch (IOException e) {

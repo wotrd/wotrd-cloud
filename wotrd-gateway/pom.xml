@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.wotrd</groupId>
-    <artifactId>gateway-service</artifactId>
+    <artifactId>wotrd-gateway</artifactId>
     <version>0.0.1-RELEASE</version>
-    <name>gateway</name>
+    <name>wotrd-gateway</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

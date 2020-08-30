@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wotrd.gateway.mapper.RouteMetadataMapper">
-  <resultMap id="BaseResultMap" type="com.wotrd.gateway.domain.RouteMetadata">
+  <resultMap id="BaseResultMap" type="com.wotrd.gateway.model.RouteMetadata">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="route_id" jdbcType="VARCHAR" property="routeId" />
     <result column="key" jdbcType="VARCHAR" property="key" />
@@ -33,7 +33,7 @@
     delete from route_metadata
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RouteMetadata" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RouteMetadata" useGeneratedKeys="true">
     insert into route_metadata (route_id, `key`, `value`, 
       create_user, update_user, create_time, 
       update_time, deleted)
@@ -41,7 +41,7 @@
       #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RouteMetadata" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RouteMetadata" useGeneratedKeys="true">
     insert into route_metadata
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="routeId != null">
@@ -97,7 +97,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.domain.RouteMetadata">
+  <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.model.RouteMetadata">
     update route_metadata
     set route_id = #{routeId,jdbcType=VARCHAR},
       `key` = #{key,jdbcType=VARCHAR},

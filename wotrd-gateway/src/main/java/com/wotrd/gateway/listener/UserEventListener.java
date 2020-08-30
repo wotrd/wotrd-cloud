@@ -1,6 +1,6 @@
 package com.wotrd.gateway.listener;
 
-import com.wotrd.gateway.domain.UserDTO;
+import com.wotrd.gateway.model.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

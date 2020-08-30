@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wotrd.gateway.mapper.RouteFilterArgsMapper">
-  <resultMap id="BaseResultMap" type="com.wotrd.gateway.domain.RouteFilterArgs">
+  <resultMap id="BaseResultMap" type="com.wotrd.gateway.model.RouteFilterArgs">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="filter_id" jdbcType="BIGINT" property="filterId" />
     <result column="key" jdbcType="VARCHAR" property="key" />
@@ -28,13 +28,13 @@
     delete from route_filter_args
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RouteFilterArgs" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RouteFilterArgs" useGeneratedKeys="true">
     insert into route_filter_args (filter_id, `key`, `value`, 
       deleted)
     values (#{filterId,jdbcType=BIGINT}, #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
       #{deleted,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.domain.RouteFilterArgs" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RouteFilterArgs" useGeneratedKeys="true">
     insert into route_filter_args
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="filterId != null">
@@ -66,7 +66,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.domain.RouteFilterArgs">
+  <update id="updateByPrimaryKey" parameterType="com.wotrd.gateway.model.RouteFilterArgs">
     update route_filter_args
     set filter_id = #{filterId,jdbcType=BIGINT},
       `key` = #{key,jdbcType=VARCHAR},

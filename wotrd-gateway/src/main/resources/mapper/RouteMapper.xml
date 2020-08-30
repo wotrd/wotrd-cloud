@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wotrd.gateway.mapper.RouteMapper">
-    <resultMap id="BaseResultMap" type="com.wotrd.gateway.domain.Route">
+    <resultMap id="BaseResultMap" type="com.wotrd.gateway.model.Route">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="app_id" jdbcType="INTEGER" property="appId"/>
         <result column="app_name" jdbcType="VARCHAR" property="appName"/>
@@ -37,7 +37,7 @@
         where id = #{id,jdbcType=VARCHAR} and deleted=0
     </update>
 
-    <insert id="insert" parameterType="com.wotrd.gateway.domain.Route">
+    <insert id="insert" parameterType="com.wotrd.gateway.model.Route">
         insert into route (id, app_id, app_name, target_url, `order`, create_user, update_user,
             create_time, update_time, deleted)
         values (#{id}, #{appId}, #{appName}, #{targetUrl}, #{order}, #{createUser}, #{updateUser},
