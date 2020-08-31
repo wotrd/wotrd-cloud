@@ -18,4 +18,9 @@ public class GatewayConstant {
      */
     public static final String OAUTH_TOKEN_URL = "/oauth/token";
 
+    /**
+     * 服务繁忙
+     */
+    public static final String SERVER_ERROR = "服务繁忙，请稍后再试";
+
 }

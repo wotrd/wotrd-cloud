@@ -1,5 +1,6 @@
 package com.wotrd.gateway.config;
 
+import com.wotrd.gateway.handler.HystrixFallbackHandler;
 import com.wotrd.gateway.service.ImageCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,9 @@ public class RouteConfig {
     @Autowired
     private ImageCodeService codeService;
 
+    @Autowired
+    private HystrixFallbackHandler hystrixFallbackHandler;
+
 //    @Bean
 //    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
 //        Collection<GatewayFilter> fils = null;
@@ -34,7 +38,10 @@ public class RouteConfig {
 
     @Bean
     public RouterFunction routerFunction() {
-        return RouterFunctions.route(RequestPredicates.GET("/code")
+        return RouterFunctions.route(
+                RequestPredicates.path("/fallback")
+                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), hystrixFallbackHandler)
+                .andRoute(RequestPredicates.GET("/code")
                         .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), codeService);
 
     }

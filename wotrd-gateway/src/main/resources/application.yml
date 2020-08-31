@@ -20,3 +20,19 @@
 #              name: fallbackcmd
 #              ### fallback 时调用的方法 http://localhost:8000/fallback
 #              fallbackUri: forward:/fallback
+
+#跨域
+#spring:
+#  cloud:
+#    gateway:
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowedHeaders: "*"
+#            allowedOrigins: "*"
+#            allowedMethods:
+#              - GET
+#                POST
+#                DELETE
+#                PUT
+#                OPTION
