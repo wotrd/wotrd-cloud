@@ -1,4 +1,4 @@
-package com.wotrd.auth.config.service;
+package com.wotrd.auth.service.impl;
 
 import com.wotrd.auth.domain.TbPermission;
 import com.wotrd.auth.domain.TbUser;

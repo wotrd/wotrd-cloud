@@ -1,6 +1,6 @@
 package com.wotrd.auth.config;
 
-import com.wotrd.auth.config.service.UserDetailsServiceImpl;
+import com.wotrd.auth.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
