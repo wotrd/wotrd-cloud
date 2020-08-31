@@ -17,4 +17,5 @@ public class GatewayConstant {
      * 认证获取token
      */
     public static final String OAUTH_TOKEN_URL = "/oauth/token";
+
 }
