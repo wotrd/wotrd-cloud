@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
  * @Date: 2020/6/29 09:43
  */
 @Slf4j
-@Component
+//@Component
 public class GlobalGateFilter implements GlobalFilter, Ordered {
 
     private static final String ELAPSED_TIME_BEGIN = "elapsedTimeBegin";
