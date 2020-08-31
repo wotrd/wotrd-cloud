@@ -37,7 +37,7 @@ public class RedisRouteDefinitionRepository implements RouteDefinitionRepository
     public Flux<RouteDefinition> getRouteDefinitions() {
         log.info("[gateway] change gate start");
         List<RouteDefinition> definitions = getDefinitions();
-        log.info("[gateway] change gate success:{}", JSONObject.toJSONString(definitions));
+        log.info("[gateway] change gate success:{}", JSONObject.toJSON(definitions));
         return Flux.fromIterable(definitions);
 
     }

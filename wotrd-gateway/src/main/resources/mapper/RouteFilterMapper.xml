@@ -29,10 +29,8 @@
   </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RouteFilter"
             useGeneratedKeys="true">
-    insert into route_filter (route_id, filter_name, deleted
-      )
-    values (#{routeId,jdbcType=VARCHAR}, #{filterName,jdbcType=VARCHAR}, #{deleted,jdbcType=INTEGER}
-      )
+    insert into route_filter (route_id, filter_name, deleted)
+    values (#{routeId,jdbcType=VARCHAR}, #{filterName,jdbcType=VARCHAR}, 0)
   </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wotrd.gateway.model.RouteFilter"
             useGeneratedKeys="true">

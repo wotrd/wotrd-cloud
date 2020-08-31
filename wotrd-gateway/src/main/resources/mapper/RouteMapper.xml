@@ -41,7 +41,7 @@
         insert into route (id, app_id, app_name, target_url, `order`, create_user, update_user,
             create_time, update_time, deleted)
         values (#{id}, #{appId}, #{appName}, #{targetUrl}, #{order}, #{createUser}, #{updateUser},
-            #{createTime}, #{updateTime}, 0)
+            now(), now(), 0)
     </insert>
 
     <update id="delete">
