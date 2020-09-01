@@ -1,9 +1,9 @@
 package com.wotrd.auth.service.impl;
 
-import com.wotrd.auth.domain.TbPermission;
-import com.wotrd.auth.domain.TbUser;
-import com.wotrd.auth.service.TbPermissionService;
-import com.wotrd.auth.service.TbUserService;
+import com.wotrd.auth.model.entity.PermissionDO;
+import com.wotrd.auth.model.entity.UserDO;
+import com.wotrd.auth.service.PermissionService;
+import com.wotrd.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,10 +20,10 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private TbUserService userService;
+    private UserService userService;
 
     @Autowired
-    private TbPermissionService permissionService;
+    private PermissionService permissionService;
 
     /**
      * 查询数据库用户信息
@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        TbUser tbUser = userService.getUserByUsername(username);
+        UserDO tbUser = userService.getUserByUsername(username);
         //验证账户为username的用户是否存在
         if (null == tbUser){
             throw new UsernameNotFoundException("username:  " + username + "is not exist!");
@@ -42,7 +42,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         //获取用户权限
-        List<TbPermission> permissions = permissionService.getByUserid(tbUser.getId());
+        List<PermissionDO> permissions = permissionService.getByUserid(tbUser.getId());
         //设置用户权限
         permissions.forEach(permission -> {
             authorities.add(new SimpleGrantedAuthority(permission.getEname()));

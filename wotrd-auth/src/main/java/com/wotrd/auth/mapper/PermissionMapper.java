@@ -1,6 +1,6 @@
 package com.wotrd.auth.mapper;
 
-import com.wotrd.auth.domain.TbPermission;
+import com.wotrd.auth.model.entity.PermissionDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Repository
 @Mapper
-public interface TbPermissionMapper {
+public interface PermissionMapper {
 
     /**
      * 通过ID查询单条数据
@@ -22,7 +22,7 @@ public interface TbPermissionMapper {
      * @param id 主键
      * @return 实例对象
      */
-    TbPermission queryById(Long id);
+    PermissionDO queryById(Long id);
 
     /**
      * 通过实体作为筛选条件查询
@@ -30,9 +30,9 @@ public interface TbPermissionMapper {
      * @param tbPermission 实例对象
      * @return 对象列表
      */
-    List<TbPermission> queryAll(TbPermission tbPermission);
+    List<PermissionDO> queryAll(PermissionDO tbPermission);
 
-    List<TbPermission> queryByUserid(Long userId);
+    List<PermissionDO> queryByUserid(Long userId);
 
     /**
      * 新增数据
@@ -40,7 +40,7 @@ public interface TbPermissionMapper {
      * @param tbPermission 实例对象
      * @return 影响行数
      */
-    int insert(TbPermission tbPermission);
+    int insert(PermissionDO tbPermission);
 
     /**
      * 修改数据
@@ -48,7 +48,7 @@ public interface TbPermissionMapper {
      * @param tbPermission 实例对象
      * @return 影响行数
      */
-    int update(TbPermission tbPermission);
+    int update(PermissionDO tbPermission);
 
     /**
      * 通过主键删除数据

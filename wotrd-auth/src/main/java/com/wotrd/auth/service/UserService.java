@@ -1,17 +1,17 @@
 package com.wotrd.auth.service;
 
-import com.wotrd.auth.domain.TbUser;
-import com.wotrd.auth.mapper.TbUserMapper;
+import com.wotrd.auth.model.entity.UserDO;
+import com.wotrd.auth.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TbUserService {
+public class UserService {
 
     @Autowired
-    private TbUserMapper userMapper;
+    private UserMapper userMapper;
 
-    public TbUser getUserByUsername(String username){
+    public UserDO getUserByUsername(String username){
         return userMapper.getByUsername(username);
     }
 }

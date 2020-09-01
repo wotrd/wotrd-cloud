@@ -1,4 +1,4 @@
-package com.wotrd.auth.domain;
+package com.wotrd.auth.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TbPermission implements Serializable {
+public class PermissionDO implements Serializable {
     private static final long serialVersionUID = -78501820450936838L;
     //主键ID
     private Long id;

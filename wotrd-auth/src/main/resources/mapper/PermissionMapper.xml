@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wotrd.auth.mapper.TbPermissionMapper">
+<mapper namespace="com.wotrd.auth.mapper.PermissionMapper">
 
-    <resultMap type="com.wotrd.auth.domain.TbPermission" id="TbPermissionMap">
+    <resultMap type="com.wotrd.auth.model.entity.PermissionDO" id="permissionMap">
         <result property="id" column="id" jdbcType="BIGINT"/>
         <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
@@ -14,20 +14,20 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="TbPermissionMap">
+    <select id="queryById" resultMap="permissionMap">
         select
           id, parent_id, name, ename, url, description, create_time, update_time
-        from oauth2.tb_permission
+        from wotrd_permission
         where id = #{id}
     </select>
 
-    <select id="queryByUserid" resultMap="TbPermissionMap">
+    <select id="queryByUserid" resultMap="permissionMap">
         select
         p.id, p.parent_id, p.name, p.ename, p.url, p.description, p.create_time, p.update_time
         FROM
-        tb_permission AS p
-        LEFT JOIN tb_role_permission AS rp
-        ON p.id = rp.permission_id
+        wotrd_permission AS p
+        LEFT JOIN tb_role_wotrd_permission AS rp
+        ON p.id = rp.wotrd_permission_id
         LEFT JOIN tb_role AS r
         ON rp.role_id = r.id
         LEFT JOIN tb_user_role AS ur
@@ -39,10 +39,10 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="TbPermissionMap">
+    <select id="queryAll" resultMap="permissionMap">
         select
           id, parent_id, name, ename, url, description, create_time, update_time
-        from oauth2.tb_permission
+        from wotrd_permission
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -73,13 +73,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into oauth2.tb_permission(parent_id, name, ename, url, description, create_time, update_time)
+        insert into wotrd_permission(parent_id, name, ename, url, description, create_time, update_time)
         values (#{parentId}, #{name}, #{ename}, #{url}, #{description}, #{createTime}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update oauth2.tb_permission
+        update wotrd_permission
         <set>
             <if test="parentId != null">
                 parent_id = #{parentId},
@@ -108,7 +108,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from oauth2.tb_permission where id = #{id}
+        delete from wotrd_permission where id = #{id}
     </delete>
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.wotrd.auth.mapper;
 
-import com.wotrd.auth.domain.TbUser;
+import com.wotrd.auth.model.entity.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Repository
 @Mapper
-public interface TbUserMapper {
+public interface UserMapper {
 
     /**
      * 通过ID查询单条数据
@@ -22,9 +22,9 @@ public interface TbUserMapper {
      * @param id 主键
      * @return 实例对象
      */
-    TbUser queryById(Long id);
+    UserDO queryById(Long id);
 
-    TbUser getByUsername(String username);
+    UserDO getByUsername(String username);
 
     /**
      * 通过实体作为筛选条件查询
@@ -32,7 +32,7 @@ public interface TbUserMapper {
      * @param tbUser 实例对象
      * @return 对象列表
      */
-    List<TbUser> queryAll(TbUser tbUser);
+    List<UserDO> queryAll(UserDO tbUser);
 
     /**
      * 新增数据
@@ -40,7 +40,7 @@ public interface TbUserMapper {
      * @param tbUser 实例对象
      * @return 影响行数
      */
-    int insert(TbUser tbUser);
+    int insert(UserDO tbUser);
 
     /**
      * 修改数据
@@ -48,7 +48,7 @@ public interface TbUserMapper {
      * @param tbUser 实例对象
      * @return 影响行数
      */
-    int update(TbUser tbUser);
+    int update(UserDO tbUser);
 
     /**
      * 通过主键删除数据
