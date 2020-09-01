@@ -9,12 +9,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+//对全部方法进行验证
 @Configuration
 @EnableWebSecurity
-//对全部方法进行验证
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -30,9 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/oauth/check_token");
     }
+
 }

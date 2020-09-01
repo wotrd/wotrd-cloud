@@ -26,13 +26,13 @@
         p.id, p.parent_id, p.name, p.ename, p.url, p.description, p.create_time, p.update_time
         FROM
         wotrd_permission AS p
-        LEFT JOIN tb_role_wotrd_permission AS rp
-        ON p.id = rp.wotrd_permission_id
-        LEFT JOIN tb_role AS r
+        LEFT JOIN wotrd_role_permission AS rp
+        ON p.id = rp.permission_id
+        LEFT JOIN wotrd_role AS r
         ON rp.role_id = r.id
-        LEFT JOIN tb_user_role AS ur
+        LEFT JOIN wotrd_user_role AS ur
         ON r.id = ur.role_id
-        LEFT JOIN  tb_user AS u
+        LEFT JOIN  wotrd_user AS u
         ON u.id = ur.user_id
         WHERE
         u.id = #{ userId }

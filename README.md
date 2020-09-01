@@ -12,9 +12,8 @@ qq群：  602107221
 5、 wotrd-feign：                nacos服务注册发现、redis、kafka、sentinel、elasticsearch
 6、 wotrd-gateway：              动态网关服务
 7、 wotrd-monitor：              监控服务
-8、 wotrd-resource：             资源服务
-9、 wotrd-sharding：             分库分表中间件  
-10、wotrd-spring-security：      安全服务
+8、 wotrd-sharding：             分库分表中间件  
+9、 wotrd-spring-security：      安全服务
 ```
 
 # quick start  

@@ -27,7 +27,6 @@
         <module>wotrd-gateway</module>
         <module>wotrd-auth</module>
         <module>wotrd-spring-security</module>
-        <module>wotrd-resource</module>
     </modules>
 
     <dependencies>
