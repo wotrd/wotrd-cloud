@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.wotrd</groupId>
     <artifactId>spring-security</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.2-RELEASE</version>
     <name>spring-security</name>
     <description>Demo project for Spring Boot</description>
 

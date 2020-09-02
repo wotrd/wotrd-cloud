@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.wotrd</groupId>
     <artifactId>wotrd-feign</artifactId>
-    <version>1.0.1-RELEASE</version>
+    <version>1.0.2-RELEASE</version>
     <name>wotrd-feign</name>
     <description>spring cloud feign消费服务</description>
 
