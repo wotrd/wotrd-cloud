@@ -10,6 +10,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
@@ -43,6 +45,11 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         return new JdbcClientDetailsService(dataSource);
     }
 
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices() {
+        return new JdbcAuthorizationCodeServices(dataSource);
+    }
+
     /**
      * 配置客户端
      *
@@ -54,9 +61,15 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         clients.withClientDetails(jdbcClientDetailsService());
     }
 
+    /**
+     * 配置token和授权码存储
+     *
+     * @param endpoints
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore());
+        endpoints.tokenStore(tokenStore())
+                .authorizationCodeServices(authorizationCodeServices());
     }
 
 }
