@@ -26,7 +26,6 @@
         <module>wotrd-feign</module>
         <module>wotrd-gateway</module>
         <module>wotrd-auth</module>
-        <module>wotrd-spring-security</module>
     </modules>
 
     <dependencies>

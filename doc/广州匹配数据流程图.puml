@@ -1,0 +1,58 @@
+@startuml
+start
+  if (绑定表没匹配到skid) then (yes)
+    -插入匹配原始数据
+  endif
+end
+
+
+start
+-根据穗康过来的参数生成签名
+-根据skid获取原有匹配结果
+-与原有匹配结果表的签名比对
+if (签名一致) then (yes)
+     if (原有匹配结果有效验证) then (yes)
+        -进入统计逻辑
+     else
+        -抛弃原有比配结果,重新匹配
+     endif
+else
+     -抛弃原有比配结果,重新匹配
+endif
+stop
+
+
+start
+-抛弃原有比配结果,重新匹配
+-校验orgid是否有效
+if (orgid 无效) then (yes)
+  :进入全局异常;
+elseif (根据deptid/orgName 重新获取orgid) then (获取失败)
+      : 进入全局异常;
+else
+-根据orgid+userName 获取人员信息
+  if (无匹配人员) then (是)
+      : 进入学校异常数据;
+  elseif(匹配唯一人员) then (yes)
+    : 进入统计逻辑;
+  else
+     -匹配到多个人员信息
+     -根据idcard匹配信息
+     if (匹配到单一人员) then (是)
+        :进入统计逻辑;
+     else
+        -根据部门名称匹配
+        if (该部门无人员匹配成功 or 该部门多人匹配成功) then (是)
+          : 进入学校异常数据;
+        else
+          :进入统计逻辑;
+        endif
+     endif
+  endif
+endif
+
+-更新匹配结果
+stop
+
+
+@enduml
