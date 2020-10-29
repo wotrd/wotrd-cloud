@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: ValidateChainBuild
- * @Description: TODO
+ * @Description: 责任链建造器
  * @Author: wotrd
  * @Date: 2020/10/29 19:38
  */
