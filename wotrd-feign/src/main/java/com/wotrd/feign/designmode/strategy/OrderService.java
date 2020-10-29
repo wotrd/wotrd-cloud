@@ -1,4 +1,4 @@
-package com.wotrd.feign.designmode;
+package com.wotrd.feign.designmode.strategy;
 
 /**
  * @ClassName: OrderService

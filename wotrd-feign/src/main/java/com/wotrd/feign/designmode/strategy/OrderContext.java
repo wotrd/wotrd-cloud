@@ -1,4 +1,4 @@
-package com.wotrd.feign.designmode;
+package com.wotrd.feign.designmode.strategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

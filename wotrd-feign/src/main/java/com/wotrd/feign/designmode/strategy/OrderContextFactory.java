@@ -1,6 +1,6 @@
-package com.wotrd.feign.designmode;
+package com.wotrd.feign.designmode.strategy;
 
-import com.wotrd.feign.designmode.enums.OrderTypeEnum;
+import com.wotrd.feign.designmode.strategy.enums.OrderTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

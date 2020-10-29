@@ -1,6 +1,6 @@
 package com.wotrd.feign.controller;
 
-import com.wotrd.feign.designmode.BizService;
+import com.wotrd.feign.designmode.strategy.BizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

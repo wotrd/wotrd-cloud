@@ -1,4 +1,4 @@
-package com.wotrd.feign.designmode.enums;
+package com.wotrd.feign.designmode.strategy.enums;
 
 import lombok.Getter;
 
