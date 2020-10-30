@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ValidateChainBuilder<T> {
 
+    /**
+     * 姓名校验 {@link NameValidateSlot}
+     */
     @Autowired
     private NameValidateSlot nameValidateSlot;
 

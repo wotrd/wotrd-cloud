@@ -22,13 +22,24 @@ public class DesignModeController {
     @Autowired
     private ValidateChainBuilder builder;
 
+
+    /**
+     * 测试策略模式
+     *
+     * @param type {@link com.wotrd.feign.designmode.strategy.enums.OrderTypeEnum}
+     */
     @GetMapping("strategyMode")
-    public void testStrategyMode(Integer type){
+    public void testStrategyMode(Integer type) {
         bizService.makeOrder(type);
     }
 
+    /**
+     * 校验类型
+     *
+     * @param type 校验类型 {@link com.wotrd.feign.designmode.strategy.enums.OrderTypeEnum}
+     */
     @GetMapping("check")
-    public void checkChain(Integer type){
+    public void checkChain(Integer type) {
         builder.build().validate(type);
     }
 }
