@@ -14,6 +14,7 @@ qq群：  602107221
 7、 wotrd-monitor：              监控服务
 8、 wotrd-sharding：             分库分表中间件  
 9、 wotrd-spring-security：      安全服务
+10、wotrd-caffeine：             高性能进程间缓存caffeine
 ```
 
 # quick start  
