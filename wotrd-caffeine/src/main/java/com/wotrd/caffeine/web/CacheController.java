@@ -1,7 +1,6 @@
 package com.wotrd.caffeine.web;
 
 import com.wotrd.caffeine.domain.CacheDO;
-import com.wotrd.caffeine.domain.Item;
 import com.wotrd.caffeine.service.CacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +22,19 @@ public class CacheController {
     private CacheService cacheService;
 
     @GetMapping("{id}")
-    public String query(@PathVariable("id") Long id) {
+    public CacheDO query(@PathVariable("id") Long id) {
         log.info("get id:{}", id);
         return cacheService.getById(id);
     }
 
     @PostMapping
-    public String add(@Validated @RequestBody CacheDO cacheDO) {
+    public CacheDO add(@Validated @RequestBody CacheDO cacheDO) {
         log.info("add param:{}", cacheDO);
         return cacheService.add(cacheDO);
     }
 
     @PutMapping
-    public String update(@Validated @RequestBody CacheDO cacheDO) {
+    public CacheDO update(@Validated @RequestBody CacheDO cacheDO) {
         log.info("update param:{}", cacheDO);
         return cacheService.update(cacheDO);
     }

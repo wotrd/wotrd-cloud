@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,30 +20,30 @@ public class Test {
     public static void main(String[] args) {
 //        jsonFormatMap();
 //        atomicTest();
-        jsonTest();
-        Integer a = 1;
-        boolean equals = a.equals(null);
-        System.out.println(equals);
-//        String a = null;
-//        String s = Optional.ofNullable(a).orElse("");
-//        System.out.println(String.format("s = %s", s));
-//        List<Integer> list = new ArrayList<>();
-//        list.add(1);
-//        list.add(2);
-//        int sum = list.stream().mapToInt(Integer::intValue).sum();
-//        System.out.println("sum=" + sum);
-//        Long num = null;
-//        assert num == null;
-//        System.out.println("test asset");
+//        jsonTest();
+//        Integer a = 1;
+//        boolean equals = a.equals(null);
+        System.out.println(format());
+        Integer a = 137;
+        Integer b = 137;
 
-//        log.error("hello, {}", "exception", new RuntimeException() {
-//        });
-//        Optional.ofNullable(null).ifPresent(e -> {
-//        });
+        System.out.println(a.equals(b));
 
 
     }
 
+    private static String format() {
+//        List<Integer> list = new ArrayList<>();
+//        list.add(1);
+//        list.add(2);
+//        int sum = list.stream().mapToInt(Integer::intValue).sum();
+        Set<String> set = new HashSet<>();
+//        set.add("tom");
+//        set.add("bom");
+//        set.add("校长");
+//        set.add("校长");
+        return StringUtils.collectionToDelimitedString(set, "、");
+    }
 
     private static void jsonTest() {
         List<Test1> list = new ArrayList<>();

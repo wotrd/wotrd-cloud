@@ -1,6 +1,6 @@
 package com.wotrd.caffeine.service;
 
-import com.alibaba.fastjson.JSON;
+
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -11,7 +11,8 @@ import com.wotrd.caffeine.domain.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
@@ -68,29 +69,39 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class CacheService {
-
+    /**
+     * 模拟db存储数据
+     */
+    private Map<Long, CacheDO> dbMap = new HashMap<>();
     /**
      * 手动创建缓存
      */
     private static final Cache<Long, CacheDO> cache = Caffeine.newBuilder()
             .expireAfterWrite(1, TimeUnit.MINUTES)
-            .maximumSize(100)
+            .maximumSize(2)
             .build();
     /**
      * 同步加载,这种加载缓存的方法使用了与用于初始化值的 Function 相似的手动策略的 get 方法
      */
-    LoadingCache<Long, CacheDO> syncCache = Caffeine.newBuilder()
+    private LoadingCache<Long, CacheDO> syncCache = Caffeine.newBuilder()
             .maximumSize(100)
             .expireAfterWrite(1, TimeUnit.MINUTES)
-            .build(k -> new CacheDO());
+            .build(k -> buidCache(k));
     /**
      * 策略的作用与之前相同，但是以异步方式执行操作，并返回一个包含值的 CompletableFuture
      */
-    AsyncLoadingCache<Long, Item> asyncCache = Caffeine.newBuilder()
+    private AsyncLoadingCache<Long, Item> asyncCache = Caffeine.newBuilder()
             .maximumSize(100)
             .expireAfterWrite(1, TimeUnit.MINUTES)
             .buildAsync(k -> new Item());
 
+
+    private CacheDO buidCache(Long id) {
+        CacheDO cacheDO = new CacheDO();
+        cacheDO.setId(id);
+        cacheDO.setName("cache" + id);
+        return cacheDO;
+    }
 
     /**
      * 根据ID查询
@@ -98,19 +109,25 @@ public class CacheService {
      * @param id
      * @return
      */
-    public String getById(Long id) {
+    public CacheDO getById(Long id) {
         CacheDO cacheDO = cache.getIfPresent(id);
-        log.info("get id:{}, result:{}", id, cacheDO);
+//        if (null == cacheDO) {
+//            cacheDO = dbMap.get(id);
+//            if (null != cacheDO) {
+//                cache.put(id, cacheDO);
+//            }
+//        }
+
         //get 方法获取值，该方法将一个参数为 key 的 Function 作为参数传入。如果缓存中不存在该键，则该函数将用于提供回退值，该值在计算后插入缓存中
         //get 方法可以原子方式执行计算。这意味着您只进行一次计算 — 即使多个线程同时请求该值。这就是为什么使用 get 优于 getIfPresent。
-        cacheDO = cache.get(id, k -> {
-            //从一级缓存获取
-            CacheDO cache = new CacheDO();
-            cache.setId(100L);
-            cache.setName("tom");
-            return cache;
-        });
-
+//        CacheDO cacheDO = cache.get(id, k -> {
+//            //从一级缓存获取
+//            CacheDO cache = new CacheDO();
+//            cache.setId(100L);
+//            cache.setName("tom");
+//            return cache;
+//        });
+//        CacheDO cacheDO = syncCache.get(id);
         //异步查询
 //        asyncCache.get(id).thenAccept(cache2 -> {
 //            log.info(JSON.toJSONString(cache2));
@@ -121,7 +138,8 @@ public class CacheService {
 //                .thenAccept(map ->
 //                        log.info(JSON.toJSONString(map))
 //                );
-        return null;
+        log.info("get id:{}, result:{}", id, cacheDO);
+        return cacheDO;
     }
 
     /**
@@ -130,9 +148,9 @@ public class CacheService {
      * @param cacheDO
      * @return
      */
-    public String add(CacheDO cacheDO) {
+    public CacheDO add(CacheDO cacheDO) {
         cache.put(cacheDO.getId(), cacheDO);
-        return null;
+        return cacheDO;
     }
 
     /**
@@ -141,7 +159,7 @@ public class CacheService {
      * @param cacheDO
      * @return
      */
-    public String update(CacheDO cacheDO) {
+    public CacheDO update(CacheDO cacheDO) {
         ConcurrentMap<Long, CacheDO> stringItemConcurrentMap = cache.asMap();
         cache.cleanUp();
         long l = cache.estimatedSize();
