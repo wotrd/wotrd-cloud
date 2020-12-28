@@ -1,6 +1,7 @@
 package com.wotrd.caffeine.service;
 
 
+import com.alibaba.fastjson.JSON;
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -11,8 +12,10 @@ import com.wotrd.caffeine.domain.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
@@ -129,16 +132,17 @@ public class CacheService {
 //        });
 //        CacheDO cacheDO = syncCache.get(id);
         //异步查询
-//        asyncCache.get(id).thenAccept(cache2 -> {
-//            log.info(JSON.toJSONString(cache2));
+//        asyncCache.get(id).thenAccept(cache -> {
+//            log.info(JSON.toJSONString(cache));
 //        });
-//
+
 //        //批量查询
-//        asyncCache.getAll(Arrays.asList(1L, 2L, 3L))
+//        CompletableFuture<Void> future = asyncCache.getAll(Arrays.asList(1L, 2L, 3L))
 //                .thenAccept(map ->
 //                        log.info(JSON.toJSONString(map))
 //                );
         log.info("get id:{}, result:{}", id, cacheDO);
+
         return cacheDO;
     }
 
