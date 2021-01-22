@@ -1,7 +1,9 @@
-package com.wotrd.dubbo.controller;
+package com.wotrd.dubbo.web;
 
-import com.wotrd.dubbo.api.User;
-import com.wotrd.dubbo.api.UserInfoService;
+import com.wotrd.dubbo.client.domain.RpcResult;
+import com.wotrd.dubbo.client.domain.dto.UserDto;
+import com.wotrd.dubbo.client.api.UserInfoApi;
+import com.wotrd.dubbo.client.domain.qo.UserQo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -21,15 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class DubboController {
 
     @DubboReference(version = "1.0.1", group = "user_group", timeout = 10000)
-    private UserInfoService userInfoService;
+    private UserInfoApi userInfoApi;
 
     @ApiOperation(value = "查询用户信息")
     @GetMapping("userInfo")
-    public User userInfo(Long id) {
-        User userInfo = userInfoService.getUserInfo();
-        log.info("rpc返回{}", userInfo);
-        return userInfo;
+    public RpcResult userInfo(UserQo userQo) {
+        Long id = 1L;
+        RpcResult result = userInfoApi.getUserInfo(id, userQo);
+        log.info("rpc返回{}", result);
+        return result;
     }
-
 
 }

@@ -1,4 +1,4 @@
-package com.wotrd.dubbo.api;
+package com.wotrd.dubbo.client.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;

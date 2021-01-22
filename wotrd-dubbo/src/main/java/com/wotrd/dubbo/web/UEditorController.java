@@ -1,4 +1,4 @@
-package com.wotrd.dubbo.controller;
+package com.wotrd.dubbo.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

@@ -1,4 +1,4 @@
-package com.wotrd.dubbo.api;
+package com.wotrd.dubbo.client.domain.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

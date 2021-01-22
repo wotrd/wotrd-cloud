@@ -1,4 +1,4 @@
-package com.wotrd.dubbo.config;
+package com.wotrd.dubbo.common.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;

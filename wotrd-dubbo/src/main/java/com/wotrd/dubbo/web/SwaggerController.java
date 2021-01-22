@@ -1,7 +1,7 @@
-package com.wotrd.dubbo.controller;
+package com.wotrd.dubbo.web;
 
-import com.wotrd.dubbo.api.Book;
-import com.wotrd.dubbo.api.BookDTO;
+import com.wotrd.dubbo.client.domain.dto.Book;
+import com.wotrd.dubbo.client.domain.dto.BookDTO;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
