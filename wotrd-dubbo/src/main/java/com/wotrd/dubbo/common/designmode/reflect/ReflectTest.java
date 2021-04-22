@@ -1,6 +1,5 @@
 package com.wotrd.dubbo.common.designmode.reflect;
 
-import com.google.common.collect.Maps;
 
 import javax.annotation.Resource;
 import java.util.Map;
