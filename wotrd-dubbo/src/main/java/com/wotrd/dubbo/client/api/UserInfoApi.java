@@ -1,6 +1,6 @@
 package com.wotrd.dubbo.client.api;
 
-import com.wotrd.dubbo.client.domain.RpcResult;
+import com.wotrd.dubbo.client.domain.Result;
 import com.wotrd.dubbo.client.domain.dto.UserDto;
 import com.wotrd.dubbo.client.domain.qo.UserQo;
 
@@ -17,5 +17,5 @@ public interface UserInfoApi {
      *
      * @return
      */
-    RpcResult<UserDto> getUserInfo(Long id, UserQo userQo);
+    Result<UserDto> getUserInfo(Long id, UserQo userQo);
 }

@@ -1,7 +1,6 @@
 package com.wotrd.dubbo.web;
 
-import com.wotrd.dubbo.client.domain.RpcResult;
-import com.wotrd.dubbo.client.domain.dto.UserDto;
+import com.wotrd.dubbo.client.domain.Result;
 import com.wotrd.dubbo.client.api.UserInfoApi;
 import com.wotrd.dubbo.client.domain.qo.UserQo;
 import io.swagger.annotations.Api;
@@ -27,9 +26,9 @@ public class DubboController {
 
     @ApiOperation(value = "查询用户信息")
     @GetMapping("userInfo")
-    public RpcResult userInfo(UserQo userQo) {
+    public Result userInfo(UserQo userQo) {
         Long id = 1L;
-        RpcResult result = userInfoApi.getUserInfo(id, userQo);
+        Result result = userInfoApi.getUserInfo(id, userQo);
         log.info("rpc返回{}", result);
         return result;
     }

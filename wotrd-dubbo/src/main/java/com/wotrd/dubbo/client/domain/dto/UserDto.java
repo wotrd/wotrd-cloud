@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.dubbo.apidocs.annotations.RequestParam;
 import org.apache.dubbo.apidocs.annotations.ResponseProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 /**
  * @ClassName: User
@@ -31,4 +32,9 @@ public class UserDto implements Serializable {
     private String password;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private LocalDateTime createTime;
+
+    private Address address;
+
 }
+
+

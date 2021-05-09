@@ -27,6 +27,8 @@ public class Book implements Serializable {
 
     @ApiModelProperty(value = "图书价格", required = true, example = "1.0")
     private BigDecimal price;
+    @ApiModelProperty(value = "图书价格", required = true, example = "1.0")
+    private Integer num;
 
     @ApiModelProperty(hidden = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

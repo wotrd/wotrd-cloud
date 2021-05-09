@@ -11,7 +11,7 @@ import org.apache.dubbo.apidocs.annotations.ResponseProperty;
  * @date 2021/1/22 17:37
  */
 @Data
-public class RpcResult<T> {
+public class Result<T> {
 
     @ResponseProperty(value = "Response code", example = "500")
     private Integer code;
@@ -23,32 +23,32 @@ public class RpcResult<T> {
      */
     private T entity;
 
-    public static RpcResult buildSuccess(Object entity) {
-        RpcResult result = new RpcResult();
+    public static Result buildSuccess(Object entity) {
+        Result result = new Result();
         result.setEntity(entity);
         result.setCode(200);
         result.setMsg("success");
         return result;
     }
 
-    public static RpcResult buildError(String msg) {
-        RpcResult result = new RpcResult();
+    public static Result buildError(String msg) {
+        Result result = new Result();
         result.setEntity(null);
         result.setCode(500);
         result.setMsg(msg);
         return result;
     }
 
-    public static RpcResult buildError(String msg, Object entity) {
-        RpcResult result = new RpcResult();
+    public static Result buildError(String msg, Object entity) {
+        Result result = new Result();
         result.setEntity(entity);
         result.setCode(500);
         result.setMsg(msg);
         return result;
     }
 
-    public static RpcResult buildError(Integer code, String msg, Object entity) {
-        RpcResult result = new RpcResult();
+    public static Result buildError(Integer code, String msg, Object entity) {
+        Result result = new Result();
         result.setEntity(entity);
         result.setCode(code);
         result.setMsg(msg);

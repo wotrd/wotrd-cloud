@@ -1,6 +1,6 @@
 package com.wotrd.dubbo.service;
 
-import com.wotrd.dubbo.client.domain.RpcResult;
+import com.wotrd.dubbo.client.domain.Result;
 import com.wotrd.dubbo.client.domain.dto.UserDto;
 import com.wotrd.dubbo.client.api.UserInfoApi;
 import com.wotrd.dubbo.client.domain.qo.UserQo;
@@ -24,8 +24,8 @@ public class UserInfoApiImpl implements UserInfoApi {
 
     @ApiDoc(value = "getUserInfo", version = "v0.1", description = "getUserInfo", responseClassDescription="UserDTO")
     @Override
-    public RpcResult<UserDto> getUserInfo(@RequestParam(value = "id", required = true) Long id, UserQo userReq) {
-        return RpcResult.buildSuccess(UserDto.builder().userName("name").password(UUID.randomUUID().toString().replaceAll("-", ""))
+    public Result<UserDto> getUserInfo(@RequestParam(value = "id", required = true) Long id, UserQo userReq) {
+        return Result.buildSuccess(UserDto.builder().userName("name").password(UUID.randomUUID().toString().replaceAll("-", ""))
                 .createTime(LocalDateTime.now()).build());
     }
 
