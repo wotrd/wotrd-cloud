@@ -33,4 +33,17 @@ public class DubboController {
         return result;
     }
 
+    @ApiOperation(value = "测试慢接口")
+    @GetMapping("testSlowApi")
+    public Result testSlowApi() {
+        System.out.println("start");
+        try {
+            Thread.sleep(1000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Result.buildSuccess();
+    }
+
+
 }

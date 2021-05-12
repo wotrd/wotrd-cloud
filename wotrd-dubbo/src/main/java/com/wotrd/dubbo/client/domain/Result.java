@@ -23,6 +23,10 @@ public class Result<T> {
      */
     private T entity;
 
+    public static Result buildSuccess() {
+        return buildSuccess(null);
+    }
+
     public static Result buildSuccess(Object entity) {
         Result result = new Result();
         result.setEntity(entity);
@@ -32,19 +36,11 @@ public class Result<T> {
     }
 
     public static Result buildError(String msg) {
-        Result result = new Result();
-        result.setEntity(null);
-        result.setCode(500);
-        result.setMsg(msg);
-        return result;
+        return buildError(msg, null);
     }
 
     public static Result buildError(String msg, Object entity) {
-        Result result = new Result();
-        result.setEntity(entity);
-        result.setCode(500);
-        result.setMsg(msg);
-        return result;
+        return buildError(500, msg, entity);
     }
 
     public static Result buildError(Integer code, String msg, Object entity) {
