@@ -1,9 +1,13 @@
 package com.wotrd.dubbo.common.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -23,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @EnableAsync
 @Configuration
-public class ThreadPoolConfig {
+public class ThreadPoolConfig implements DisposableBean {
 
     //    @Bean
 //    @Primary
@@ -47,7 +51,7 @@ public class ThreadPoolConfig {
 //    }
     private ThreadPoolExecutor executor;
 
-    @Bean
+    @Bean(destroyMethod = "shutdown")
     @Primary
     public ThreadPoolExecutor asyncServiceExecutor() {
         executor = new ThreadPoolExecutor(5, 20, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000), new ThreadPoolExecutor.CallerRunsPolicy());
@@ -56,6 +60,7 @@ public class ThreadPoolConfig {
 
     @PreDestroy
     public void destroyThreadPool() {
+        log.info("ThreadPoolExecutor destroy start");
         if (!executor.isTerminated()){
             executor.shutdown();
             try {
@@ -66,5 +71,22 @@ public class ThreadPoolConfig {
             }
         }
         log.info("ThreadPoolExecutor destroyed !");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        log.info("DisposableBean destroyed !");
+    }
+
+    @Order(100)
+    @EventListener(value = ContextClosedEvent.class)
+    public void msgCloseEvent(){
+        log.info("ContextClosedEvent destroyed !");
+    }
+
+    @Order(10)
+    @EventListener(value = ContextClosedEvent.class)
+    public void msgCloseEvent1(){
+        log.info("ContextClosedEvent destroyed !");
     }
 }
