@@ -31,32 +31,33 @@ public class ElasticSearchController {
 
     @RequestMapping("add")
     public BookDO get(@RequestBody BookDO bookDO){
-        return bookService.save(bookDO);
+//        return bookService.save(bookDO);
+        return null;
     }
 
     @RequestMapping("deleteData")
     public String delete(Long id){
-        bookService.deleteById(id);
+//        bookService.deleteById(id);
         return "success";
     }
 
-    @RequestMapping("get")
-    public BookDO get(Long id){
-        Optional<BookDO> byId = bookService.findById(id);
-        return byId.get();
-    }
+//    @RequestMapping("get")
+//    public BookDO get(Long id){
+//        Optional<BookDO> byId = bookService.findById(id);
+//        return byId.get();
+//    }
 
-    @RequestMapping("getAll")
-    public Iterable<BookDO> getALL(@RequestBody List<Long> ids){
-        Iterable<BookDO> bookDOS = bookService.findAllById(ids);
-        return bookDOS;
-    }
+//    @RequestMapping("getAll")
+//    public Iterable<BookDO> getALL(@RequestBody List<Long> ids){
+//        Iterable<BookDO> bookDOS = bookService.findAllById(ids);
+//        return bookDOS;
+//    }
 
-    @RequestMapping("findAll")
-    public String findAll(){
-        bookService.findAll();
-        return "find all success";
-    }
+//    @RequestMapping("findAll")
+//    public String findAll(){
+//        bookService.findAll();
+//        return "find all success";
+//    }
 
     @RequestMapping("queryBuilderSearch")
     public String queryBuilderSearch(String name){

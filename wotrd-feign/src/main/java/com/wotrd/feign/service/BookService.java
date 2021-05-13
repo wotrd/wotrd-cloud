@@ -58,8 +58,8 @@ public class BookService {
     /**
      * ---------------------------- 使用Repository查询，类似于jpa，进行索引的增删改查 ---------------------------------------
      */
-    @Autowired
-    private BookRepository bookRepository;
+//    @Autowired
+//    private BookRepository bookRepository;
 
     /**
      * 保存图书
@@ -67,62 +67,62 @@ public class BookService {
      * @param bookDO
      * @return
      */
-    public BookDO save(BookDO bookDO) {
-        BookDO result = bookRepository.save(bookDO);
-        return result;
-    }
+//    public BookDO save(BookDO bookDO) {
+//        BookDO result = bookRepository.save(bookDO);
+//        return result;
+//    }
 
-    /**
-     * 根据ID删除
-     *
-     * @param id
-     */
-    public void deleteById(Long id) {
-        bookRepository.deleteById(id);
-    }
-
-    /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
-     */
-    public Optional<BookDO> findById(Long id) {
-        return bookRepository.findById(id);
-    }
-
-    /**
-     * 根据ID列表查询
-     *
-     * @param ids
-     * @return
-     */
-    public Iterable<BookDO> findAllById(List<Long> ids) {
-        return bookRepository.findAllById(ids);
-    }
+//    /**
+//     * 根据ID删除
+//     *
+//     * @param id
+//     */
+//    public void deleteById(Long id) {
+//        bookRepository.deleteById(id);
+//    }
+//
+//    /**
+//     * 根据ID查询
+//     *
+//     * @param id
+//     * @return
+//     */
+//    public Optional<BookDO> findById(Long id) {
+//        return bookRepository.findById(id);
+//    }
+//
+//    /**
+//     * 根据ID列表查询
+//     *
+//     * @param ids
+//     * @return
+//     */
+//    public Iterable<BookDO> findAllById(List<Long> ids) {
+//        return bookRepository.findAllById(ids);
+//    }
 
     /**
      * 查询全部，分页，排序
      */
-    public void findAll() {
-        //查询全部
-        Iterable<BookDO> all = bookRepository.findAll();
-        log.info("all:"+ JSONObject.toJSONString(all.iterator()));
-        //排序查询全部
-        Iterable<BookDO> sortAll = bookRepository.findAll(Sort.by("price").descending().and(Sort.by("id").ascending()));
-        log.info("sortAll:"+JSONObject.toJSONString(sortAll.iterator()));
-        //根据列表ID集合查询
-        Long[] ids = new Long[1];
-        ids[0] = 1L;
-
-        Iterable<Long> iterator = Arrays.asList(ids);
-        Iterable<BookDO> allById = bookRepository.findAllById(iterator);
-        log.info("allById:"+JSONObject.toJSONString(allById.iterator()));
-        //分页
-        Page<BookDO> bookDOS = bookRepository.findAll(PageRequest.of(1, 2));
-        log.info("bookDOS:"+JSONObject.toJSONString(bookDOS.getContent()));
-    }
-
+//    public void findAll() {
+//        //查询全部
+//        Iterable<BookDO> all = bookRepository.findAll();
+//        log.info("all:"+ JSONObject.toJSONString(all.iterator()));
+//        //排序查询全部
+//        Iterable<BookDO> sortAll = bookRepository.findAll(Sort.by("price").descending().and(Sort.by("id").ascending()));
+//        log.info("sortAll:"+JSONObject.toJSONString(sortAll.iterator()));
+//        //根据列表ID集合查询
+//        Long[] ids = new Long[1];
+//        ids[0] = 1L;
+//
+//        Iterable<Long> iterator = Arrays.asList(ids);
+//        Iterable<BookDO> allById = bookRepository.findAllById(iterator);
+//        log.info("allById:"+JSONObject.toJSONString(allById.iterator()));
+//        //分页
+//        Page<BookDO> bookDOS = bookRepository.findAll(PageRequest.of(1, 2));
+//        log.info("bookDOS:"+JSONObject.toJSONString(bookDOS.getContent()));
+//    }
+//
 
     /**
      * ---------------------------- Repository使用QueryBuilder查询 ---------------------------------------
@@ -144,13 +144,13 @@ public class BookService {
                 .must(QueryBuilders.termQuery("authorName", name))
         );
         // 搜索，获取结果
-        Page<BookDO> items = this.bookRepository.search(queryBuilder.build());
+//        Page<BookDO> items = this.bookRepository.search(queryBuilder.build());
         // 总条数
-        long total = items.getTotalElements();
-        log.info("total = " + total);
-        for (BookDO bookDO : items) {
-            log.info(bookDO.toString());
-        }
+//        long total = items.getTotalElements();
+//        log.info("total = " + total);
+//        for (BookDO bookDO : items) {
+//            log.info(bookDO.toString());
+//        }
     }
 
 }

@@ -21,6 +21,7 @@ public class DBController {
 
     @RequestMapping("list")
     public GlobalResponse list(){
-        return GlobalResponse.builder().code("200").msg("success").data(bookService.list()).build();
+//        return GlobalResponse.builder().code("200").msg("success").data(bookService.list()).build();
+        return null;
     }
 }
