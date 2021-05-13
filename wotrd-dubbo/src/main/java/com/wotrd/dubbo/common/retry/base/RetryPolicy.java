@@ -1,4 +1,4 @@
-package com.wotrd.feign.config.retry;
+package com.wotrd.dubbo.common.retry.base;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,7 +25,7 @@ public interface RetryPolicy<T extends Serializable> {
         }
 
         public long getNextExecuteTime(TaskContext<T> taskContext) {
-            long timeDelay = (long)(RETRY_DELAY_MINS[taskContext.getCurExecuteCnt()] * 1000 * 60);
+            long timeDelay = RETRY_DELAY_MINS[taskContext.getCurExecuteCnt()] * 1000 * 60;
             return (new Date()).getTime() + timeDelay;
         }
     }

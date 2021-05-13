@@ -1,6 +1,7 @@
-package com.wotrd.feign.config.retry;
+package com.wotrd.dubbo.common.retry;
 
 
+import com.wotrd.dubbo.common.retry.base.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -9,23 +10,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Component
-public class RetryManager {
+public class TaskManager {
     //  持久化到磁盘文件位置
     private String taskSaveLocation = "/tmp/project/retryTaskV2";
-    private String taskDbName = "taskName";
+
     private RetryTemplate retryTemplate;
 
     @Resource
     private WotrdRetryCallback retryCallback;
-    @Resource
-    private RetryFailCallback retryFailedCallBack;
+//    @Resource
+//    private RetryFailCallback retryFailedCallBack;
 
-    public RetryManager() {
+    public TaskManager() {
     }
 
     @PostConstruct
     public void init() {
-        this.retryTemplate = new RetryTemplate<>(retryCallback, retryFailedCallBack, new DefaultRetryPolicy<>(), this.taskSaveLocation, "wotrd_mq");
+        this.retryTemplate = new RetryTemplate<>(retryCallback, null, new DefaultRetryPolicy<>(), this.taskSaveLocation, "wotrd_mq");
         this.retryTemplate.init();
     }
 

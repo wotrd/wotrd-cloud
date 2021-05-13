@@ -3,12 +3,16 @@ package com.wotrd.dubbo.web;
 import com.wotrd.dubbo.client.domain.Result;
 import com.wotrd.dubbo.client.api.UserInfoApi;
 import com.wotrd.dubbo.client.domain.qo.UserQo;
+import com.wotrd.dubbo.common.retry.MyRetryParam;
+import com.wotrd.dubbo.common.retry.TaskManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName: DubboController
@@ -42,6 +46,17 @@ public class DubboController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return Result.buildSuccess();
+    }
+
+    @Resource
+    private TaskManager taskManager;
+
+    @ApiOperation(value = "测试慢接口")
+    @GetMapping("retryTest")
+    public Result retryTest() {
+        System.out.println("retryTest start");
+        taskManager.addRetry(new MyRetryParam());
         return Result.buildSuccess();
     }
 

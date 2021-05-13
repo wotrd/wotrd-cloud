@@ -1,4 +1,4 @@
-package com.wotrd.feign.config.retry;
+package com.wotrd.dubbo.common.retry.base;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class RetryTemplate<T extends Serializable> {
     private Queue<TaskContext<T>> taskQueue;
     private volatile boolean running = true;
-    private AtomicBoolean isInited = new AtomicBoolean(false);
+    private final AtomicBoolean isInited = new AtomicBoolean(false);
     private final RetryCallBack<T> retryCallBack;
     private final RetryFailCallback<T> retryFailCallback;
     private final RetryPolicy<T> retryPolicy;

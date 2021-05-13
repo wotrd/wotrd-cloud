@@ -1,4 +1,5 @@
-package com.wotrd.feign.config.retry;
+package com.wotrd.dubbo.common.retry.base;
+
 
 import java.io.Serializable;
 
