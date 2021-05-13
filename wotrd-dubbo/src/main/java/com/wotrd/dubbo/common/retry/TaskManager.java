@@ -26,7 +26,7 @@ public class TaskManager {
 
     @PostConstruct
     public void init() {
-        this.retryTemplate = new RetryTemplate<>(retryCallback, null, new DefaultRetryPolicy<>(), this.taskSaveLocation, "wotrd_mq");
+        this.retryTemplate = new RetryTemplate<>(retryCallback, new DefaultRetryPolicy<>(), this.taskSaveLocation, "wotrd_mq");
         this.retryTemplate.init();
     }
 

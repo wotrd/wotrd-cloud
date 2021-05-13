@@ -1,35 +1,35 @@
 package com.wotrd.dubbo.common.retry.base;
 
+import com.wotrd.dubbo.common.retry.queue.BdbQueue;
+import com.wotrd.dubbo.common.retry.queue.BdbQueueFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RetryTemplate<T extends Serializable> {
-    private Queue<TaskContext<T>> taskQueue;
+    private BdbQueue<TaskContext<T>> taskQueue;
     private volatile boolean running = true;
-    private final AtomicBoolean isInited = new AtomicBoolean(false);
+    private AtomicBoolean isInited = new AtomicBoolean(false);
     private final RetryCallBack<T> retryCallBack;
-    private final RetryFailCallback<T> retryFailCallback;
     private final RetryPolicy<T> retryPolicy;
+    private final String envPath;
     private final String queueName;
     private final Object syncObj = new Object();
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public RetryTemplate(RetryCallBack<T> retryCallBack, RetryFailCallback<T> retryFailCallback, RetryPolicy<T> retryPolicy, String envPath, String queueName) {
+    public RetryTemplate(RetryCallBack<T> retryCallBack, RetryPolicy<T> retryPolicy, String envPath, String queueName) {
         if (!StringUtils.isEmpty(envPath) && !StringUtils.isEmpty(queueName)) {
             if (null != retryCallBack && null != retryPolicy) {
                 this.retryPolicy = retryPolicy;
                 this.retryCallBack = retryCallBack;
+                this.envPath = envPath;
                 this.queueName = queueName;
             } else {
-                throw new IllegalArgumentException("retryCallBack or retryCallBack or retryFailCallback should not be null");
+                throw new IllegalArgumentException("retryCallBack or retryCallBack should not be null");
             }
-            this.retryFailCallback = retryFailCallback;
         } else {
             throw new IllegalArgumentException("envPath or queueName should not be null");
         }
@@ -39,7 +39,7 @@ public class RetryTemplate<T extends Serializable> {
         if (!this.isInited.compareAndSet(false, true)) {
             this.logger.info("{} has already inited", this.getClass());
         } else {
-            this.taskQueue = new ArrayBlockingQueue(1000);
+            this.taskQueue = BdbQueueFactory.getQueue(this.envPath, this.queueName);
             Thread retryThread = new Thread(new RetryTemplate.RetryWorker());
             retryThread.setDaemon(true);
             retryThread.setName(this.queueName);
@@ -103,13 +103,6 @@ public class RetryTemplate<T extends Serializable> {
                 TaskContext<T> taskContext = RetryTemplate.this.waitUntilGetTask();
                 if (!RetryTemplate.this.retryPolicy.isValid(taskContext)) {
                     RetryTemplate.this.logger.info("taskContext:{} is inValid, ignore", taskContext);
-                    try {
-                        boolean isRetrySuc = RetryTemplate.this.retryFailCallback.invoke(taskContext);
-                        RetryTemplate.this.logger.info("重试失败,结果:{} 任务现场:{}", isRetrySuc, taskContext);
-                    } catch (Exception var3) {
-                        RetryTemplate.this.logger.error("执行重试任务失败, 任务现场:{}", taskContext, var3);
-                    }
-
                 } else if (!RetryTemplate.this.retryPolicy.isReady(taskContext)) {
                     RetryTemplate.this.addTask(taskContext);
                     RetryTemplate.this.sleep(100L);
