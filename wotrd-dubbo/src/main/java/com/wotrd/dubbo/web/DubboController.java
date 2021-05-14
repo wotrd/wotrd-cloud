@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -32,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class DubboController {
 
-    @DubboReference(version = "1.0.1", group = "user_group", timeout = 10000)
+    @Reference(version = "1.0.1", group = "user_group", timeout = 10000)
     private UserInfoApi userInfoApi;
 
     @ApiOperation(value = "查询用户信息")
