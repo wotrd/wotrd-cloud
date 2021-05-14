@@ -3,8 +3,6 @@ package com.wotrd.dubbo.common.config.dubbo;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.rpc.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @description:
@@ -13,13 +11,6 @@ import org.slf4j.LoggerFactory;
  */
 @Slf4j
 public class DubboLogFilter implements Filter {
-//    private static final String OWN_PACKAGE = "com.wotrd.dubbo";
-//
-//    private static final Logger CONSUMER_LOG = LoggerFactory.getLogger("consumer");
-//
-//    private static final Logger PROVIDER_LOG = LoggerFactory.getLogger("provider");
-//
-//    private static final Logger COMMON_LOG = LoggerFactory.getLogger(DubboLogFilter.class);
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
