@@ -33,10 +33,13 @@ public class RedisDistLock {
      * @return 是否锁住
      */
     public boolean tryLock(String key, long waitTime, long expireTime) {
+        return tryLock(key, waitTime, expireTime, TimeUnit.MILLISECONDS);
+    }
+
+    public boolean tryLock(String key, long waitTime, long expireTime, TimeUnit timeUnit) {
         RLock lock = redissonClient.getLock(key);
         try {
-            return lock.tryLock(waitTime, expireTime, TimeUnit.MILLISECONDS);
-
+            return lock.tryLock(waitTime, expireTime, timeUnit);
         } catch (InterruptedException e) {
             throw new RuntimeException("try Get Distributed Lock fail");
         }
@@ -45,7 +48,9 @@ public class RedisDistLock {
 
     public void unlock(String key) {
         RLock lock = redissonClient.getLock(key);
-        lock.unlock();
+        if (null != lock) {
+            lock.unlock();
+        }
     }
 
     public void setRedisHost(String redisHost) {
