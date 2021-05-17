@@ -70,6 +70,11 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.bbossgroups.plugins</groupId>
+            <artifactId>bboss-elasticsearch-spring-boot-starter</artifactId>
+            <version>6.2.9</version>
+        </dependency>
         <!--qrcode-->
         <dependency>
             <groupId>com.google.zxing</groupId>
