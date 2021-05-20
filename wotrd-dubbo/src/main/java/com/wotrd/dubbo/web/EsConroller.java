@@ -31,6 +31,10 @@ public class EsConroller {
     @RequestMapping("check")
     public String check() {
         documentCRUD.addAndUpdateDocument();
+        documentCRUD.deleteDocuments();
+        documentCRUD.searchAllPararrel();
+        documentCRUD.search();
+        documentCRUD.testDirectDslQuery();
         return null;
     }
 

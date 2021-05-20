@@ -1,0 +1,176 @@
+<properties>
+    <!--
+        Demo indice mapping structure
+    -->
+    <property name="createDemoIndice">
+        <![CDATA[{
+            "settings": {
+                "number_of_shards": 6,
+                "index.refresh_interval": "5s"
+            },
+            "mappings": {
+                "demo": {
+                    "properties": {
+                        "demoId":{
+                            "type":"long"
+                        },
+                        "contentbody": {
+                            "type": "text"
+                        },
+                        "agentStarttime": {
+                            "type": "date"
+                        },
+                        "agentStarttimezh": {
+                            "type": "date",
+                            "format":"yyyy-MM-dd HH:mm:ss.SSS||yyyy-MM-dd'T'HH:mm:ss.SSS||yyyy-MM-dd HH:mm:ss||epoch_millis"
+                        },
+                        "applicationName": {
+                            "type": "text",
+                            "fields": { ##Note: define an internal keyword field for precision search
+                                "keyword": {
+                                    "type": "keyword"
+                                }
+                            }
+                        },
+                        "name": {
+                            "type": "text"
+                        },
+                        "contrastStatus":{
+                            "type":"integer"
+                        },
+                        "orderId": {
+                            "type": "text",
+                            "fields": { ##Note: define an internal keyword field for precision search
+                                "keyword": {
+                                    "type": "keyword"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }]]>
+    </property>
+
+    <!--
+        A simple search DSL with four variables:
+        applicationName1
+        applicationName2
+        startTime
+        endTime
+        Pass variable parameter values through the map
+        Reference documentation for variable syntax：
+        https://my.oschina.net/bboss/blog/1556866
+    -->
+    <property name="searchDatas">
+        <![CDATA[{
+            "query": {
+                "bool": {
+                    "filter": [
+                        {  ## Multi-terms search, find multiple application name corresponding to the document records
+                            "terms": {
+                                "applicationName.keyword": [#[applicationName1],#[applicationName2]]
+                            }
+                        },
+                        {   ## Time range search, return the corresponding time range of records
+                            "range": {
+                                "agentStarttime": {
+                                    "gte": #[startTime],##Statistical start time
+                                    "lt": #[endTime]  ##Statistical end time
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            ## Up to 1000 records are returned
+            "size":1000
+        }]]>
+    </property>
+
+    <property name="queryServiceByCondition">
+        <![CDATA[
+        {
+            "sort": [  ##排序
+                {
+                    "startTime": {
+                        "order": "desc"
+                    }
+                }
+            ],
+            #if($lastStartTime > 0)//search_after分页查询
+            "search_after": [#[lastStartTime]],
+            #end
+            "size": 100, ##每次返回100条记录
+            "query": {
+                "bool":{
+                    "filter": [
+                        {"term": {  ##精确查找
+                            "applicationName": #[application]
+                        }}
+                        #if($queryStatus.equals("success"))
+                          ,
+                          {"term": { ##精确查找
+
+                               "err": 0
+                          }}
+                        #elseif($queryStatus.equals("error"))
+                          ,
+                          {"term": { ##精确查找
+
+                               "err": 1
+                          }}
+                        #end
+                        ,
+                        {"range": { ##指定时间范围
+                            "startTime": {
+                                "gte": #[startTime],
+                                "lt": #[endTime]
+                            }
+                        }}
+                    ]
+
+                    #if($queryCondition && !$queryCondition.equals(""))
+                     ,
+                     "must" : {
+                        "multi_match" : { ##分词检索，指定坐在多个field执行检索
+                          "query" : #[queryCondition],
+
+                          "fields" : [ "agentId", "applicationName" ,"endPoint","params","remoteAddr","rpc","exceptionInfo"]
+                        }
+                     }
+                    #end
+                }
+            },
+            "aggs": {
+                "applicationsums": {
+                      "terms": {
+                        "field": "applicationName.keyword",##按应用名称进行统计计数
+                        "size":10000
+                      },
+                      "aggs":{
+                            "successsums" : {
+                                "terms" : {
+                                    "field" : "err" ##按err标识统计每个应用的成功数和失败数，0标识成功，1标识失败
+                                }
+                            },
+                            "elapsed_ranges" : {
+                                "range" : {
+                                    "field" : "elapsed", ##按响应时间分段统计
+                                    "keyed" : true,
+                                    "ranges" : [
+                                        { "key" : "1秒", "to" : 1000 },
+                                        { "key" : "3秒", "from" : 1000, "to" : 3000 },
+                                        { "key" : "5秒", "from" : 3000, "to" : 5000 },
+                                        { "key" : "5秒以上", "from" : 5000 }
+                                    ]
+                                }
+                            }
+                      }
+                }
+            }
+        }]]>
+    </property>
+
+
+</properties>

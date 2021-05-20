@@ -165,5 +165,22 @@ public class DocumentCRUD {
         return demoSearchResult;
     }
 
+    public void testDirectDslQuery(){
+        String queryAll = "{\"query\": {\"match_all\": {}}}";
+        //在默认的es数据源操作
+        ClientInterface clientUtil = bbossESStarter.getRestClient();
+        //在order es数据源操作
+//        ClientInterface clientUtil = bbossESStarter.getConfigRestClient("order");
+        ESDatas<Demo> esDatas =clientUtil.searchList("demo/_search",//demo为索引表，_search为检索操作action
+                queryAll,//queryAll变量对应的dsl语句
+                Demo.class);
+        //获取结果对象列表
+        List<Demo> demos = esDatas.getDatas();
+
+        //获取总记录数
+        long totalSize = esDatas.getTotalSize();
+        System.out.println(totalSize);
+    }
+
 
 }
