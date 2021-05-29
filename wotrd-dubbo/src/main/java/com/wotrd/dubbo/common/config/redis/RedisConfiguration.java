@@ -20,7 +20,7 @@ public class RedisConfiguration {
     private String redisHost;
     @Value("${spring.redis.port}")
     private Integer redisPort;
-//    @Value("${spring.redis.password}")
+    @Value("${spring.redis.password}")
     private String redisPassword;
 
     @Autowired

@@ -34,16 +34,27 @@ qq群：  602107221
 ```使用sentinel设置限流和降级处理，需要单独部署sentinel-dashboard面板监控。```  
 ```使用feign和sentinel需要在配置文件中开启 feign.sentinel.enabled=true 不然fallback断路不生效```   
 4、网关：  
-```gateway是基于webflux实现的，不能加载mvc依赖。```     
-5、用户账户修改：  
-```参考 https://nacos.io/en-us/docs/console-guide.html 用户登录管理```    
-6、服务监控  
-```参考 https://nacos.io/zh-cn/docs/monitor-guide.html```  
-7、单点登录基于oauth2  
+```gateway是基于webflux实现的，不能加载mvc依赖。```
+5、单点登录基于oauth2  
 ```oauth2是一种认证授权协议，分为授权服务器，资源服务器，用户，客户端。资源服务和授权服务器可以放在一起。```  
 ```资源服务器需要配置授权服务器的授权鉴权信息，用户通过客户端请求授权后，获取授权码，通过授权码请求token```    
 ```携带token请求资源接口，这个可以通过网关鉴权转发。```
 ```单点登录client需要配置 server.servlet.session.cookie.name=OAUTH2SESSION，不然会失败```  
-8、elasticsearch6.8.4和springboot2.2.1版本，版本不一致会出现问题
-
-
+6、elasticsearch
+```
+1、es6.8.4和springboot2.2.1版本，版本不一致会出现问题
+2、使用bboss操作es先自己执行模版，可以按月创建。以后，创建索引自动使用该模版。不然会自动推断类型。查询根据别名匹配查询。
+   添加新字段
+   PUT /order_2020_07_v2/_mapping/doc
+   {
+      "properties": {
+          "bizOrderStatus": {
+            "type": "keyword",
+            "doc_values": false,
+            "norms": false //计算得分的时候，是否需要把字段长度用作参数
+          }
+      }
+   }
+   
+   
+```

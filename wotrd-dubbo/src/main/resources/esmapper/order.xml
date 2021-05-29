@@ -1,0 +1,289 @@
+<properties>
+    <property name="queryOrderInfo">
+        <![CDATA[{
+            #if($includes || $excludes)
+                "_source": {
+                    #if($includes )
+                        "includes": #[includes,serialJson=true]
+                    #if($excludes ),#end
+                    #end
+                    #if($excludes )
+                        "excludes": #[excludes,serialJson=true]
+                    #end
+                },
+            #end
+            #if($searchAfterId)
+                "search_after":[#[searchAfterId]],
+            #end
+            "query": {
+               "bool": {
+                 "filter": [
+                   #set( $needComma = false )
+                   #if($mobile)
+                        {
+                          "term": {
+                            "mobile": {
+                              "value": #[mobile]
+                            }
+                          }
+                        }
+                        #set( $needComma = true )
+                   #end
+                   #if($itemName)
+                        #if($needComma),#end
+                        {
+                          "match_phrase": {
+                             "itemName": #[itemName]
+                          }
+                        }
+                        #set( $needComma = true )
+                   #end
+                    #if($lessOrder == true)
+                         #if($needComma),#end
+                             {
+                              "bool":{
+                                "minimum_should_match":1, //must和should同级的时候加，不然不生效
+                                "should":[
+                                    {
+                                        "term":{
+                                            "deliverySubStatus":{
+                                                "value":13
+                                            }
+                                        }
+                                    },
+                                    {
+                                      "range": {
+                                        "gmtCreate": {
+                                          "gte": #[gmtStart],
+                                          "lte": #[gmtEnd]
+                                        }
+                                      }
+                                    }
+                                ]
+                              }
+                            }
+                        #set( $needComma = true )
+                   #end
+                    #if($needComma),#end
+                    {
+                     "bool": {
+                       "must": {
+                          "exists": {
+                            "field": "userId"
+                           }
+                       }
+                     }
+                    }
+                    #set( $needComma = true )
+
+                   #if($bizOrderIds)
+                        #if($needComma),#end
+                        {
+                          "terms": {
+                            "bizOrderId": [
+                                #foreach($bizOrderId in $bizOrderIds)
+                                   #if($velocityCount > 0),#end #[bizOrderIds[$velocityCount]]
+                                #end
+                            ]
+                          }
+                        }
+                        #set( $needComma = true )
+                   #end
+                 ],
+                 #if($minimumShouldMatchSize)
+                    "minimum_should_match": #[minimumShouldMatchSize],
+                 #end
+                 "should":[
+                    #set($shouldNeedComma = false)
+
+                    #if($shouldMobile)
+                        #if($shouldNeedComma),#end
+                        {
+                          "term": {
+                            "mobile": {
+                              "value": #[shouldMobile]
+                            }
+                          }
+                        }
+                        #set( $shouldNeedComma = true )
+                    #end
+                    #if($shouldItemName)
+                        #if($shouldNeedComma),#end
+                        {
+                           "match_phrase": {
+                             "itemName": #[shouldItemName]
+                          }
+                        }
+                        #set( $shouldNeedComma = true )
+                    #end
+                 ],
+                 "must_not": [
+                    #set( $mustNotNeedComma = false )
+
+                    #if($mustNotUserId)
+                        #if($mustNotNeedComma),#end
+                        {
+                          "exists": {
+                            "field": "userId"
+                          }
+                        }
+                        #set($mustNotNeedComma = true )
+                    #end
+                  ]
+                }
+              },
+            "from": #[from],
+            "size": #[size]
+
+            #if($sortColumn)
+             ,
+            "sort":[
+                #foreach( $key in $sortColumn.keySet() )
+                #if($velocityCount > 0),#end
+                {
+                    "$key": {
+                        "order" :"$sortColumn.get($key)"
+                    }
+                }
+                #end
+            ]
+            #end
+        }]]>
+    </property>
+
+    <property name="queryOrderWithSubOrder">
+        <![CDATA[{
+            #if($includes || $excludes)
+                "_source": {
+                    #if($includes )
+                        "includes": #[includes,serialJson=true]
+                    #if($excludes ),#end
+                    #end
+                    #if($excludes )
+                        "excludes": #[excludes,serialJson=true]
+                    #end
+                },
+            #end
+            #if($searchAfterId)
+                "search_after":[#[searchAfterId]],
+            #end
+            "query": {
+               "bool": {
+                 "filter": [
+                   #set( $needComma = false )
+                   #if($shouldItemName)
+                        #if($shouldNeedComma),#end
+                        {
+                          "match_phrase": {
+                             "itemName": #[shouldItemName]
+                          }
+                        }
+                        #set( $shouldNeedComma = true )
+                   #end
+                  ]
+                }
+              },
+            "collapse": {
+            "field": "bizOrderId",
+            "inner_hits": {
+               "name": "subBizOrder",
+                #if($collapseSize)
+                "size": #[collapseSize],
+                #end
+               "sort": [
+                {
+                  "subBizOrderId": "desc"
+                }
+               ]
+            }
+           },
+            "from": #[from],
+            "size": #[size]
+
+            #if($sortColumn)
+             ,
+            "sort":[
+                #foreach( $key in $sortColumn.keySet() )
+                #if($velocityCount > 0),#end
+                {
+                    "$key": {
+                        "order" :"$sortColumn.get($key)"
+                    }
+                }
+                #end
+            ]
+            #end
+        }]]>
+    </property>
+
+    <property name="countByQuery">
+        <![CDATA[{
+            "query": {
+               "bool": {
+                 "filter": [
+                   #set( $needComma = false )
+                   #if($mobile)
+                        {
+                          "term": {
+                            "mobile": {
+                              "value": #[mobile]
+                            }
+                          }
+                        }
+                        #set( $needComma = true )
+                   #end
+                  ]
+                }
+              }
+        }]]>
+    </property>
+
+    <property name="scrollQueryOrder">
+        <![CDATA[{
+            #if($includes || $excludes)
+                "_source": {
+                    #if($includes )
+                        "includes": #[includes,serialJson=true]
+                    #if($excludes ),#end
+                    #end
+                    #if($excludes )
+                        "excludes": #[excludes,serialJson=true]
+                    #end
+                },
+            #end
+            "query": {
+               "bool": {
+                 "filter": [
+                   #set( $needComma = false )
+                   #if($cuserId)
+                        #if($needComma),#end
+                        {
+                          "term": {
+                            "cUserId": {
+                              "value": #[cuserId]
+                            }
+                          }
+                        }
+                        #set( $needComma = true )
+                   #end
+                  ]
+                }
+              },
+            "from": #[from],
+            "size": #[size]
+            #if($sortColumn)
+             ,
+            "sort":[
+                #foreach( $key in $sortColumn.keySet() )
+                #if($velocityCount > 0),#end
+                {
+                    "$key": {
+                        "order" :"$sortColumn.get($key)"
+                    }
+                }
+                #end
+            ]
+            #end
+        }]]>
+    </property>
+</properties>

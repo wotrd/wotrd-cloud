@@ -1,0 +1,52 @@
+PUT _template/order
+{
+  "index_patterns": [
+    "order_*" ////以order_info_ 开头的索引均会应用此模板
+  ],
+  "settings": {
+    "index": {
+      "codec": "best_compression", //启动压缩
+      "refresh_interval": "2s", //每隔多久刷新数据，可以让刚刚写入的数据被查到
+      "number_of_shards": "5", //索引的分片
+      "number_of_replicas": "1"  //数据副本
+    }
+  },
+  "mappings": {
+    "doc": {
+      "properties": {
+        "bizOrderId": {
+          "type": "long",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256  //超过ignore_above 的字符串，analyzer 不会进行处理；所以就不会索引起来
+            }
+          }
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          },
+          "doc_values": false //消极影响：sort、aggregate、access the field from script将会无法使用 积极影响：节省磁盘空间
+        },
+        "gmtCreate": {
+          "type": "date"
+        },
+        "status": {
+          "type": "long",
+          "index": false,
+          "norms": false
+          "doc_values": false //计算得分的时候，是否需要把字段长度用作参数
+        }
+      }
+    }
+  },
+  "aliases": {
+    "order": {}
+  }
+}
