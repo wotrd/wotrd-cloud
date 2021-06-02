@@ -19,7 +19,7 @@ PUT _template/order
           "fields": {
             "keyword": {
               "type": "keyword",
-              "ignore_above": 256  //超过ignore_above 的字符串，analyzer 不会进行处理；所以就不会索引起来
+              "ignore_above": 256  //超过ignore_above 256的字符串，analyzer 不会进行处理；所以就不会索引起来
             }
           }
         },
