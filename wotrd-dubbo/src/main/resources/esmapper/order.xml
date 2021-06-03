@@ -234,7 +234,21 @@
                    #end
                   ]
                 }
-              }
+              },
+            <!--  去重统计            -->
+            #if($cardinalityParam)
+            "aggs": {
+              #[cardinalityParam]: {
+                   "cardinality": {
+                   "field": #[cardinalityParam]
+                   #if($precisionThresholdSize)
+                   ,"precision_threshold": #[precisionThresholdSize]
+                   #end
+                 }
+                }
+              },
+            #end
+           "size": 0
         }]]>
     </property>
 

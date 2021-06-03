@@ -1,6 +1,6 @@
 package com.wotrd.dubbo.web;
 
-import com.wotrd.dubbo.service.DocumentCRUD;
+import com.wotrd.dubbo.manager.EsManager;
 import org.frameworkset.elasticsearch.ElasticSearchHelper;
 import org.frameworkset.elasticsearch.client.ClientInterface;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 public class EsConroller {
 
     @Resource
-    private DocumentCRUD documentCRUD;
+    private EsManager esManager;
 
     @RequestMapping("health")
     public String health() {
@@ -30,11 +30,11 @@ public class EsConroller {
 
     @RequestMapping("check")
     public String check() {
-        documentCRUD.addAndUpdateDocument();
-        documentCRUD.deleteDocuments();
-        documentCRUD.searchAllPararrel();
-        documentCRUD.search();
-        documentCRUD.testDirectDslQuery();
+        esManager.addAndUpdateDocument();
+        esManager.deleteDocuments();
+        esManager.searchAllPararrel();
+        esManager.search();
+        esManager.testDirectDslQuery();
         return null;
     }
 
