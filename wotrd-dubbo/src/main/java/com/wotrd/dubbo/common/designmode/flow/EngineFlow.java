@@ -1,12 +1,10 @@
 package com.wotrd.dubbo.common.designmode.flow;
 
-import lombok.Data;
 import org.frameworkset.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -17,8 +15,8 @@ import java.util.function.Function;
 public class EngineFlow<REQ, RES, CTX> {
 
     private List<Checker<REQ, RES, CTX>> checkerList = new ArrayList<>();
-    private List<Processor<REQ, RES, CTX>> processorList = new ArrayList<>();
-    private List<Processor<REQ, RES, CTX>> resultProcessorList = new ArrayList<>();
+    private List<ProcessorExtPt<REQ, RES, CTX>> processorList = new ArrayList<>();
+    private List<ProcessorExtPt<REQ, RES, CTX>> resultProcessorList = new ArrayList<>();
     private Function<Exception, RES> exceptionHandler;
 
     private Class<CTX> ctxClass;
@@ -71,7 +69,7 @@ public class EngineFlow<REQ, RES, CTX> {
     static class EngineFlowBuilder<REQ, RES, CTX> {
 
         private List<Checker<REQ, RES, CTX>> checkerList = new ArrayList<>();
-        private List<Processor<REQ, RES, CTX>> processorList = new ArrayList<>();
+        private List<ProcessorExtPt<REQ, RES, CTX>> processorList = new ArrayList<>();
         private Function<Exception, RES> exceptionHandler;
 
         private Class<CTX> ctxClass;
@@ -85,7 +83,7 @@ public class EngineFlow<REQ, RES, CTX> {
             return this;
         }
 
-        public EngineFlowBuilder processor(Processor<REQ, RES, CTX> processor) {
+        public EngineFlowBuilder processor(ProcessorExtPt<REQ, RES, CTX> processor) {
             processorList.add(processor);
             return this;
         }
