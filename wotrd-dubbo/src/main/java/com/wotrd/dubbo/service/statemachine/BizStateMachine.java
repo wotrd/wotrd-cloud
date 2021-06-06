@@ -1,5 +1,7 @@
 package com.wotrd.dubbo.service.statemachine;
 
+import com.alibaba.cola.statemachine.StateMachine;
+import com.alibaba.cola.statemachine.StateMachineFactory;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilder;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilderFactory;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +15,18 @@ import javax.annotation.Resource;
  * @date: 2021/6/6 23:03
  */
 @Configuration
-public class StateMachineConfig {
+public class BizStateMachine {
 
     @Resource
     private State1To2Component state1To2Component;
+
+
+    public static StateMachine<StateEnum, EventEnum, StateContext> getStateMachine(){
+        StateMachine<StateEnum, EventEnum, StateContext> stateMachine = StateMachineFactory.get(MachineConstant.MACHINE_1);
+        stateMachine.showStateMachine();
+        return stateMachine;
+    }
+
 
     @PostConstruct
     public void initMachine(){
