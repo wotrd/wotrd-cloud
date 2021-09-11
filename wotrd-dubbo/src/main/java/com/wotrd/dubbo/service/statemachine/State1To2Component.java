@@ -17,8 +17,8 @@ public class State1To2Component {
     public Condition<StateContext> checkCondition(){
         return (StateContext context)-> {
             if (context.getId() == 1){
-                return true;
-            }
+        return true;
+    }
             return false;
         };
     }
