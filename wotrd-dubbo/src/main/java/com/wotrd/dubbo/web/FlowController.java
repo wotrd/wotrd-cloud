@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 /**
  * @description:
@@ -24,7 +29,14 @@ public class FlowController {
     private EngineFlow<CreateOrderRequest, CreateOrderResult, CreateOrderResult> createOrderFlow;
 
     @RequestMapping("createOrder")
-    public Result createOrder(){
+    public Result createOrder() throws IOException {
+        FileInputStream inputStream = new FileInputStream("");
+        FileChannel channel = inputStream.getChannel();
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        int read = channel.read(buffer);
+        Buffer flip = buffer.flip();
+        channel.write(buffer);
+
         CreateOrderRequest request = new CreateOrderRequest();
         CreateOrderResult result = createOrderFlow.start(request);
         return Result.buildSuccess(result);

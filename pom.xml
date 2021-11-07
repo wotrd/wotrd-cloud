@@ -26,6 +26,7 @@
         <module>wotrd-feign</module>
         <module>wotrd-gateway</module>
         <module>wotrd-auth</module>
+        <module>wotrd-caffeine</module>
     </modules>
 
     <dependencies>
