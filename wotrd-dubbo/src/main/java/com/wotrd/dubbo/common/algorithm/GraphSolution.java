@@ -54,6 +54,7 @@ public class GraphSolution {
 
         int[][] preArr = {{1, 0}, {2, 0}, {3, 1}, {3, 2}};
         int[] order = getOrder(4, preArr);
+
         log.info("result:{}", JSON.toJSONString(order));
 
     }
