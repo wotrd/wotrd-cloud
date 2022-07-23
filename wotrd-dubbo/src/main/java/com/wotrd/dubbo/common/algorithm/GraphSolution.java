@@ -11,7 +11,7 @@ import java.util.*;
  * 课程表拓扑
  */
 @Slf4j
-public class CourseSolution {
+public class GraphSolution {
 
     public static int[] getOrder(int numCourse, int[][] prerequisites) {
         if (numCourse == 0 || null == prerequisites || prerequisites.length == 0) {
