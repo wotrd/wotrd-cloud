@@ -8,10 +8,27 @@ public class GuihuaSolution {
     public static void main(String[] args) {
         int[] nums = {0, 0, 1};
 //        int rob = rob(nums);
-        log.info("rob:{}", moveZeroes(nums));
+        log.info("rob:{}", cal(30));
 
 //        nums = [0,1,0,3,12]
 //        输出: [1,3,12,0,0]
+
+    }
+
+    /**
+     * 斐波那契数列
+     *
+     * @param n
+     * @return
+     */
+    public static int cal(int n) {
+        int[] result = new int[31];
+        result[0] = 0;
+        result[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            result[i] = result[i - 1] + result[i - 2];
+        }
+        return result[n];
 
     }
 
