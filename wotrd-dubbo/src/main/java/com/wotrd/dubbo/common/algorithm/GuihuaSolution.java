@@ -6,12 +6,93 @@ import lombok.extern.slf4j.Slf4j;
 public class GuihuaSolution {
 
     public static void main(String[] args) {
-        int[] nums = {0, 0, 1};
+//        int[] nums = {0, 0, 1};
 //        int rob = rob(nums);
         log.info("rob:{}", cal(30));
 
 //        nums = [0,1,0,3,12]
 //        输出: [1,3,12,0,0]
+//
+//        /**
+//         * 123
+//         * 456
+//         * 789
+//         */
+//
+//        int[][] mat = new int[3][3];
+//        mat[0][0] = 1;
+//        mat[0][1] = 2;
+//        mat[0][2] = 3;
+//        mat[1][0] = 4;
+//        mat[1][1] = 5;
+//        mat[1][2] = 6;
+//        mat[2][0] = 7;
+//        mat[2][1] = 8;
+//        mat[2][2] = 9;
+//        int i = diagonalSum(mat, 3);
+
+        int[] nums = new int[]{-1,3,5,6};
+        int target = 0;
+        System.out.println("i=" + searchInsert(nums, target));
+
+    }
+
+    /**
+     * 示例 1:
+     * <p>
+     * 输入: nums = [1,3,5,6], target = 5
+     * 输出: 2
+     * 示例 2:
+     * <p>
+     * 输入: nums = [1,3,5,6], target = 2
+     * 输出: 1
+     * 示例 3:
+     * <p>
+     * 输入: nums = [1,3,5,6], target = 7
+     * 输出: 4
+     * <p>
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/search-insert-position
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     */
+
+    public static int searchInsert(int[] nums, int target) {
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= target) {
+                return i;
+            } else if (i == nums.length) {
+                return i;
+            }
+        }
+        return nums.length;
+
+    }
+
+
+    /**
+     * 矩阵对角线数据求和
+     *
+     * @param n
+     * @return
+     */
+    public static int diagonalSum(int[][] n, int matSize) {
+        int result = 0;
+        int c = matSize;
+        int r = matSize;
+
+        for (int i = 0; i < c; i++) {
+            result += n[i][i];
+        }
+        for (int i = 0; i < r; i++) {
+            result += n[i][r - i - 1];
+        }
+
+        if (matSize % 2 == 1) {
+            result -= n[r / 2][r / 2];
+        }
+        return result;
 
     }
 
