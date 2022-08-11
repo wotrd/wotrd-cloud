@@ -1,6 +1,7 @@
 package com.wotrd.dubbo.common.algorithm;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.enums.Enum;
 
 @Slf4j
 public class DpSolution {
@@ -40,6 +41,78 @@ public class DpSolution {
 
     }
 
+    //    给你一个数组arr，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用-1 替换。
+//    完成所有替换操作后，请你返回这个数组。
+//    示例 1：
+//    输入：arr = [17,18,5,4,6,1]
+//    输出：[18,6,6,6,1,-1]
+//    解释：
+//            - 下标 0 的元素 --> 右侧最大元素是下标 1 的元素 (18)
+//            - 下标 1 的元素 --> 右侧最大元素是下标 4 的元素 (6)
+//            - 下标 2 的元素 --> 右侧最大元素是下标 4 的元素 (6)
+//            - 下标 3 的元素 --> 右侧最大元素是下标 4 的元素 (6)
+//            - 下标 4 的元素 --> 右侧最大元素是下标 5 的元素 (1)
+//            - 下标 5 的元素 --> 右侧没有其他元素，替换为 -1
+//    示例 2：
+//    输入：arr = [400]
+//    输出：[-1]
+//    解释：下标 0 的元素右侧没有其他元素。
+    public static int[] replaceElements(int[] arr) {
+        int dp[] = new int[arr.length];
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (i == arr.length - 1) {
+                dp[i] = arr[i];
+            } else {
+                dp[i] = Math.max(dp[i + 1], arr[i]);
+            }
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (i == arr.length - 1) {
+                arr[i] = -1;
+            } else {
+                arr[i] = dp[i + 1];
+            }
+        }
+        return arr;
+    }
+
+//    假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？
+//    示例 1:
+//    输入: [7,1,5,3,6,4]
+//    输出: 5
+//    解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+//    注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
+//    示例 2:
+//    输入: [7,6,4,3,1]
+//    输出: 0
+//    解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+
+    public static int maxProfit(int[] prices) {
+        // 第i天卖出可以获得最大值， num[i] -  前nums[i-1]天最小值
+        // dp[i] = nums[i] - min(dp[i-1],nums[i])
+        int dp[] = new int[prices.length];
+
+        for (int i = 0; i < prices.length; i++) {
+            if (i == 0) {
+                dp[i] = prices[i];
+            } else {
+                dp[i] = Math.min(dp[i - 1], prices[i]);
+            }
+        }
+
+        int result = 0;
+
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] - dp[i] > result) {
+                result = prices[i] - dp[i];
+            }
+        }
+        return result;
+
+    }
+
+
     /**
      * 打家劫舍首尾不相接
      *
@@ -48,26 +121,25 @@ public class DpSolution {
      */
     public static int rob1(int[] nums) {
         int n = nums.length;
-        if(n==0) return 0;
-        if(n==1) return nums[0];
-        if(n==2) return nums[0]>nums[1]? nums[0]:nums[1];
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+        if (n == 2) return nums[0] > nums[1] ? nums[0] : nums[1];
 
-        int [] dp1 = new int[n];  //不抢第一家
-        int [] dp2 = new int[n]; //不抢最后一家
+        int[] dp1 = new int[n];  //不抢第一家
+        int[] dp2 = new int[n]; //不抢最后一家
         dp1[0] = 0;
         dp1[1] = nums[1];
-        for(int i=2;i<n;i++){
-            dp1[i] = Math.max(dp1[i-1],dp1[i-2]+nums[i]);
+        for (int i = 2; i < n; i++) {
+            dp1[i] = Math.max(dp1[i - 1], dp1[i - 2] + nums[i]);
         }
         dp2[0] = 0;
         dp2[1] = nums[0];
-        for(int j=2;j<n;j++){
-            dp2[j] = Math.max(dp2[j-1],dp2[j-2]+nums[j-1]);
+        for (int j = 2; j < n; j++) {
+            dp2[j] = Math.max(dp2[j - 1], dp2[j - 2] + nums[j - 1]);
         }
-        return Math.max(dp1[n-1],dp2[n-1]);
+        return Math.max(dp1[n - 1], dp2[n - 1]);
 
     }
-
 
 
     /**
@@ -93,7 +165,7 @@ public class DpSolution {
         }
 
 
-        return dp[nums.length-1];
+        return dp[nums.length - 1];
 
     }
 
