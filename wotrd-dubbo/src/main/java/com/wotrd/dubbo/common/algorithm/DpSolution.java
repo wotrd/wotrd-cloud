@@ -3,7 +3,7 @@ package com.wotrd.dubbo.common.algorithm;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class GuihuaSolution {
+public class DpSolution {
 
     public static void main(String[] args) {
 //        int[] nums = {0, 0, 1};
@@ -31,9 +31,69 @@ public class GuihuaSolution {
 //        mat[2][2] = 9;
 //        int i = diagonalSum(mat, 3);
 
-        int[] nums = new int[]{-1,3,5,6};
-        int target = 0;
-        System.out.println("i=" + searchInsert(nums, target));
+//        int[] nums = new int[]{-1, 3, 5, 6};
+//        int target = 0;
+//        System.out.println("i=" + searchInsert(nums, target));
+
+        int[] nums = new int[]{2, 3, 2};
+        System.out.println("i=" + rob1(nums));
+
+    }
+
+    /**
+     * 打家劫舍首尾不相接
+     *
+     * @param nums
+     * @return
+     */
+    public static int rob1(int[] nums) {
+        int n = nums.length;
+        if(n==0) return 0;
+        if(n==1) return nums[0];
+        if(n==2) return nums[0]>nums[1]? nums[0]:nums[1];
+
+        int [] dp1 = new int[n];  //不抢第一家
+        int [] dp2 = new int[n]; //不抢最后一家
+        dp1[0] = 0;
+        dp1[1] = nums[1];
+        for(int i=2;i<n;i++){
+            dp1[i] = Math.max(dp1[i-1],dp1[i-2]+nums[i]);
+        }
+        dp2[0] = 0;
+        dp2[1] = nums[0];
+        for(int j=2;j<n;j++){
+            dp2[j] = Math.max(dp2[j-1],dp2[j-2]+nums[j-1]);
+        }
+        return Math.max(dp1[n-1],dp2[n-1]);
+
+    }
+
+
+
+    /**
+     * 打家劫舍首尾可相接
+     *
+     * @param nums
+     * @return
+     */
+    public static int rob(int[] nums) {
+        if (null == nums) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return nums[0];
+        } else if (nums.length == 2) {
+            return Math.max(nums[0], nums[1]);
+        }
+        int dp[] = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[1], nums[0]);
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+        }
+
+
+        return dp[nums.length-1];
 
     }
 
@@ -187,39 +247,5 @@ public class GuihuaSolution {
         return count;
     }
 
-    public static int rob(int[] nums) {
-        if (nums.length <= 3) {
-            int max = nums[0];
-            for (int num = 1; num < nums.length; num++) {
-                max = nums[num] > max ? nums[num] : max;
-            }
-            return max;
-        }
-
-        int max1 = 0;
-        int i = 0;
-        while (i < nums.length) {
-            if (i + 1 < nums.length) {
-                max1 += nums[i];
-            }
-            i = i + 2;
-        }
-
-        int max2 = 0;
-        int j = 1;
-        while (j < nums.length) {
-            max2 += nums[j];
-            j = j + 2;
-        }
-
-        int max3 = 0;
-        int k = 1;
-        while (j < nums.length) {
-            max2 += nums[j];
-            j = j + 2;
-        }
-        return max1 > max2 ? max1 : max2;
-
-    }
 
 }
