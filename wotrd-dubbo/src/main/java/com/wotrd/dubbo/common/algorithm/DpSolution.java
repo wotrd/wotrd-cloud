@@ -36,10 +36,50 @@ public class DpSolution {
 //        int target = 0;
 //        System.out.println("i=" + searchInsert(nums, target));
 
-        int[] nums = new int[]{2, 3, 2};
-        System.out.println("i=" + rob1(nums));
+        int[] nums = new int[]{8,1,5,2,6};
+        System.out.println("i=" + maxScoreSightseeingPair(nums));
 
     }
+
+    /**
+     * 给你一个正整数数组 values，其中 values[i]表示第 i 个观光景点的评分，并且两个景点i 和j之间的 距离 为j - i。
+     * 一对景点（i < j）组成的观光组合的得分为 values[i] + values[j] + i - j ，也就是景点的评分之和 减去 它们两者之间的距离。
+     * 返回一对观光景点能取得的最高分。
+     * 示例 1：
+     * 输入：values = [8,1,5,2,6]
+     * 输出：11
+     * 解释：i = 0, j = 2, values[i] + values[j] + i - j = 8 + 5 + 0 - 2 = 11
+     * 示例 2：
+     * 输入：values = [1,2]
+     * 输出：2
+     */
+    public static int maxScoreSightseeingPair(int[] values) {
+        if (null == values) {
+            return 0;
+        }
+
+        // values[i] + values[j] + i - j
+        // values[i]  + i + values[j] - j
+        int dp[] = new int[values.length];
+        for (int i = 0; i < values.length; i++) {
+            if (i == 0) {
+                dp[i] = values[i];
+            } else {
+                dp[i] = Math.max(dp[i-1], + values[i]+i);
+            }
+        }
+        int max = 0;
+        for (int j = 1; j < dp.length; j++) {
+            if (j == 1) {
+                max = dp[0] + values[j] - 1;
+            } else {
+                max = Math.max(max, dp[j - 1] + values[j] - j);
+            }
+        }
+        return max;
+
+    }
+
 
     //    给你一个数组arr，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用-1 替换。
 //    完成所有替换操作后，请你返回这个数组。
