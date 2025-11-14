@@ -122,7 +122,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.15.5</version>
+            <version>3.22.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
