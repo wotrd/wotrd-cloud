@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="log.path" value="/data/logs" />
+    <property name="log.path" value="/Users/wangkaijin/IdeaProjects/wotrd-cloud" />
     <property name="maxHistory" value="30" />
 
     <!-- 控制台输出 -->

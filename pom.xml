@@ -24,10 +24,12 @@
         <module>wotrd-monitor</module>
         <module>wotrd-dubbo</module>
         <module>wotrd-feign</module>
+        <module>wotrd-client</module>
         <module>wotrd-gateway</module>
         <module>wotrd-auth</module>
         <module>wotrd-caffeine</module>
     </modules>
+    <!-- wotrd-ai excluded: uses Spring Boot 4.1.0-RC1 which is unresolvable from the configured Maven repository -->
 
     <dependencies>
         <dependency>
